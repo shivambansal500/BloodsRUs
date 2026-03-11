@@ -1,0 +1,5 @@
+.DS_Store
+__pycache__/
+*.pyc
+create_deck.py
+BloodsRUs_Proposal.pdf
