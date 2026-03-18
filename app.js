@@ -374,6 +374,7 @@
   // STAT COUNTER ANIMATION
   // ============================================
   if (statsBar) {
+    statsBar.classList.add('stats-bar--animatable');
     window.addEventListener('scroll', checkStatsVisibility, { passive: true });
     // Also check on load and after a short delay in case it's already visible
     checkStatsVisibility();
@@ -603,11 +604,14 @@
           revealObserver.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    }, { threshold: 0.05, rootMargin: '0px 0px 50px 0px' });
 
-    revealElements.forEach(el => revealObserver.observe(el));
+    revealElements.forEach(el => {
+      el.classList.add('reveal--ready');
+      revealObserver.observe(el);
+    });
   } else {
-    // Fallback: show everything
+    // Fallback: show everything (no animation)
     revealElements.forEach(el => el.classList.add('revealed'));
   }
 
@@ -661,7 +665,8 @@
   // ============================================
   const hero = document.querySelector('.hero');
   if (hero) {
-    // Double rAF ensures the initial hidden state is painted before we trigger
+    // Add animatable class first, then trigger entrance
+    hero.classList.add('hero--animatable');
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
         hero.classList.add('hero--entered');

@@ -246,7 +246,7 @@
   left: 0;
   right: 0;
   z-index: 100;
-  height: 4rem;
+  height: 5.5rem;
   display: flex;
   align-items: center;
   transition: background-color var(--transition-interactive), box-shadow var(--transition-interactive);
@@ -268,14 +268,42 @@
   width: 100%;
   max-width: 1600px;
   margin-inline: auto;
-  padding-inline: clamp(var(--space-4), 3vw, var(--space-12));
+  padding: var(--space-6) clamp(2rem, 4vw, 4rem) var(--space-12);
 }
 
 .nav__logo {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-4);
   text-decoration: none;
   flex-shrink: 0;
+}
+
+.nav__logo-img {
+  height: 42px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.nav__logo-divider {
+  width: 1px;
+  align-self: stretch;
+  margin-block: 6px;
+  background: rgba(255, 255, 255, 0.3);
+  flex-shrink: 0;
+}
+
+.nav.scrolled .nav__logo-divider {
+  background: var(--color-divider);
+}
+
+.nav__logo-mcf {
+  height: 56px;
+  width: auto;
+  object-fit: contain;
+  display: block;
 }
 
 .nav__logo-primary {
@@ -511,7 +539,7 @@
 
 .nav__mobile {
   position: fixed;
-  top: 4rem;
+  top: 6rem;
   left: 0;
   right: 0;
   background: var(--color-surface);
@@ -565,10 +593,12 @@
 }
 
 @media (max-width: 1440px) {
-  .nav__inner { gap: var(--space-4); padding-inline: var(--space-4); }
+  .nav__inner { gap: var(--space-4); padding-inline: clamp(2rem, 3vw, 3rem); }
   .nav__links { gap: 0; }
   .nav__link { padding: var(--space-2); font-size: var(--text-xs); }
   .nav__actions { margin-left: var(--space-2); gap: var(--space-2); }
+  .nav__logo-img { height: 36px; }
+  .nav__logo-mcf { height: 48px; }
 }
 
 @media (max-width: 1024px) {
@@ -631,14 +661,14 @@
 }
 
 .btn--accent {
-  background-color: var(--color-accent);
+  background-color: var(--color-primary);
   color: #fff;
-  border-color: var(--color-accent);
+  border-color: var(--color-primary);
 }
 
 .btn--accent:hover {
-  background-color: var(--color-accent-hover);
-  border-color: var(--color-accent-hover);
+  background-color: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
 }
 
 .btn--sm {
@@ -903,7 +933,7 @@
 .hero__content {
   position: relative;
   z-index: 1;
-  padding-top: 5rem;
+  padding-top: 2rem;
 }
 
 .hero__overline {
@@ -1685,6 +1715,28 @@
   margin-bottom: var(--space-12);
 }
 
+.footer__logos {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-3);
+}
+
+.footer__logo-img {
+  height: 64px;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(1.1);
+}
+
+.footer__logo-mcf {
+  height: 60px;
+  width: auto;
+  object-fit: contain;
+  border-left: 1px solid rgba(255,255,255,0.2);
+  padding-left: var(--space-4);
+}
+
 .footer__brand-name {
   font-family: var(--font-display);
   font-size: var(--text-lg);
@@ -2118,6 +2170,11 @@ body,
    STAT COUNTER ANIMATION
    ============================================ */
 .stats-bar__number {
+  opacity: 1;
+  transform: none;
+}
+
+.stats-bar--animatable .stats-bar__number {
   opacity: 0;
   transform: translateY(10px);
   transition: opacity 0.6s ease, transform 0.6s ease;
@@ -2331,10 +2388,16 @@ body,
 
 /* ============================================
    BEAUTIFICATION: Scroll Reveal
+   Elements are visible by default. Animations are
+   progressive enhancement added via JS class.
    ============================================ */
 .reveal {
+  opacity: 1;
+  transform: none;
+}
+.reveal.reveal--ready {
   opacity: 0;
-  transform: translateY(40px);
+  transform: translateY(30px);
   transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .reveal.revealed {
@@ -2347,7 +2410,7 @@ body,
 .reveal-delay-4 { transition-delay: 0.4s; }
 
 @media (prefers-reduced-motion: reduce) {
-  .reveal { opacity: 1; transform: none; transition: none; }
+  .reveal, .reveal.reveal--ready { opacity: 1; transform: none; transition: none; }
 }
 
 /* ============================================
@@ -2867,10 +2930,19 @@ body::before {
 /* ============================================
    MOTION: Hero Staggered Entrance (1B)
    ============================================ */
+/* Hero elements visible by default, animation is enhancement */
 .hero__overline,
 .hero__title,
 .hero__subtitle,
 .hero__cta-group {
+  opacity: 1;
+  transform: none;
+}
+
+.hero--animatable .hero__overline,
+.hero--animatable .hero__title,
+.hero--animatable .hero__subtitle,
+.hero--animatable .hero__cta-group {
   opacity: 0;
   transform: translateY(24px);
   transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
@@ -2883,10 +2955,10 @@ body::before {
 .hero--entered .hero__cta-group  { opacity: 1; transform: translateY(0); transition-delay: 0.55s; }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero__overline,
-  .hero__title,
-  .hero__subtitle,
-  .hero__cta-group {
+  .hero--animatable .hero__overline,
+  .hero--animatable .hero__title,
+  .hero--animatable .hero__subtitle,
+  .hero--animatable .hero__cta-group {
     opacity: 1;
     transform: none;
     transition: none;
@@ -3027,7 +3099,7 @@ body::before {
 /* ============================================
    MOTION: Stats Bar Entrance (1G)
    ============================================ */
-.stats-bar {
+.stats-bar--animatable {
   opacity: 0;
   transform: translateY(16px);
   transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
@@ -3040,7 +3112,7 @@ body::before {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .stats-bar {
+  .stats-bar--animatable {
     opacity: 1;
     transform: none;
     transition: none;
@@ -3141,6 +3213,12 @@ body::before {
    ALIGNMENT: Mobile Hero Spacing (2D)
    ============================================ */
 @media (max-width: 768px) {
+  .nav__logo-img {
+    width: 130px;
+  }
+  .nav__logo-mcf {
+    height: 44px;
+  }
   .hero__content {
     padding-top: 6rem;
     padding-bottom: var(--space-16);
