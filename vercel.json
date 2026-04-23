@@ -1,0 +1,64 @@
+{
+  "redirects": [
+    { "source": "/site-help", "destination": "/", "permanent": true },
+    { "source": "/feedback", "destination": "/#contact", "permanent": true },
+    { "source": "/healthinformation", "destination": "/#conditions", "permanent": true },
+    { "source": "/manashi-chakrabarti-foundation", "destination": "/#about", "permanent": true },
+    { "source": "/news", "destination": "/", "permanent": true },
+    { "source": "/news/:slug*", "destination": "/", "permanent": true },
+    { "source": "/a-tale-of-haploidentical-bmt-our-journey", "destination": "/#about", "permanent": true },
+
+    { "source": "/hemato-oncology/dr-dr-suparno-chakrabarti/dallupura-delhi/1592", "destination": "/#about", "permanent": true },
+    { "source": "/pathology-hematology/dr-sarita-jaiswal/dallupura-delhi/1593", "destination": "/#about", "permanent": true },
+
+    { "source": "/terms/autologus-bone-marrow-transplantation/:id*", "destination": "/#bmt", "permanent": true },
+    { "source": "/terms/process-of-bone-marrow-transplantation/:id*", "destination": "/#bmt", "permanent": true },
+    { "source": "/terms/conditions-treated-with-bmt/:id*", "destination": "/#conditions", "permanent": true },
+    { "source": "/terms/patients-and-attendants-guide-during-stay-at-the-bmt-unit/:id*", "destination": "/#resources", "permanent": true },
+    { "source": "/terms/malignant-conditions/:id*", "destination": "/#conditions", "permanent": true },
+    { "source": "/terms/pediatric-malignant-conditions/:id*", "destination": "/#conditions", "permanent": true },
+    { "source": "/terms/stem-cell-therapy/:id*", "destination": "/#bmt", "permanent": true },
+
+    { "source": "/terms/Acute-Lymphoblastic-leukemia-ALL-Adult-BMT/:id*", "destination": "/#all-leukemia", "permanent": true },
+    { "source": "/terms/acute-lymphoblastic-leukemia-all-pediatric-bmt/:id*", "destination": "/#all-leukemia", "permanent": true },
+    { "source": "/terms/chronic-myeloid-leukemia-cml-pediatric-bmt/:id*", "destination": "/#cml-leukemia", "permanent": true },
+    { "source": "/terms/thalassemia-and-related-disorders/:id*", "destination": "/#thalassemia", "permanent": true },
+    { "source": "/terms/thalassemia-pediatric-bmt/:id*", "destination": "/#thalassemia", "permanent": true },
+    { "source": "/terms/sickle-cell-anemia-adult-bmt/:id*", "destination": "/#sickle-cell", "permanent": true },
+    { "source": "/terms/sickle-cell-anaemia-pediatric-bmt/:id*", "destination": "/#sickle-cell", "permanent": true },
+    { "source": "/terms/myelodysplastic-syndromes-mds-adult-bmt/:id*", "destination": "/#mds", "permanent": true },
+    { "source": "/terms/inherited-bone-marrow-failure-disorders-pediatric-bmt/:id*", "destination": "/#bone-marrow-failure", "permanent": true },
+    { "source": "/terms/title/5463", "destination": "/#nhl-lymphoma", "permanent": true },
+    { "source": "/terms/:slug*", "destination": "/#conditions", "permanent": true }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=(self)" }
+      ]
+    },
+    {
+      "source": "/(.*\\.(png|jpg|jpeg|webp|avif|svg|ico|css|js))",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/robots.txt",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=3600" }
+      ]
+    },
+    {
+      "source": "/sitemap.xml",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=3600" },
+        { "key": "Content-Type", "value": "application/xml" }
+      ]
+    }
+  ]
+}
