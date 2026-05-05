@@ -94,6 +94,11 @@
     'bone-marrow-failure': 'conditions',
     'non-malignant': 'conditions',
     'malignant': 'conditions',
+    'immune-system': 'immune-system',
+    'car-t': 'car-t',
+    'cellular-therapy': 'cellular-therapy',
+    'haploidentical-bmt': 'haploidentical-bmt',
+    'gene-therapy': 'gene-therapy',
   };
 
   // Condition category map for breadcrumbs
