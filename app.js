@@ -98,6 +98,7 @@
     'car-t': 'car-t',
     'cellular-therapy': 'cellular-therapy',
     'haploidentical-bmt': 'haploidentical-bmt',
+    'autologous-bmt': 'autologous-bmt',
     'gene-therapy': 'gene-therapy',
   };
 
