@@ -1,6 +1,20 @@
 /* style.css — BloodsRUs Design Tokens & Components */
 
 /* ============================================
+   BRAND <em> ITALIC GUARANTEE
+   Ensures the italic R in "Bloods <em>R</em> Us" always renders italic,
+   even if a future utility class resets em styling.
+   ============================================ */
+h1 em, h2 em, h3 em, h4 em, h5 em, h6 em,
+.nav em, .nav__link em, .nav__mobile-link em,
+.footer em, .footer__copy em, .footer__brand-sub em,
+.preloader__brand em, .page-hero__overline em, .overline em,
+.section-body em, .section-title em,
+.testimonial-card__quote em, .prose em {
+  font-style: italic !important;
+}
+
+/* ============================================
    CUSTOM PALETTE: BloodsRUs Medical Authority
    Deep maroon primary, cool white bg, near-black text, silver accent
    ============================================ */

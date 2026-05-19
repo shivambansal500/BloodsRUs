@@ -74,6 +74,7 @@
     '': 'home',
     'home': 'home',
     'about': 'about',
+    'mcf': 'mcf',
     'conditions': 'conditions',
     'bmt': 'bmt',
     'physicians': 'physicians',

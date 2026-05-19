@@ -321,7 +321,7 @@
                   "label": "FOOTER_COPYRIGHT",
                   "hint": "Copyright line at the bottom of every page.",
                   "kind": "text",
-                  "value": "© 2024 Bloods-R-Us — Centre of Excellence for Blood Disorders. Action Cancer Hospital, New Delhi.",
+                  "value": "© 2024 Bloods <em>R</em> Us — Centre of Excellence for Blood Disorders. Action Cancer Hospital, New Delhi.",
                   "order": 42
                 },
                 {
@@ -476,7 +476,7 @@
           ]
         },
         {
-          "title": "About Bloods-R-Us (brief section)",
+          "title": "About Bloods <em>R</em> Us (brief section)",
           "subsections": [
             {
               "title": "'Our Team Includes' side card",
@@ -511,7 +511,7 @@
               "label": "HOME_ABOUT_OVERLINE",
               "hint": "Small line above the section title.",
               "kind": "text",
-              "value": "About Bloods-R-Us",
+              "value": "About Bloods <em>R</em> Us",
               "order": 58
             },
             {
@@ -525,7 +525,7 @@
               "label": "HOME_ABOUT_PARA_1",
               "hint": "First paragraph of the About section on home.",
               "kind": "text",
-              "value": "Welcome to the official website of Bloods-R-Us Centre of Excellence for Blood Disorders. Our Internationally and Nationally acclaimed team of Haemato-oncologists and Haematologists has a great profile and extensive experience in BMT.",
+              "value": "Welcome to the official website of Bloods <em>R</em> Us Centre of Excellence for Blood Disorders. Our Internationally and Nationally acclaimed team of Haemato-oncologists and Haematologists has a great profile and extensive experience in BMT.",
               "order": 60
             },
             {
@@ -552,7 +552,7 @@
               "label": "HOME_DIFF_OVERLINE",
               "hint": "Small line above the section title.",
               "kind": "text",
-              "value": "Why Bloods-R-Us",
+              "value": "Why Bloods <em>R</em> Us",
               "order": 65
             },
             {
@@ -777,7 +777,7 @@
               "label": "HOME_TESTI_BODY",
               "hint": "Paragraph under the heading.",
               "kind": "text",
-              "value": "Patients from across India and internationally trust Bloods-R-Us for life-changing treatment.",
+              "value": "Patients from across India and internationally trust Bloods <em>R</em> Us for life-changing treatment.",
               "order": 93
             },
             {
@@ -805,7 +805,7 @@
               "label": "HOME_TESTI_2_QUOTE",
               "hint": "Second testimonial quote.",
               "kind": "text",
-              "value": "\"The care and dedication shown by the entire Bloods-R-Us team is truly remarkable. From diagnosis to treatment and follow-up, every step was handled with professionalism and compassion.\"",
+              "value": "\"The care and dedication shown by the entire Bloods <em>R</em> Us team is truly remarkable. From diagnosis to treatment and follow-up, every step was handled with professionalism and compassion.\"",
               "order": 97
             },
             {
@@ -908,7 +908,7 @@
               "label": "ABOUT_HERO_OVERLINE",
               "hint": "Small label at the top of the page hero.",
               "kind": "text",
-              "value": "Bloods-R-Us",
+              "value": "Bloods <em>R</em> Us",
               "order": 109
             },
             {
@@ -7136,13 +7136,13 @@
               ]
             },
             {
-              "title": "Blood Cancers Treated at Bloods-R-Us",
+              "title": "Blood Cancers Treated at Bloods <em>R</em> Us",
               "blocks": [
                 {
                   "label": "MAL_CANCERS_HEAD",
                   "hint": "Sub-heading.",
                   "kind": "text",
-                  "value": "Blood Cancers Treated at Bloods-R-Us",
+                  "value": "Blood Cancers Treated at Bloods <em>R</em> Us",
                   "order": 837
                 },
                 {
@@ -9821,7 +9821,7 @@
                   "label": "RES_TESTI_2_QUOTE",
                   "hint": "Quote.",
                   "kind": "text",
-                  "value": "\"The care and dedication shown by the entire Bloods-R-Us team is truly remarkable. From diagnosis to treatment and follow-up, every step was handled with professionalism and compassion.\"",
+                  "value": "\"The care and dedication shown by the entire Bloods <em>R</em> Us team is truly remarkable. From diagnosis to treatment and follow-up, every step was handled with professionalism and compassion.\"",
                   "order": 1145
                 },
                 {
@@ -9990,7 +9990,7 @@
               "label": "RES_STORIES_BODY",
               "hint": "Body paragraph under the title.",
               "kind": "text",
-              "value": "Real stories from patients and families who have been treated at Bloods-R-Us under Dr. Suparno Chakrabarti and Dr. Mahak Agarwal.",
+              "value": "Real stories from patients and families who have been treated at Bloods <em>R</em> Us under Dr. Suparno Chakrabarti and Dr. Mahak Agarwal.",
               "order": 1141
             }
           ]
@@ -10017,7 +10017,7 @@
               "label": "CONTACT_HERO_TITLE",
               "hint": "Page title.",
               "kind": "text",
-              "value": "Contact Bloods-R-Us",
+              "value": "Contact Bloods <em>R</em> Us",
               "order": 1164
             },
             {
@@ -10380,7 +10380,7 @@
               "label": "SEO_TITLE",
               "hint": "The <title> tag — appears in the browser tab and as the headline in Google search results.",
               "kind": "text",
-              "value": "Bloods-R-Us — Centre of Excellence for Blood Disorders | Dr. Suparno Chakrabarti",
+              "value": "Bloods R Us — Centre of Excellence for Blood Disorders | Dr. Suparno Chakrabarti",
               "order": 1204
             }
           ]
@@ -10393,7 +10393,7 @@
               "label": "SEO_META_DESCRIPTION",
               "hint": "The description shown under the title in Google search results. Keep under ~160 characters for best display.",
               "kind": "text",
-              "value": "Bloods-R-Us — Dr. Suparno Chakrabarti's Centre of Excellence for Blood Disorders. Pioneers of Haploidentical BMT. 250+ procedures, 75% long-term survival. Action Cancer Hospital, New Delhi.",
+              "value": "Bloods R Us — Dr. Suparno Chakrabarti's Centre of Excellence for Blood Disorders. Pioneers of Haploidentical BMT. 250+ procedures, 75% long-term survival. Action Cancer Hospital, New Delhi.",
               "order": 1205
             }
           ]
@@ -10426,7 +10426,7 @@
               "label": "SEO_OG_TITLE",
               "hint": "Large title shown when the site is shared on social media / WhatsApp.",
               "kind": "text",
-              "value": "Bloods-R-Us — Centre of Excellence for Blood Disorders",
+              "value": "Bloods R Us — Centre of Excellence for Blood Disorders",
               "order": 1208
             },
             {
@@ -10440,7 +10440,7 @@
               "label": "SEO_OG_SITE_NAME",
               "hint": "Small site-name label in the share preview.",
               "kind": "text",
-              "value": "Bloods-R-Us",
+              "value": "Bloods R Us",
               "order": 1210
             }
           ]
@@ -10453,7 +10453,7 @@
               "label": "SEO_TW_TITLE",
               "hint": "Title shown when the site is shared on Twitter / X.",
               "kind": "text",
-              "value": "Bloods-R-Us — Centre of Excellence for Blood Disorders",
+              "value": "Bloods R Us — Centre of Excellence for Blood Disorders",
               "order": 1211
             },
             {
@@ -10473,7 +10473,7 @@
               "label": "SEO_SCHEMA_ORG_NAME",
               "hint": "Clinic name in structured data.",
               "kind": "text",
-              "value": "Bloods-R-Us — Centre of Excellence for Blood Disorders",
+              "value": "Bloods R Us — Centre of Excellence for Blood Disorders",
               "order": 1213
             },
             {

@@ -133,7 +133,7 @@ def add_bullets(items):
 add_h1("How to Use This Document")
 
 add_para(
-    "This document contains every piece of text currently published on the Bloods-R-Us website "
+    "This document contains every piece of text currently published on the Bloods R Us website "
     "(bloodsrus.com). It is organized page-by-page, in the same order a visitor sees them, "
     "so you can read through it like a book and revise any copy you would like to change."
 )
@@ -232,7 +232,7 @@ add_block("FOOTER_HOURS_EVENING", "Hours line.", "6:00 PM – 8:00 PM")
 add_block("FOOTER_APPOINTMENT_LABEL", "Secondary number shown in footer.", "+91-9911800616 (Appointment)")
 add_block("FOOTER_WHATSAPP_LABEL", "WhatsApp number shown in footer.", "+91-9871264073 (WhatsApp)")
 
-add_block("FOOTER_COPYRIGHT", "Copyright line at the bottom of every page.", "© 2024 Bloods-R-Us — Centre of Excellence for Blood Disorders. Action Cancer Hospital, New Delhi.")
+add_block("FOOTER_COPYRIGHT", "Copyright line at the bottom of every page.", "© 2024 Bloods <em>R</em> Us — Centre of Excellence for Blood Disorders. Action Cancer Hospital, New Delhi.")
 
 add_block("WHATSAPP_FAB_ARIA", "Tooltip on the floating WhatsApp button.", "Chat on WhatsApp")
 
@@ -273,11 +273,11 @@ add_block("HOME_STAT_3_LABEL", "Label under the number.", "Peer-reviewed Publica
 add_block("HOME_STAT_4_NUMBER", "Text instead of a number.", "Only")
 add_block("HOME_STAT_4_LABEL", "Label under the Only.", "Indian Centre with International Standing")
 
-add_h2("About Bloods-R-Us (brief section)")
-add_block("HOME_ABOUT_OVERLINE", "Small line above the section title.", "About Bloods-R-Us")
+add_h2("About Bloods <em>R</em> Us (brief section)")
+add_block("HOME_ABOUT_OVERLINE", "Small line above the section title.", "About Bloods <em>R</em> Us")
 add_block("HOME_ABOUT_TITLE", "Section heading.", "Internationally Acclaimed Excellence in Haematology & BMT")
 add_block("HOME_ABOUT_PARA_1", "First paragraph of the About section on home.",
-    "Welcome to the official website of Bloods-R-Us Centre of Excellence for Blood Disorders. Our Internationally and Nationally acclaimed team of Haemato-oncologists and Haematologists has a great profile and extensive experience in BMT.")
+    "Welcome to the official website of Bloods <em>R</em> Us Centre of Excellence for Blood Disorders. Our Internationally and Nationally acclaimed team of Haemato-oncologists and Haematologists has a great profile and extensive experience in BMT.")
 add_block("HOME_ABOUT_PARA_2", "Second paragraph of the About section on home.",
     "Dr Suparno Chakrabarti and Dr Mahak Agarwal, along with a dedicated team of Haematopathologists, Paediatric Oncologists, Trained Transplant Nurses, Medical Oncologists, Radiation Oncologists, Surgical Oncologists, Microbiologist (Infection control specialist), Research Scientist, Technicians, Clinical Coordinators, Pharmacists, Dieticians, Physiotherapist and counsellors — ensure that each patient's journey from diagnosis, treatment, and long-term follow-up is integrated and seamless.")
 add_block("HOME_ABOUT_CTA", "Button under the About paragraphs.", "Meet the Team")
@@ -297,7 +297,7 @@ add_bullets([
 ])
 
 add_h2("What Makes Us Different (four cards)")
-add_block("HOME_DIFF_OVERLINE", "Small line above the section title.", "Why Bloods-R-Us")
+add_block("HOME_DIFF_OVERLINE", "Small line above the section title.", "Why Bloods <em>R</em> Us")
 add_block("HOME_DIFF_TITLE", "Section heading.", "What Makes Us Different")
 
 add_block("HOME_DIFF_CARD_1_TITLE", "First card title.", "Pioneers of Haploidentical BMT")
@@ -355,7 +355,7 @@ add_h2("Patient Testimonials (home page)")
 add_block("HOME_TESTI_OVERLINE", "Small line above the section title.", "Global Impact")
 add_block("HOME_TESTI_TITLE", "Section heading.", "Lives Transformed")
 add_block("HOME_TESTI_BODY", "Paragraph under the heading.",
-    "Patients from across India and internationally trust Bloods-R-Us for life-changing treatment.")
+    "Patients from across India and internationally trust Bloods <em>R</em> Us for life-changing treatment.")
 
 add_block("HOME_TESTI_1_QUOTE", "First testimonial quote.",
     '"I have taken treatment of Acute Myeloid Leukemia (AML) for my daughter. My daughter had a Successful Bone Marrow Transplant."')
@@ -363,7 +363,7 @@ add_block("HOME_TESTI_1_AUTHOR", "First testimonial author.", "Aimira Isamidinov
 add_block("HOME_TESTI_1_ROLE", "First testimonial role.", "Patient's Mother")
 
 add_block("HOME_TESTI_2_QUOTE", "Second testimonial quote.",
-    '"The care and dedication shown by the entire Bloods-R-Us team is truly remarkable. From diagnosis to treatment and follow-up, every step was handled with professionalism and compassion."')
+    '"The care and dedication shown by the entire Bloods <em>R</em> Us team is truly remarkable. From diagnosis to treatment and follow-up, every step was handled with professionalism and compassion."')
 add_block("HOME_TESTI_2_AUTHOR", "Second testimonial author.", "Nitin Garg")
 add_block("HOME_TESTI_2_ROLE", "Second testimonial role.", "Patient")
 
@@ -391,7 +391,7 @@ add_page_break()
 add_h1("About Page")
 
 add_h2("Page Hero")
-add_block("ABOUT_HERO_OVERLINE", "Small label at the top of the page hero.", "Bloods-R-Us")
+add_block("ABOUT_HERO_OVERLINE", "Small label at the top of the page hero.", "Bloods <em>R</em> Us")
 add_block("ABOUT_HERO_TITLE", "Main page title.", "About Our Team & Foundation")
 add_block("ABOUT_HERO_SUBTITLE", "Subtitle under the page title.",
     "Internationally and nationally acclaimed haematologists dedicated to excellence in blood disorder care and research.")
@@ -2371,8 +2371,8 @@ add_block("MAL_UNDERSTAND_P1", "Paragraph.",
 add_block("MAL_UNDERSTAND_P2", "Paragraph.",
     "A malignant tumor is the one which is persistent and it may reach to the other parts of body. Those tumors which remains localized and do not spread out are known as benign. Though the term malignant is frequently used to describe the conditions of cancer, not all the malignant conditions are cancerous.")
 
-add_h3("Blood Cancers Treated at Bloods-R-Us")
-add_block("MAL_CANCERS_HEAD", "Sub-heading.", "Blood Cancers Treated at Bloods-R-Us")
+add_h3("Blood Cancers Treated at Bloods <em>R</em> Us")
+add_block("MAL_CANCERS_HEAD", "Sub-heading.", "Blood Cancers Treated at Bloods <em>R</em> Us")
 add_block("MAL_CANCERS_P1", "Paragraph.",
     "Diseases like acute lymphoblastic leukemia is a severe kind of blood cancer. It starts generating in the white blood cells within the bone marrow. Transplantation of Bone Marrow permits doctors to cure cancer with high chemotherapy doses by allowing replacing the cells of bone marrow which get destroyed during the treatment.")
 add_block("MAL_CANCERS_P2", "Paragraph.",
@@ -3059,7 +3059,7 @@ add_h2("Tab 5 — Patient Stories")
 add_block("RES_STORIES_OVERLINE", "Small label above the tab title.", "Patient Testimonials")
 add_block("RES_STORIES_TITLE", "Tab section title.", "Patient Stories")
 add_block("RES_STORIES_BODY", "Body paragraph under the title.",
-    "Real stories from patients and families who have been treated at Bloods-R-Us under Dr. Suparno Chakrabarti and Dr. Mahak Agarwal.")
+    "Real stories from patients and families who have been treated at Bloods <em>R</em> Us under Dr. Suparno Chakrabarti and Dr. Mahak Agarwal.")
 
 add_h3("Testimonial 1")
 add_block("RES_TESTI_1_QUOTE", "Quote.",
@@ -3069,7 +3069,7 @@ add_block("RES_TESTI_1_ROLE", "Author role / condition.", "Patient's Family — 
 
 add_h3("Testimonial 2")
 add_block("RES_TESTI_2_QUOTE", "Quote.",
-    '"The care and dedication shown by the entire Bloods-R-Us team is truly remarkable. From diagnosis to treatment and follow-up, every step was handled with professionalism and compassion."')
+    '"The care and dedication shown by the entire Bloods <em>R</em> Us team is truly remarkable. From diagnosis to treatment and follow-up, every step was handled with professionalism and compassion."')
 add_block("RES_TESTI_2_AUTHOR", "Author name.", "Nitin Garg")
 add_block("RES_TESTI_2_ROLE", "Author role / condition.", "Patient")
 
@@ -3114,7 +3114,7 @@ add_hint("Final page: location, hours, phone numbers, teleconsultation note, and
 
 add_h2("Page Hero")
 add_block("CONTACT_HERO_OVERLINE", "Small label above the page title.", "Reach Us")
-add_block("CONTACT_HERO_TITLE", "Page title.", "Contact Bloods-R-Us")
+add_block("CONTACT_HERO_TITLE", "Page title.", "Contact Bloods <em>R</em> Us")
 add_block("CONTACT_HERO_SUBTITLE", "Subtitle paragraph.",
     "Book an appointment, ask a question, or request a teleconsultation. We are here to help.")
 
@@ -3221,12 +3221,12 @@ add_hint("Text that lives in the HTML <head> or JSON structured data. Not visibl
 
 add_h2("Browser Tab Title")
 add_block("SEO_TITLE", "The <title> tag — appears in the browser tab and as the headline in Google search results.",
-    "Bloods-R-Us — Centre of Excellence for Blood Disorders | Dr. Suparno Chakrabarti")
+    "Bloods R Us — Centre of Excellence for Blood Disorders | Dr. Suparno Chakrabarti")
 
 add_h2("Meta Description")
 add_block("SEO_META_DESCRIPTION",
     "The description shown under the title in Google search results. Keep under ~160 characters for best display.",
-    "Bloods-R-Us — Dr. Suparno Chakrabarti's Centre of Excellence for Blood Disorders. Pioneers of Haploidentical BMT. 250+ procedures, 75% long-term survival. Action Cancer Hospital, New Delhi.")
+    "Bloods R Us — Dr. Suparno Chakrabarti's Centre of Excellence for Blood Disorders. Pioneers of Haploidentical BMT. 250+ procedures, 75% long-term survival. Action Cancer Hospital, New Delhi.")
 
 add_h2("Meta Keywords & Author")
 add_block("SEO_META_KEYWORDS", "Comma-separated keywords used by some search engines.",
@@ -3236,21 +3236,21 @@ add_block("SEO_META_AUTHOR", "Author meta tag.",
 
 add_h2("Open Graph (Facebook, WhatsApp, LinkedIn share previews)")
 add_block("SEO_OG_TITLE", "Large title shown when the site is shared on social media / WhatsApp.",
-    "Bloods-R-Us — Centre of Excellence for Blood Disorders")
+    "Bloods R Us — Centre of Excellence for Blood Disorders")
 add_block("SEO_OG_DESCRIPTION", "Description line shown in social share previews.",
     "Internationally acclaimed haematologists and BMT specialists. Pioneers of Haploidentical Bone Marrow Transplantation in India. 250+ procedures, 75% long-term survival.")
-add_block("SEO_OG_SITE_NAME", "Small site-name label in the share preview.", "Bloods-R-Us")
+add_block("SEO_OG_SITE_NAME", "Small site-name label in the share preview.", "Bloods R Us")
 
 add_h2("Twitter / X Card")
 add_block("SEO_TW_TITLE", "Title shown when the site is shared on Twitter / X.",
-    "Bloods-R-Us — Centre of Excellence for Blood Disorders")
+    "Bloods R Us — Centre of Excellence for Blood Disorders")
 add_block("SEO_TW_DESCRIPTION", "Description line in the Twitter / X card.",
     "Internationally acclaimed haematologists and BMT specialists. Pioneers of Haploidentical BMT in India.")
 
 add_h2("Structured Data (schema.org) — Organization")
 add_hint("JSON-LD fields used by Google to build the rich 'Knowledge Panel' on the right-hand side of search results. These are user-visible strings.")
 add_block("SEO_SCHEMA_ORG_NAME", "Clinic name in structured data.",
-    "Bloods-R-Us — Centre of Excellence for Blood Disorders")
+    "Bloods R Us — Centre of Excellence for Blood Disorders")
 add_block("SEO_SCHEMA_ORG_DESCRIPTION", "Clinic description in structured data.",
     "Internationally acclaimed haematologists and BMT specialists offering world-class care. Pioneers of Haploidentical Bone Marrow Transplantation in India.")
 add_block("SEO_SCHEMA_ORG_STREET", "Structured-data street address.",
