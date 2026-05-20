@@ -4,3 +4,12 @@ __pycache__/
 create_deck.py
 BloodsRUs_Proposal.pdf
 .vercel
+.claude/
+
+# Scaffolding artifacts from Track A tagging refactor (one-time)
+content.json.before_apply
+extracted_values.json
+drift_report.json
+tag_report.json
+# Truth backup (gitignore so it doesn't drift)
+index.html.backup

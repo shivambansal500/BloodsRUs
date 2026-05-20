@@ -43,7 +43,7 @@
                   "label": "NAV_DROPDOWN_VIEW_ALL",
                   "hint": "Link at the bottom of the Conditions dropdown.",
                   "kind": "text",
-                  "value": "View all conditions →",
+                  "value": "View all conditions &rarr;",
                   "order": 13
                 }
               ]
@@ -108,7 +108,7 @@
               "label": "NAV_LINK_BMT_CENTRE",
               "hint": "Top menu item.",
               "kind": "text",
-              "value": "BMT Centre",
+              "value": "BMT Knowledge Centre",
               "order": 4
             },
             {
@@ -239,7 +239,7 @@
                   "label": "FOOTER_LINK_ABOUT_TEAM",
                   "hint": "Link in the footer 'Information' column.",
                   "kind": "text",
-                  "value": "About & Team",
+                  "value": "About &amp; Team",
                   "order": 31
                 },
                 {
@@ -532,7 +532,7 @@
               "label": "HOME_ABOUT_PARA_2",
               "hint": "Second paragraph of the About section on home.",
               "kind": "text",
-              "value": "Dr Suparno Chakrabarti and Dr Mahak Agarwal, along with a dedicated team of Haematopathologists, Paediatric Oncologists, Trained Transplant Nurses, Medical Oncologists, Radiation Oncologists, Surgical Oncologists, Microbiologist (Infection control specialist), Research Scientist, Technicians, Clinical Coordinators, Pharmacists, Dieticians, Physiotherapist and counsellors — ensure that each patient's journey from diagnosis, treatment, and long-term follow-up is integrated and seamless.",
+              "value": "Dr Suparno Chakrabarti and Dr Mahak Agarwal, along with a dedicated team of Paediatric Oncologists, Haematopathologists,  Trained Transplant Nurses, Research Scientists, Radiation Oncologists, Microbiologist (Infectious Diseases specialist), Technicians, Clinical Coordinators, Pharmacists, Dieticians, Physiotherapist and counsellors — ensure that each patient's journey from diagnosis, treatment, and long-term follow-up is integrated and seamless.",
               "order": 61
             },
             {
@@ -573,7 +573,7 @@
               "label": "HOME_DIFF_CARD_1_BODY",
               "hint": "First card body text.",
               "kind": "text",
-              "value": "First in India to establish a comprehensive Haploidentical BMT programme. Over 250 successful procedures with outcomes matching the best centres worldwide.",
+              "value": "First in India to establish a comprehensive Haploidentical BMT programme with novel protocols. Over 250 Haploidentical transplants with unprecedented outcomes in most difficult and refractory blood cancers.",
               "order": 68
             },
             {
@@ -594,14 +594,14 @@
               "label": "HOME_DIFF_CARD_3_TITLE",
               "hint": "Third card title.",
               "kind": "text",
-              "value": "Research-Driven Care",
+              "value": "Research-Driven Precision Therapy",
               "order": 71
             },
             {
               "label": "HOME_DIFF_CARD_3_BODY",
               "hint": "Third card body text.",
               "kind": "text",
-              "value": "125+ peer-reviewed publications. First in the world to identify specific risks in Haploidentical BMT. Every treatment protocol is backed by rigorous research.",
+              "value": "125+ peer-reviewed publications. First in the world to identify novel GvHD prophylaxis protocol (Abatacept + PTCy), which is now globally acknowledged and standard of care. Every treatment protocol is backed by rigorous research.",
               "order": 72
             },
             {
@@ -642,14 +642,14 @@
               "label": "HOME_TREAT_BODY",
               "hint": "Description paragraph under the section heading.",
               "kind": "text",
-              "value": "From inherited disorders to aggressive blood cancers, our team delivers evidence-based, internationally benchmarked care for patients of all ages.",
+              "value": "From inherited disorders to aggressive blood cancers, our team delivers research-based, internationally benchmarked care for patients of all ages with novel, indegenously developed protocols.",
               "order": 77
             },
             {
               "label": "HOME_CAT1_TITLE",
               "hint": "First category card title.",
               "kind": "text",
-              "value": "Genetic Blood Disorders",
+              "value": "Genetic Red Blood Cell Disorders",
               "order": 78
             },
             {
@@ -680,14 +680,14 @@
               "label": "HOME_CAT2_TITLE",
               "hint": "Second category card title.",
               "kind": "text",
-              "value": "Blood Cancers & Lymphomas",
+              "value": "Blood Cancers",
               "order": 82
             },
             {
               "label": "HOME_CAT2_DESC",
               "hint": "Second category card description.",
               "kind": "text",
-              "value": "Leukemias, lymphomas, and myelodysplastic syndromes. 75% long-term survival with our approach.",
+              "value": "Leukemias, lymphomas, and myelodysplastic syndromes. Over 75% long-term survival with our approach even in refractory diseases.",
               "order": 83
             },
             {
@@ -708,7 +708,7 @@
               "label": "HOME_CAT3_TITLE",
               "hint": "Third category card title.",
               "kind": "text",
-              "value": "Bone Marrow Disorders",
+              "value": "Bone Marrow Failure Disorders",
               "order": 85
             },
             {
@@ -724,7 +724,7 @@
               "kind": "list",
               "value": [
                 "Aplastic Anemia",
-                "Bone Marrow Failure Syndromes"
+                "Inherited Bone Marrow Failure Syndromes"
               ],
               "order": 87
             },
@@ -847,7 +847,7 @@
               "label": "HOME_TESTI_MORE_LINK",
               "hint": "Link under the three testimonials.",
               "kind": "text",
-              "value": "Read all patient stories →",
+              "value": "Read all patient stories &rarr;",
               "order": 103
             }
           ]
@@ -867,7 +867,7 @@
               "label": "HOME_CTA_SUBTITLE",
               "hint": "Small line under the CTA title.",
               "kind": "text",
-              "value": "Appointments available Mon–Sat, 10 AM–1 PM & 6–8 PM. Teleconsults available.",
+              "value": "Appointments available Mon–Sat, 10 AM–1 PM &amp; 6–8 PM. Teleconsults available.",
               "order": 105
             },
             {
@@ -915,7 +915,7 @@
               "label": "ABOUT_HERO_TITLE",
               "hint": "Main page title.",
               "kind": "text",
-              "value": "About Our Team & Foundation",
+              "value": "About Our Team",
               "order": 110
             },
             {
@@ -944,7 +944,7 @@
                   "label": "ABOUT_SUPARNO_ROLE",
                   "hint": "Role/affiliations line under the name.",
                   "kind": "text",
-                  "value": "Principal Director, Action Institute for Blood Diseases, Transplantation & Cellular Therapy (AIBTCT) · Action Cancer Hospital · Hon Professor, Amity University · Adjunct Professor, Jamia Hamdard University · Director & Senior Scientist, Manashi Chakrabarti Foundation",
+                  "value": "Principal Director, Action Institute for Blood Diseases, Transplantation &amp; Cellular Therapy (AIBTCT) &middot; Action Cancer Hospital &middot; Hon Professor, Amity University &middot; Adjunct Professor, Jamia Hamdard University &middot; Director &amp; Senior Scientist, Manashi Chakrabarti Foundation",
                   "order": 115
                 },
                 {
@@ -958,7 +958,7 @@
                   "label": "ABOUT_SUPARNO_SPECIALIZATION",
                   "hint": "Specialization paragraph. Begins with 'Specialization:' in bold on the website.",
                   "kind": "text",
-                  "value": "Specialization: Blood and Marrow Transplantation, Haploidentical BMT, T Cell Co-stimulation Blockade, Adaptive NK Cell Biology in Transplantation, NK Cell-Based Immunotherapy, Viral Immunology Post-BMT, Cellular Therapy, Hemato-Oncology, Mesenchymal Cell Therapy for GVHD, Refractory Lymphoma & Myeloma, Post-Transplant Immune Reconstitution.",
+                  "value": "Specialization:",
                   "order": 117
                 },
                 {
@@ -998,7 +998,7 @@
                   "label": "ABOUT_MAHAK_CREDENTIALS",
                   "hint": "Degrees / credentials line.",
                   "kind": "text",
-                  "value": "MBBS • MD • PGDMLS (Symbiosis Centre for Health Care, Pune) • PGDHHM (Symbiosis Centre for Health Care, Pune) • Fellowship in Clinical Hematology & BMT (Dharamshila Cancer Hospital, New Delhi) • Specialized Training in GMP-Based Cellular Therapy • Clinical Observer, ACTREC, Tata Memorial Centre, Mumbai",
+                  "value": "MBBS &bull; MD &bull; PGDMLS (Symbiosis Centre for Health Care, Pune) &bull; PGDHHM (Symbiosis Centre for Health Care, Pune) &bull; Fellowship in Clinical Hematology &amp; BMT (Dharamshila Cancer Hospital, New Delhi) &bull; Specialized Training in GMP-Based Cellular Therapy &bull; Clinical Observer, ACTREC, Tata Memorial Centre, Mumbai",
                   "order": 122
                 },
                 {
@@ -1024,7 +1024,7 @@
                   "label": "ABOUT_TEAM_COMPOSITION_TEXT",
                   "hint": "Long paragraph listing every role in the team.",
                   "kind": "text",
-                  "value": "Dr Suparno Chakrabarti • Dr Mahak Agarwal • Haematopathologists • Paediatric Oncologists • Trained Transplant Nurses • Medical Oncologists • Radiation Oncologists • Surgical Oncologists • Microbiologist (Infection Control Specialist) • Research Scientist • Technicians • Clinical Coordinators • Pharmacists • Dieticians • Physiotherapist • Counsellors",
+                  "value": "\n            Dr Suparno Chakrabarti &bull; Dr Mahak Agarwal &bull; Haematopathologists &bull; Paediatric Oncologists &bull; Trained Transplant Nurses &bull; Medical Oncologists &bull; Radiation Oncologists &bull; Surgical Oncologists &bull; Microbiologist (Infection Control Specialist) &bull; Research Scientist &bull; Technicians &bull; Clinical Coordinators &bull; Pharmacists &bull; Dieticians &bull; Physiotherapist &bull; Counsellors\n          ",
                   "order": 125
                 }
               ]
@@ -1519,7 +1519,7 @@
               "label": "HUB_HL_DESC",
               "hint": "Condition card description.",
               "kind": "text",
-              "value": "Highly treatable cancer with >95% cure rate in limited disease. BMT for relapsed cases.",
+              "value": "Highly treatable cancer with &gt;95% cure rate in limited disease. BMT for relapsed cases.",
               "order": 184
             },
             {
@@ -2455,7 +2455,7 @@
                   "label": "SC_PED_FAQ1_A3",
                   "hint": "Paragraph 3.",
                   "kind": "text",
-                  "value": "Sickle cells contain abnormal haemoglobin called sickle hemoglobin or hemoglobin S. Sickle hemoglobin causes the cells to develop a sickle, or crescent shape.",
+                  "value": "Sickle cells contain abnormal haemoglobin called Sickle Hemoglobin or Hemoglobin S. Sickle hemoglobin causes the cells to develop a sickle, or crescent shape.",
                   "order": 300
                 },
                 {
@@ -2474,7 +2474,7 @@
                   "label": "SC_PED_FAQ2_Q",
                   "hint": "Accordion question.",
                   "kind": "text",
-                  "value": "Causes & Who Is at Risk?",
+                  "value": "Causes &amp; Who Is at Risk?",
                   "order": 302
                 },
                 {
@@ -2514,7 +2514,7 @@
                   "label": "SC_PED_FAQ3_Q",
                   "hint": "Accordion question.",
                   "kind": "text",
-                  "value": "Signs & Symptoms",
+                  "value": "Signs &amp; Symptoms",
                   "order": 307
                 },
                 {
@@ -2569,7 +2569,7 @@
                   "label": "SC_PED_FAQ4_H1",
                   "hint": "Sub-heading.",
                   "kind": "text",
-                  "value": "Complete Blood Count and PERIPHERAL Blood Smear",
+                  "value": "Complete Blood Count and Peripheral Blood Smear",
                   "order": 312
                 },
                 {
@@ -2673,7 +2673,7 @@
                   "label": "SC_PED_FAQ6_A1",
                   "hint": "Paragraph.",
                   "kind": "text",
-                  "value": "ALLOGENEIC BMT was first carried out in 1980 in a patient with Acute Leukemia who also had Sickle Cell Disease. Since then several centers in the Europe and North America have successfully performed BMT for Sickle Cell Disease.",
+                  "value": "Allogenic BMT was first carried out in 1980 in a patient with Acute Leukemia who also had Sickle Cell Disease. Since then several centers in the Europe and North America have successfully performed BMT for Sickle Cell Disease.",
                   "order": 324
                 },
                 {
@@ -2802,7 +2802,7 @@
                   "label": "SC_AD_FAQ2_Q",
                   "hint": "Accordion question.",
                   "kind": "text",
-                  "value": "Causes, Risk Factors & Symptoms",
+                  "value": "Causes, Risk Factors &amp; Symptoms",
                   "order": 340
                 },
                 {
@@ -2837,7 +2837,7 @@
                   "label": "SC_AD_FAQ2_A5",
                   "hint": "Symptoms summary (runs as single paragraph).",
                   "kind": "text",
-                  "value": "Symptoms include: Severe pain in arms, back, abdomen and legs; Fever; Strokes; Shortness of breath or difficulty in breathing; Chest pain; Severe infections; Blood flow blockage in liver or spleen; Anemia; Delayed growth; Hand & foot syndrome; Pale skin; Vision problems; Kidney failure; Pulmonary Hypertension.",
+                  "value": "Symptoms include: Severe pain in arms, back, abdomen and legs; Fever; Strokes; Shortness of breath or difficulty in breathing; Chest pain; Severe infections; Blood flow blockage in liver or spleen; Anemia; Delayed growth; Hand &amp; foot syndrome; Pale skin; Vision problems; Kidney failure; Pulmonary Hypertension.",
                   "order": 345
                 }
               ]
@@ -2856,7 +2856,7 @@
                   "label": "SC_AD_FAQ3_H1",
                   "hint": "Sub-heading.",
                   "kind": "text",
-                  "value": "Complete Blood Count and PERIPHERAL Blood Smear",
+                  "value": "Complete Blood Count and Peripheral Blood Smear",
                   "order": 347
                 },
                 {
@@ -2903,7 +2903,7 @@
                   "label": "SC_AD_FAQ4_Q",
                   "hint": "Accordion question.",
                   "kind": "text",
-                  "value": "Treatment & Role of BMT",
+                  "value": "Treatment &amp; Role of BMT",
                   "order": 353
                 },
                 {
@@ -3109,7 +3109,7 @@
                   "label": "AA_PED_FAQ3_Q",
                   "hint": "Accordion question.",
                   "kind": "text",
-                  "value": "Diagnosis & Classification",
+                  "value": "Diagnosis &amp; Classification",
                   "order": 376
                 },
                 {
@@ -3167,7 +3167,7 @@
                   "label": "AA_PED_FAQ4_Q",
                   "hint": "Accordion question.",
                   "kind": "text",
-                  "value": "Treatment & Role of BMT",
+                  "value": "Treatment &amp; Role of BMT",
                   "order": 383
                 },
                 {
@@ -3275,7 +3275,7 @@
                   "label": "AA_AD_FAQ2_Q",
                   "hint": "Accordion question.",
                   "kind": "text",
-                  "value": "Causes, Diagnosis & Classification",
+                  "value": "Causes, Diagnosis &amp; Classification",
                   "order": 396
                 },
                 {
@@ -3332,7 +3332,7 @@
                   "label": "AA_AD_FAQ3_Q",
                   "hint": "Accordion question.",
                   "kind": "text",
-                  "value": "Treatment & Role of BMT",
+                  "value": "Treatment &amp; Role of BMT",
                   "order": 402
                 },
                 {
@@ -3454,7 +3454,7 @@
                   "label": "ALL_PED_FAQ2_Q",
                   "hint": "Accordion question.",
                   "kind": "text",
-                  "value": "Causes & Symptoms",
+                  "value": "Causes &amp; Symptoms",
                   "order": 416
                 },
                 {
@@ -3501,7 +3501,7 @@
                   "label": "ALL_PED_FAQ3_Q",
                   "hint": "Accordion question.",
                   "kind": "text",
-                  "value": "Diagnosis & Classification",
+                  "value": "Diagnosis &amp; Classification",
                   "order": 420
                 },
                 {
@@ -3790,7 +3790,7 @@
                   "label": "ALL_AD_FAQ1_Q",
                   "hint": "Accordion question.",
                   "kind": "text",
-                  "value": "What is ALL? Causes & Symptoms",
+                  "value": "What is ALL? Causes &amp; Symptoms",
                   "order": 455
                 },
                 {
@@ -3837,7 +3837,7 @@
                   "label": "ALL_AD_FAQ2_Q",
                   "hint": "Accordion question.",
                   "kind": "text",
-                  "value": "Diagnosis, Classification & MRD",
+                  "value": "Diagnosis, Classification &amp; MRD",
                   "order": 461
                 },
                 {
@@ -3891,7 +3891,7 @@
                   "label": "ALL_AD_FAQ3_Q",
                   "hint": "Accordion question.",
                   "kind": "text",
-                  "value": "How is ALL in Adults Different? Treatment & BMT",
+                  "value": "How is ALL in Adults Different? Treatment &amp; BMT",
                   "order": 468
                 },
                 {
@@ -4022,7 +4022,7 @@
                   "label": "AML_FAQ2_Q",
                   "hint": "Accordion question.",
                   "kind": "text",
-                  "value": "Causes & Risk Factors",
+                  "value": "Causes &amp; Risk Factors",
                   "order": 482
                 },
                 {
@@ -4084,7 +4084,7 @@
                   "label": "AML_FAQ4_Q",
                   "hint": "Accordion question.",
                   "kind": "text",
-                  "value": "Diagnosis & Classification",
+                  "value": "Diagnosis &amp; Classification",
                   "order": 488
                 },
                 {
@@ -4370,7 +4370,7 @@
                   "label": "CML_PED_FAQ1_Q",
                   "hint": "Accordion question.",
                   "kind": "text",
-                  "value": "What is CML in Children? Natural History & Causes",
+                  "value": "What is CML in Children? Natural History &amp; Causes",
                   "order": 523
                 },
                 {
@@ -4439,7 +4439,7 @@
                   "label": "CML_PED_FAQ2_Q",
                   "hint": "Accordion question.",
                   "kind": "text",
-                  "value": "Symptoms, Diagnosis & Treatment",
+                  "value": "Symptoms, Diagnosis &amp; Treatment",
                   "order": 531
                 },
                 {
@@ -4596,7 +4596,7 @@
                   "label": "CML_AD_FAQ1_Q",
                   "hint": "Accordion question.",
                   "kind": "text",
-                  "value": "What is CML in Adults? Natural History & Causes",
+                  "value": "What is CML in Adults? Natural History &amp; Causes",
                   "order": 550
                 },
                 {
@@ -4647,7 +4647,7 @@
                   "label": "CML_AD_FAQ2_Q",
                   "hint": "Accordion question.",
                   "kind": "text",
-                  "value": "Symptoms, Diagnosis, Treatment & BMT",
+                  "value": "Symptoms, Diagnosis, Treatment &amp; BMT",
                   "order": 556
                 },
                 {
@@ -4729,7 +4729,7 @@
                   "label": "HL_PED_FAQ1_Q",
                   "hint": "Accordion question.",
                   "kind": "text",
-                  "value": "What is Hodgkin's Lymphoma? Types & Causes",
+                  "value": "What is Hodgkin's Lymphoma? Types &amp; Causes",
                   "order": 565
                 },
                 {
@@ -4849,7 +4849,7 @@
                   "label": "HL_PED_FAQ3_Q",
                   "hint": "Accordion question.",
                   "kind": "text",
-                  "value": "Diagnosis & Staging",
+                  "value": "Diagnosis &amp; Staging",
                   "order": 577
                 },
                 {
@@ -4901,7 +4901,7 @@
                   "label": "HL_PED_FAQ4_Q",
                   "hint": "Accordion question.",
                   "kind": "text",
-                  "value": "Treatment & Role of BMT",
+                  "value": "Treatment &amp; Role of BMT",
                   "order": 583
                 },
                 {
@@ -5043,7 +5043,7 @@
                   "label": "HL_AD_FAQ1_Q",
                   "hint": "Accordion question.",
                   "kind": "text",
-                  "value": "What is Hodgkin's Lymphoma? Types, Causes & Symptoms",
+                  "value": "What is Hodgkin's Lymphoma? Types, Causes &amp; Symptoms",
                   "order": 600
                 },
                 {
@@ -5083,7 +5083,7 @@
                   "label": "HL_AD_FAQ2_Q",
                   "hint": "Accordion question.",
                   "kind": "text",
-                  "value": "Diagnosis, Staging, Treatment & BMT",
+                  "value": "Diagnosis, Staging, Treatment &amp; BMT",
                   "order": 605
                 },
                 {
@@ -5118,7 +5118,7 @@
                   "label": "HL_AD_FAQ2_A3",
                   "hint": "Paragraph.",
                   "kind": "text",
-                  "value": "Favourable Limited: >95% cure rate. Unfavourable Limited: >90% cure rate. Advanced: ABVD/BEACOPP 60–80%. BMT for relapsed cases: Salvage Chemo → Autologous PBSC collection → High Dose Chemo + Autologous BMT.",
+                  "value": "Favourable Limited: &gt;95% cure rate. Unfavourable Limited: &gt;90% cure rate. Advanced: ABVD/BEACOPP 60–80%. BMT for relapsed cases: Salvage Chemo → Autologous PBSC collection → High Dose Chemo + Autologous BMT.",
                   "order": 610
                 },
                 {
@@ -5205,7 +5205,7 @@
                   "label": "NHL_FAQ2_Q",
                   "hint": "Accordion question.",
                   "kind": "text",
-                  "value": "Causes & Risk Factors",
+                  "value": "Causes &amp; Risk Factors",
                   "order": 619
                 },
                 {
@@ -5552,7 +5552,7 @@
                   "label": "MDS_PED_FAQ1_Q",
                   "hint": "Accordion question.",
                   "kind": "text",
-                  "value": "What is MDS of Childhood? Symptoms & Classification",
+                  "value": "What is MDS of Childhood? Symptoms &amp; Classification",
                   "order": 656
                 },
                 {
@@ -5639,7 +5639,7 @@
                   "label": "MDS_PED_FAQ2_Q",
                   "hint": "Accordion question.",
                   "kind": "text",
-                  "value": "Diagnosis & Treatment with BMT",
+                  "value": "Diagnosis &amp; Treatment with BMT",
                   "order": 666
                 },
                 {
@@ -5746,7 +5746,7 @@
                   "label": "MDS_AD_FAQ1_Q",
                   "hint": "Accordion question.",
                   "kind": "text",
-                  "value": "What is MDS? Causes, Symptoms & Classification",
+                  "value": "What is MDS? Causes, Symptoms &amp; Classification",
                   "order": 679
                 },
                 {
@@ -5814,7 +5814,7 @@
                   "label": "MDS_AD_FAQ2_Q",
                   "hint": "Accordion question.",
                   "kind": "text",
-                  "value": "Diagnosis, Treatment & BMT",
+                  "value": "Diagnosis, Treatment &amp; BMT",
                   "order": 688
                 },
                 {
@@ -6192,7 +6192,7 @@
                   "label": "PID_FAQ2_Q",
                   "hint": "Accordion question.",
                   "kind": "text",
-                  "value": "Symptoms & Classification",
+                  "value": "Symptoms &amp; Classification",
                   "order": 731
                 },
                 {
@@ -6370,7 +6370,7 @@
                   "label": "PID_FAQ4_HIGHLIGHT",
                   "hint": "Highlighted box.",
                   "kind": "text",
-                  "value": "Our Results: BMT is the only cure for patients who suffer from PID. Our own experience with T cell depleted HAPLOIDENTICAL BMT has shown nearly 100% cure rate in this group of children.",
+                  "value": "Our Results:",
                   "order": 753
                 }
               ]
@@ -6836,7 +6836,7 @@
                   "label": "IBMFS_FAQ4_Q",
                   "hint": "Accordion question.",
                   "kind": "text",
-                  "value": "Treatment & Role of BMT",
+                  "value": "Treatment &amp; Role of BMT",
                   "order": 802
                 },
                 {
@@ -6871,7 +6871,7 @@
                   "label": "IBMFS_FAQ4_HIGHLIGHT",
                   "hint": "Highlighted box.",
                   "kind": "text",
-                  "value": "Results: With improved results with alternate donors and safer conditioning regimens, cure rates of 70-80% can be obtained if ALLOGENEIC BMT is performed in time.",
+                  "value": "Results:",
                   "order": 807
                 }
               ]
@@ -7614,7 +7614,7 @@
                   "label": "BMT_COMP_CARD1_TITLE",
                   "hint": "Card title.",
                   "kind": "text",
-                  "value": "Graft Failure & Dysfunction",
+                  "value": "Graft Failure &amp; Dysfunction",
                   "order": 893
                 },
                 {
@@ -7732,7 +7732,7 @@
                   "label": "BMT_COMP_CARD5_TITLE",
                   "hint": "Card title.",
                   "kind": "text",
-                  "value": "Organ & Endothelial",
+                  "value": "Organ &amp; Endothelial",
                   "order": 905
                 },
                 {
@@ -7942,7 +7942,7 @@
               "label": "CT_MAVI_TITLE",
               "hint": "Protocol title.",
               "kind": "text",
-              "value": "MAVIcel — MSCs for GvHD & Inflammatory Conditions",
+              "value": "MAVIcel — MSCs for GvHD &amp; Inflammatory Conditions",
               "order": 925
             },
             {
@@ -8356,7 +8356,7 @@
                   "label": "PHYS_ROW_THAL_TYPE",
                   "hint": "Type of BMT cell.",
                   "kind": "text",
-                  "value": "Allogeneic",
+                  "value": "Allogeneic (incl. Haploidentical)",
                   "order": 976
                 },
                 {
@@ -8422,7 +8422,7 @@
                   "label": "PHYS_ROW_AA_TYPE",
                   "hint": "Type of BMT cell.",
                   "kind": "text",
-                  "value": "Allogeneic",
+                  "value": "Allogeneic (incl. Haploidentical)",
                   "order": 984
                 },
                 {
@@ -8455,7 +8455,7 @@
                   "label": "PHYS_ROW_ALL_TYPE",
                   "hint": "Type of BMT cell.",
                   "kind": "text",
-                  "value": "Allogeneic",
+                  "value": "Allogeneic (incl. Haploidentical)",
                   "order": 988
                 },
                 {
@@ -8488,7 +8488,7 @@
                   "label": "PHYS_ROW_AML_TYPE",
                   "hint": "Type of BMT cell.",
                   "kind": "text",
-                  "value": "Allogeneic",
+                  "value": "Allogeneic (incl. Haploidentical)",
                   "order": 992
                 },
                 {
@@ -8521,14 +8521,14 @@
                   "label": "PHYS_ROW_CML_TYPE",
                   "hint": "Type of BMT cell.",
                   "kind": "text",
-                  "value": "Allogeneic",
+                  "value": "Allogeneic (incl. Haploidentical)",
                   "order": 996
                 },
                 {
                   "label": "PHYS_ROW_CML_TIMING",
                   "hint": "Timing cell.",
                   "kind": "text",
-                  "value": "As soon as failure of TKI confirmed",
+                  "value": "As soon as failure of two lines of TKI confirmed/ Immediately at transformation",
                   "order": 997
                 }
               ]
@@ -8554,7 +8554,7 @@
                   "label": "PHYS_ROW_HL_TYPE",
                   "hint": "Type of BMT cell.",
                   "kind": "text",
-                  "value": "Autologous → Allogeneic (if relapsed after auto)",
+                  "value": "Autologous → Allogeneic (incl. Haploidentical) (if relapsed after auto)",
                   "order": 1000
                 },
                 {
@@ -8587,7 +8587,7 @@
                   "label": "PHYS_ROW_NHL_TYPE",
                   "hint": "Type of BMT cell.",
                   "kind": "text",
-                  "value": "Autologous → Allogeneic (if indicated)",
+                  "value": "Autologous/ CAR-T cell therapy → Allogeneic (incl. Haploidentical) ",
                   "order": 1004
                 },
                 {
@@ -8613,7 +8613,7 @@
                   "label": "PHYS_ROW_MDS_IND",
                   "hint": "Indication cell.",
                   "kind": "text",
-                  "value": "Only curative treatment; early before infections/iron overload",
+                  "value": "Only curative treatment; early- before infections/iron overload",
                   "order": 1007
                 },
                 {
@@ -8653,14 +8653,14 @@
                   "label": "PHYS_ROW_PID_TYPE",
                   "hint": "Type of BMT cell.",
                   "kind": "text",
-                  "value": "Allogeneic",
+                  "value": "Allogeneic (incl. Haploidentical)",
                   "order": 1012
                 },
                 {
                   "label": "PHYS_ROW_PID_TIMING",
                   "hint": "Timing cell.",
                   "kind": "text",
-                  "value": "Ideally <3.5 months for SCID",
+                  "value": "Ideally &lt;3.5 months for SCID",
                   "order": 1013
                 }
               ]
@@ -8686,7 +8686,7 @@
                   "label": "PHYS_ROW_IBMF_TYPE",
                   "hint": "Type of BMT cell.",
                   "kind": "text",
-                  "value": "Allogeneic",
+                  "value": "Allogeneic (incl. Haploidentical)",
                   "order": 1016
                 },
                 {
@@ -8719,7 +8719,7 @@
                   "label": "PHYS_ROW_IMD_TYPE",
                   "hint": "Type of BMT cell.",
                   "kind": "text",
-                  "value": "Allogeneic",
+                  "value": "Allogeneic (incl. Haploidentical)",
                   "order": 1020
                 },
                 {
@@ -8806,21 +8806,21 @@
                   "label": "PHYS_RESEARCH_OUT_TITLE",
                   "hint": "Card heading with numbers.",
                   "kind": "text",
-                  "value": "125+ Peer-Reviewed Publications · 4,700+ Citations",
+                  "value": "125+ Peer-Reviewed Publications &middot; 4,700+ Citations",
                   "order": 1030
                 },
                 {
                   "label": "PHYS_RESEARCH_OUT_P1",
                   "hint": "Paragraph 1.",
                   "kind": "text",
-                  "value": "Our team has published extensively on Haploidentical BMT, post-transplant viral infections, and immune reconstitution. We were the first in the world to identify specific risks in Haploidentical BMT for children and have developed the most effective approach for transplanting children from a parent or haploidentical donor.",
+                  "value": "Our team has published extensively on Haploidentical BMT, post-transplant viral infections, and immune reconstitution. We were the first in the world to identify novel GvHD prophylaxis protocol (Abatacept + PTCy), which is now globally acknowledged and standard of care. Every treatment protocol is backed by rigorous research.",
                   "order": 1031
                 },
                 {
                   "label": "PHYS_RESEARCH_OUT_P2",
                   "hint": "Paragraph 2.",
                   "kind": "text",
-                  "value": "The only Indian centre with international standing in Haploidentical BMT research.",
+                  "value": "The only Indian centre with indegenous novel cellular therapies for refractory blood cancers.",
                   "order": 1032
                 },
                 {
@@ -9203,7 +9203,7 @@
               "label": "RES_HERO_OVERLINE",
               "hint": "Small label above the page title.",
               "kind": "text",
-              "value": "Information for Patients & Families",
+              "value": "Information for Patients &amp; Families",
               "order": 1071
             },
             {
@@ -9519,7 +9519,7 @@
                   "label": "RES_CR_EQUIP_TITLE",
                   "hint": "Accordion title.",
                   "kind": "text",
-                  "value": "Equipment & Facilities in the BMT Unit",
+                  "value": "Equipment &amp; Facilities in the BMT Unit",
                   "order": 1111
                 },
                 {
@@ -10072,7 +10072,7 @@
                   "label": "CONTACT_HOURS_TIMES",
                   "hint": "Times line.",
                   "kind": "text",
-                  "value": "10:00 AM – 1:00 PM & 6:00 PM – 8:00 PM",
+                  "value": "10:00 AM – 1:00 PM &amp; 6:00 PM – 8:00 PM",
                   "order": 1172
                 }
               ]
@@ -10187,7 +10187,7 @@
               "label": "CONTACT_LOC_TITLE",
               "hint": "Left column heading.",
               "kind": "text",
-              "value": "Location & Hours",
+              "value": "Location &amp; Hours",
               "order": 1167
             }
           ]

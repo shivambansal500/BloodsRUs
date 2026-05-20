@@ -1,0 +1,137 @@
+#!/usr/bin/env node
+/**
+ * build.js — Phase 2 of the BloodsRUs CMS refactor.
+ *
+ * Reads index.template.html + content.json + list_render_manifest.json and
+ * emits index.html. Run on Vercel via "buildCommand": "node build.js".
+ *
+ * Behaviour:
+ *  - For each {{LABEL}} placeholder, look up the block in content.json.
+ *  - Text block (kind:"text") → splice the value directly. HTML in the value
+ *    is rendered as-is (so editors can keep <em>R</em>, <strong>, <br>, etc.).
+ *  - List block (kind:"list") → render each item according to the manifest hint:
+ *      ul-li / ol-li      → "<li>item</li>\n"
+ *      select-option      → "<option ...>item</option>\n" (first item is placeholder)
+ *      datalist-option    → '<option value="item"></option>\n'
+ *    Default (no hint or unknown) → <li> rendering.
+ *  - Missing placeholders are logged as warnings, NOT errors. Build never crashes.
+ */
+
+const fs = require("node:fs");
+const path = require("node:path");
+
+const ROOT = __dirname;
+const TEMPLATE = path.join(ROOT, "index.template.html");
+const CONTENT = path.join(ROOT, "content.json");
+const MANIFEST = path.join(ROOT, "list_render_manifest.json");
+const OUTPUT = path.join(ROOT, "index.html");
+
+function escapeForAttr(s) {
+  return String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;");
+}
+
+function flatten(content) {
+  const out = Object.create(null);
+  for (const page of content.pages || []) {
+    for (const section of page.sections || []) {
+      for (const b of section.blocks || []) {
+        out[b.label] = b;
+      }
+      for (const sub of section.subsections || []) {
+        for (const b of sub.blocks || []) {
+          out[b.label] = b;
+        }
+      }
+    }
+  }
+  return out;
+}
+
+function renderListItems(items, hint, label, indent) {
+  if (!Array.isArray(items)) return "";
+  // Items are indented one level deeper than the wrapper.
+  const itemIndent = indent + "  ";
+  const sep = "\n" + itemIndent;
+  const wrap = (parts) => `\n${itemIndent}${parts.join(sep)}\n${indent}`;
+  switch (hint) {
+    case "select-option": {
+      // First item is the empty-value placeholder; subsequent items are bare
+      // <option>Text</option> so the form value defaults to the option text.
+      const lines = [];
+      items.forEach((item, i) => {
+        if (i === 0) lines.push(`<option value="">${item}</option>`);
+        else lines.push(`<option>${item}</option>`);
+      });
+      return wrap(lines);
+    }
+    case "datalist-option":
+      return wrap(items.map((item) => `<option value="${escapeForAttr(item)}"></option>`));
+    case "ol-li":
+    case "ul-li":
+    default:
+      return wrap(items.map((item) => `<li>${item}</li>`));
+  }
+}
+
+function main() {
+  const template = fs.readFileSync(TEMPLATE, "utf8");
+  const content = JSON.parse(fs.readFileSync(CONTENT, "utf8"));
+  const manifest = fs.existsSync(MANIFEST)
+    ? JSON.parse(fs.readFileSync(MANIFEST, "utf8"))
+    : {};
+
+  const blocks = flatten(content);
+
+  const warnings = [];
+  const stats = { replaced: 0, missing: 0, unknown: 0, lists: 0, texts: 0 };
+
+  // Match every placeholder. Also capture the leading whitespace on the
+  // same line so list items can be aligned to that indent. For inline
+  // placeholders (no whitespace right before), indent is empty.
+  const PLACEHOLDER_RE = /\{\{([A-Za-z0-9_]+)\}\}/g;
+  const output = template.replace(PLACEHOLDER_RE, (full, label, offset, src) => {
+    const block = blocks[label];
+    if (!block) {
+      warnings.push(`placeholder {{${label}}} has no matching block in content.json — leaving as-is`);
+      stats.missing += 1;
+      return full;
+    }
+    // Determine the indent of the line that contains the placeholder.
+    const lineStart = src.lastIndexOf("\n", offset - 1) + 1;
+    const lineWs = src.slice(lineStart).match(/^[ \t]*/)[0];
+    // Used only for list rendering — items get itemIndent = lineWs + "  ".
+    const indent = lineWs;
+    stats.replaced += 1;
+    if (block.kind === "list") {
+      stats.lists += 1;
+      const hint = manifest[label];
+      return renderListItems(block.value, hint, label, indent);
+    }
+    if (block.kind === "text") {
+      stats.texts += 1;
+      const v = block.value;
+      if (typeof v !== "string") {
+        warnings.push(`block ${label} kind=text but value is not a string — coercing`);
+        return String(v ?? "");
+      }
+      return v;
+    }
+    stats.unknown += 1;
+    warnings.push(`block ${label} has unknown kind=${block.kind} — coerced to string`);
+    return String(block.value ?? "");
+  });
+
+  fs.writeFileSync(OUTPUT, output, "utf8");
+
+  console.log(`[build] Wrote ${path.basename(OUTPUT)}`);
+  console.log(`[build] Replaced ${stats.replaced} placeholders (${stats.texts} text, ${stats.lists} list)`);
+  if (stats.missing) console.log(`[build] Missing in content.json: ${stats.missing}`);
+  if (stats.unknown) console.log(`[build] Unknown kind: ${stats.unknown}`);
+  if (warnings.length) {
+    console.log(`[build] ${warnings.length} warning(s):`);
+    for (const w of warnings.slice(0, 20)) console.log(`  - ${w}`);
+    if (warnings.length > 20) console.log(`  ... and ${warnings.length - 20} more`);
+  }
+}
+
+main();
