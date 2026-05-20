@@ -321,7 +321,7 @@
                   "label": "FOOTER_COPYRIGHT",
                   "hint": "Copyright line at the bottom of every page.",
                   "kind": "text",
-                  "value": "© 2024 Bloods <em>R</em> Us — Centre of Excellence for Blood Disorders. Action Cancer Hospital, New Delhi.",
+                  "value": "© 2026 Bloods <em>R</em> Us — Centre of Excellence for Blood Disorders. Action Cancer Hospital, New Delhi.",
                   "order": 42
                 },
                 {
@@ -10413,7 +10413,7 @@
               "label": "SEO_META_AUTHOR",
               "hint": "Author meta tag.",
               "kind": "text",
-              "value": "Dr. Suparno Chakrabarti, Dr. Mahak Agarwal",
+              "value": "Dr. Suparno Chakrabarti, Dr. Mahak Agarwal (E2E test marker)",
               "order": 1207
             }
           ]
