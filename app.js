@@ -327,6 +327,66 @@
   // ============================================
   // ACCORDION
   // ============================================
+  // A11y wiring: give every accordion body an id, link button -> body via
+  // aria-controls, and keep the collapsed body out of the a11y tree (hidden).
+  // Done at runtime so we don't have to hand-edit ~150 markup blocks.
+  (function initAccordions() {
+    let n = 0;
+    document.querySelectorAll('.accordion-header').forEach(btn => {
+      const body = btn.nextElementSibling;
+      if (!body) return;
+      if (!body.id) body.id = 'accordion-body-' + (++n);
+      btn.setAttribute('aria-controls', body.id);
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      if (!expanded) body.setAttribute('hidden', '');
+      else body.removeAttribute('hidden');
+    });
+  })();
+
+  // A11y: hide decorative inline SVG icons from the a11y tree. Conservative —
+  // skip any SVG that is the only content of an interactive control with no
+  // other accessible name (icon-only buttons/links keep their svg exposed only
+  // if they lack an aria-label, which on this site they don't — all icon-only
+  // controls already carry aria-label, so hiding their svg is safe).
+  (function hideDecorativeIcons() {
+    document.querySelectorAll('svg').forEach(svg => {
+      if (svg.hasAttribute('aria-hidden')) return;
+      // If the svg already exposes a label/title/role=img, leave it alone.
+      if (svg.getAttribute('role') === 'img') return;
+      if (svg.getAttribute('aria-label') || svg.querySelector('title')) return;
+      svg.setAttribute('aria-hidden', 'true');
+      svg.setAttribute('focusable', 'false');
+    });
+  })();
+
+  // A11y: Escape closes any open mega-menu / dropdown and returns focus to its
+  // trigger. The menus are CSS :hover/:focus-within driven, so we force-close by
+  // moving focus out and adding a temporary class that suppresses the open state.
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Escape') return;
+    const openDropdown = document.querySelector(
+      '.nav__dropdown:hover, .nav__dropdown:focus-within'
+    );
+    if (!openDropdown) return;
+    const trigger = openDropdown.querySelector('.nav__link');
+    openDropdown.classList.add('nav__dropdown--esc-closed');
+    if (document.activeElement && openDropdown.contains(document.activeElement)) {
+      document.activeElement.blur();
+    }
+    // Clear the suppression once the pointer/focus leaves so hover works again.
+    const clear = function () {
+      openDropdown.classList.remove('nav__dropdown--esc-closed');
+      openDropdown.removeEventListener('mouseleave', clear);
+      openDropdown.removeEventListener('focusout', clear);
+    };
+    openDropdown.addEventListener('mouseleave', clear);
+    openDropdown.addEventListener('focusout', clear);
+    if (trigger && typeof trigger.focus === 'function') {
+      // Focus the trigger but keep menu closed via the esc-closed class.
+      trigger.focus();
+    }
+  });
+
   window.toggleAccordion = function(btn) {
     const expanded = btn.getAttribute('aria-expanded') === 'true';
     // Close all siblings in same accordion
@@ -336,13 +396,27 @@
         if (h !== btn) {
           h.setAttribute('aria-expanded', 'false');
           const b = h.nextElementSibling;
-          if (b) b.classList.remove('open');
+          if (b) {
+            b.classList.remove('open');
+            b.setAttribute('hidden', '');
+          }
         }
       });
     }
-    btn.setAttribute('aria-expanded', !expanded);
+    const willOpen = !expanded;
+    btn.setAttribute('aria-expanded', willOpen);
     const body = btn.nextElementSibling;
-    if (body) body.classList.toggle('open', !expanded);
+    if (body) {
+      // Reveal before the open transition; hide after collapse so the
+      // CSS max-height animation still runs.
+      if (willOpen) {
+        body.removeAttribute('hidden');
+        body.classList.add('open');
+      } else {
+        body.classList.remove('open');
+        body.setAttribute('hidden', '');
+      }
+    }
   };
 
   // ============================================

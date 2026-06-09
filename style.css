@@ -442,6 +442,13 @@ h1 em, h2 em, h3 em, h4 em, h5 em, h6 em,
   transform: translateX(-50%) translateY(0);
 }
 
+/* Escape-key force-close: suppress the open state even while hovered/focused */
+.nav__dropdown--esc-closed .nav__mega-menu,
+.nav__dropdown--esc-closed .nav__dropdown-menu {
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
 .nav__mega-col {
   display: flex;
   flex-direction: column;
@@ -510,8 +517,8 @@ h1 em, h2 em, h3 em, h4 em, h5 em, h6 em,
 }
 
 .btn-theme-toggle {
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   border-radius: var(--radius-full);
   display: flex;
   align-items: center;
@@ -530,8 +537,8 @@ h1 em, h2 em, h3 em, h4 em, h5 em, h6 em,
   display: none;
   flex-direction: column;
   gap: 5px;
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   align-items: center;
   justify-content: center;
   border-radius: var(--radius-md);
@@ -790,6 +797,11 @@ h1 em, h2 em, h3 em, h4 em, h5 em, h6 em,
 .accordion-body.open {
   padding: var(--space-6);
   max-height: 5000px;
+}
+
+/* Defensive: an open body is always visible even if [hidden] lingers a frame */
+.accordion-body.open[hidden] {
+  display: block;
 }
 
 .accordion-body p,
