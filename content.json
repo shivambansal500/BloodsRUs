@@ -642,7 +642,7 @@
               "label": "HOME_TREAT_BODY",
               "hint": "Description paragraph under the section heading.",
               "kind": "text",
-              "value": "From inherited disorders to aggressive blood cancers, our team delivers research-based, internationally benchmarked care for patients of all ages with novel, indegenously developed protocols.",
+              "value": "From inherited disorders to aggressive blood cancers, our team delivers research-based, internationally benchmarked care for patients of all ages with novel, indigenously developed protocols.",
               "order": 77
             },
             {
@@ -8820,7 +8820,7 @@
                   "label": "PHYS_RESEARCH_OUT_P2",
                   "hint": "Paragraph 2.",
                   "kind": "text",
-                  "value": "The only Indian centre with indegenous novel cellular therapies for refractory blood cancers.",
+                  "value": "The only Indian centre with indigenous novel cellular therapies for refractory blood cancers.",
                   "order": 1032
                 },
                 {
