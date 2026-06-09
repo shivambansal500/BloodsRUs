@@ -11,9 +11,11 @@
 // Recipient is fixed: bloodsrus@actioncancerhospital.com
 
 const TO_EMAIL = "bloodsrus@actioncancerhospital.com";
-// Resend requires a verified sender domain. Until bloodsrus.com is verified in
-// Resend, their shared onboarding sender works for delivery.
-const FROM_EMAIL = "Bloods R Us Website <onboarding@resend.dev>";
+// Resend requires a verified sender domain. `futurise.studio` is verified in the
+// Resend account (SPF/DKIM aligned → best deliverability). Overridable via the
+// CONTACT_FROM env var once bloodsrus.com itself is verified in Resend.
+const FROM_EMAIL =
+  process.env.CONTACT_FROM || "Bloods R Us Website <enquiries@futurise.studio>";
 
 function escapeHtml(s) {
   return String(s == null ? "" : s)

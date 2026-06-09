@@ -288,4 +288,3 @@ function globToRegex(src) {
 
 main();
 
-// deploy-pipeline verification: git-triggered build test 5b428f4
