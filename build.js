@@ -176,6 +176,14 @@ function main() {
 
   console.log(`[build] Wrote public/index.html + index.html`);
   console.log(`[build] Copied ${copied} static asset entries into public/`);
+
+  // ---------------------------------------------------------------------------
+  // Build Output API (.vercel/output) — gives us full control so the static site
+  // AND the api/contact Serverless Function both deploy reliably, regardless of
+  // framework auto-detection. Deploy with: vercel deploy --prebuilt [--prod].
+  // ---------------------------------------------------------------------------
+  buildVercelOutput(output);
+
   console.log(`[build] Replaced ${stats.replaced} placeholders (${stats.texts} text, ${stats.lists} list)`);
   if (stats.missing) console.log(`[build] Missing in content.json: ${stats.missing}`);
   if (stats.unknown) console.log(`[build] Unknown kind: ${stats.unknown}`);
@@ -184,6 +192,98 @@ function main() {
     for (const w of warnings.slice(0, 20)) console.log(`  - ${w}`);
     if (warnings.length > 20) console.log(`  ... and ${warnings.length - 20} more`);
   }
+}
+
+function buildVercelOutput(indexHtml) {
+  const OUT = path.join(ROOT, ".vercel", "output");
+  const STATIC = path.join(OUT, "static");
+  const FUNC = path.join(OUT, "functions", "api", "contact.func");
+
+  // Clean only the output subdir, NOT .vercel/project.json.
+  fs.rmSync(OUT, { recursive: true, force: true });
+  fs.mkdirSync(STATIC, { recursive: true });
+  fs.mkdirSync(FUNC, { recursive: true });
+
+  // Static files
+  fs.writeFileSync(path.join(STATIC, "index.html"), indexHtml, "utf8");
+  for (const asset of STATIC_ASSETS) {
+    const src = path.join(ROOT, asset);
+    if (!fs.existsSync(src)) continue;
+    copyRecursive(src, path.join(STATIC, asset));
+  }
+
+  // Serverless function: copy handler source + a .vc-config.json describing it.
+  fs.copyFileSync(path.join(ROOT, "api", "contact.js"), path.join(FUNC, "contact.js"));
+  fs.writeFileSync(
+    path.join(FUNC, ".vc-config.json"),
+    JSON.stringify(
+      {
+        runtime: "nodejs22.x",
+        handler: "contact.js",
+        launcherType: "Nodejs",
+        shouldAddHelpers: true,
+        maxDuration: 10,
+      },
+      null,
+      2
+    ),
+    "utf8"
+  );
+
+  // config.json: version 3, plus headers/redirects mirrored from vercel.json.
+  const vercelJson = JSON.parse(
+    fs.readFileSync(path.join(ROOT, "vercel.json"), "utf8")
+  );
+  const routes = [];
+  // Redirects first.
+  for (const r of vercelJson.redirects || []) {
+    const route = {
+      src: globToRegex(r.source),
+      headers: { Location: r.destination },
+      status: r.permanent === false ? 307 : 308,
+    };
+    routes.push(route);
+  }
+  // Header rules (continue:true so they layer onto later handling).
+  for (const h of vercelJson.headers || []) {
+    const headers = {};
+    for (const kv of h.headers || []) headers[kv.key] = kv.value;
+    routes.push({ src: globToRegex(h.source), headers, continue: true });
+  }
+  // Filesystem handling, then api function, then SPA-ish fallback to index.
+  routes.push({ handle: "filesystem" });
+  routes.push({ src: "^/api/contact/?$", dest: "/api/contact" });
+
+  const config = { version: 3, routes };
+  fs.writeFileSync(path.join(OUT, "config.json"), JSON.stringify(config, null, 2), "utf8");
+
+  console.log(`[build] Wrote .vercel/output (static + api/contact.func + config.json)`);
+}
+
+// Vercel source (path-to-regexp-ish, sometimes already regex) -> anchored regex
+// for Build Output API routes. Tokenises the constructs we use so they survive
+// literal escaping, then restores them:
+//   (.*)            capture-all group (already regex)            -> (.*)
+//   (a|b|c)         alternation group (already regex)            -> (a|b|c)
+//   \.              an escaped dot in the source                 -> \.
+//   :param*         path-to-regexp catch-all                     -> (?:.*)
+//   :param          path-to-regexp single segment               -> [^/]+
+//   *               bare wildcard                                -> .*
+function globToRegex(src) {
+  const tokens = [];
+  const stash = (val) => { tokens.push(val); return ` ${tokens.length - 1} `; };
+  let s = src;
+  s = s.replace(/\(\.\*\)/g, () => stash("(.*)"));
+  s = s.replace(/\([^)]*\|[^)]*\)/g, (m) => stash(m)); // alternation group, keep verbatim
+  s = s.replace(/\\\./g, () => stash("\\.")); // already-escaped dot
+  s = s.replace(/:[A-Za-z0-9_]+\*/g, () => stash("(?:.*)"));
+  s = s.replace(/:[A-Za-z0-9_]+/g, () => stash("[^/]+"));
+  s = s.replace(/\*/g, () => stash(".*"));
+  // Escape everything else literally.
+  s = s.replace(/[.\\+^${}()|[\]?]/g, (m) => "\\" + m);
+  // Restore tokens.
+  s = s.replace(/ (\d+) /g, (_, i) => tokens[Number(i)]);
+  return "^" + s + "$";
 }
 
 main();
