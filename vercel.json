@@ -1,6 +1,6 @@
 {
   "buildCommand": "node build.js",
-  "outputDirectory": ".",
+  "outputDirectory": "dist",
   "redirects": [
     { "source": "/site-help", "destination": "/", "permanent": true },
     { "source": "/feedback", "destination": "/#contact", "permanent": true },

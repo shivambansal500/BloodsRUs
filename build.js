@@ -24,7 +24,43 @@ const ROOT = __dirname;
 const TEMPLATE = path.join(ROOT, "index.template.html");
 const CONTENT = path.join(ROOT, "content.json");
 const MANIFEST = path.join(ROOT, "list_render_manifest.json");
-const OUTPUT = path.join(ROOT, "index.html");
+// Static output goes to dist/ so the api/ directory at the repo root is detected
+// as Serverless Functions (it would be served as static source if the output
+// directory were the repo root). vercel.json sets "outputDirectory": "dist".
+const DIST = path.join(ROOT, "dist");
+const OUTPUT = path.join(DIST, "index.html");
+// Also keep a copy of index.html at the repo root for local preview / git diffs.
+const ROOT_OUTPUT = path.join(ROOT, "index.html");
+
+// Static assets copied verbatim into dist/. Directories are copied recursively.
+const STATIC_ASSETS = [
+  "app.js",
+  "style.css",
+  "base.css",
+  "robots.txt",
+  "sitemap.xml",
+  "favicon.ico",
+  "favicon-16.png",
+  "favicon-32.png",
+  "favicon-48.png",
+  "favicon-180.png",
+  "favicon-192.png",
+  "favicon-512.png",
+  "apple-touch-icon.png",
+  "images",
+];
+
+function copyRecursive(src, dest) {
+  const stat = fs.statSync(src);
+  if (stat.isDirectory()) {
+    fs.mkdirSync(dest, { recursive: true });
+    for (const entry of fs.readdirSync(src)) {
+      copyRecursive(path.join(src, entry), path.join(dest, entry));
+    }
+  } else {
+    fs.copyFileSync(src, dest);
+  }
+}
 
 function escapeForAttr(s) {
   return String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;");
@@ -121,9 +157,24 @@ function main() {
     return String(block.value ?? "");
   });
 
-  fs.writeFileSync(OUTPUT, output, "utf8");
+  // Fresh dist/ each build so removed assets don't linger.
+  fs.rmSync(DIST, { recursive: true, force: true });
+  fs.mkdirSync(DIST, { recursive: true });
 
-  console.log(`[build] Wrote ${path.basename(OUTPUT)}`);
+  fs.writeFileSync(OUTPUT, output, "utf8");
+  // Keep a root copy for local preview and readable git diffs.
+  fs.writeFileSync(ROOT_OUTPUT, output, "utf8");
+
+  let copied = 0;
+  for (const asset of STATIC_ASSETS) {
+    const src = path.join(ROOT, asset);
+    if (!fs.existsSync(src)) continue;
+    copyRecursive(src, path.join(DIST, asset));
+    copied += 1;
+  }
+
+  console.log(`[build] Wrote dist/index.html + index.html`);
+  console.log(`[build] Copied ${copied} static asset entries into dist/`);
   console.log(`[build] Replaced ${stats.replaced} placeholders (${stats.texts} text, ${stats.lists} list)`);
   if (stats.missing) console.log(`[build] Missing in content.json: ${stats.missing}`);
   if (stats.unknown) console.log(`[build] Unknown kind: ${stats.unknown}`);
