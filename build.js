@@ -24,10 +24,11 @@ const ROOT = __dirname;
 const TEMPLATE = path.join(ROOT, "index.template.html");
 const CONTENT = path.join(ROOT, "content.json");
 const MANIFEST = path.join(ROOT, "list_render_manifest.json");
-// Static output goes to dist/ so the api/ directory at the repo root is detected
-// as Serverless Functions (it would be served as static source if the output
-// directory were the repo root). vercel.json sets "outputDirectory": "dist".
-const DIST = path.join(ROOT, "dist");
+// Static output goes to public/ so Vercel's zero-config build serves it as the
+// static output dir AND still scans the api/ directory for Serverless Functions.
+// (If the output dir were the repo root, api/contact.js would be served as a
+// static source file instead of running as a function.)
+const DIST = path.join(ROOT, "public");
 const OUTPUT = path.join(DIST, "index.html");
 // Also keep a copy of index.html at the repo root for local preview / git diffs.
 const ROOT_OUTPUT = path.join(ROOT, "index.html");
@@ -157,7 +158,7 @@ function main() {
     return String(block.value ?? "");
   });
 
-  // Fresh dist/ each build so removed assets don't linger.
+  // Fresh public/ each build so removed assets don't linger.
   fs.rmSync(DIST, { recursive: true, force: true });
   fs.mkdirSync(DIST, { recursive: true });
 
@@ -173,8 +174,8 @@ function main() {
     copied += 1;
   }
 
-  console.log(`[build] Wrote dist/index.html + index.html`);
-  console.log(`[build] Copied ${copied} static asset entries into dist/`);
+  console.log(`[build] Wrote public/index.html + index.html`);
+  console.log(`[build] Copied ${copied} static asset entries into public/`);
   console.log(`[build] Replaced ${stats.replaced} placeholders (${stats.texts} text, ${stats.lists} list)`);
   if (stats.missing) console.log(`[build] Missing in content.json: ${stats.missing}`);
   if (stats.unknown) console.log(`[build] Unknown kind: ${stats.unknown}`);
