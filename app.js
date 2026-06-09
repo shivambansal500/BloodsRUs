@@ -418,15 +418,17 @@
   // ============================================
   const contactForm = document.getElementById('contact-form');
   if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
+    contactForm.addEventListener('submit', async function(e) {
       e.preventDefault();
 
       // Basic validation
       const name = document.getElementById('contact-name');
       let valid = true;
 
-      // Clear previous errors
+      // Clear previous errors / states
       contactForm.querySelectorAll('.form-group').forEach(g => g.classList.remove('has-error'));
+      const errorEl = document.getElementById('form-error');
+      if (errorEl) errorEl.classList.remove('show');
 
       if (!name || !name.value.trim()) {
         const group = name ? name.closest('.form-group') : null;
@@ -436,26 +438,67 @@
 
       if (!valid) return;
 
-      // Show success
       const successEl = document.getElementById('form-success');
       const submitBtn = contactForm.querySelector('button[type="submit"]');
-      if (successEl) {
-        successEl.classList.add('show');
+      const defaultLabel = submitBtn ? submitBtn.textContent : 'Send Enquiry';
+
+      const payload = {
+        name: name.value.trim(),
+        email: (document.getElementById('contact-email') || {}).value || '',
+        phone: (document.getElementById('contact-phone') || {}).value || '',
+        topic: (document.getElementById('contact-for') || {}).value || '',
+        doctor: (document.getElementById('contact-doctor') || {}).value || '',
+        message: (document.getElementById('contact-message') || {}).value || ''
+      };
+
+      if (submitBtn) {
+        submitBtn.textContent = 'Sending…';
+        submitBtn.disabled = true;
+        submitBtn.style.opacity = '0.7';
+      }
+
+      const restoreBtn = () => {
         if (submitBtn) {
-          submitBtn.textContent = 'Enquiry Sent';
-          submitBtn.disabled = true;
-          submitBtn.style.opacity = '0.6';
+          submitBtn.textContent = defaultLabel;
+          submitBtn.disabled = false;
+          submitBtn.style.opacity = '1';
         }
-        // Reset after 5 seconds
-        setTimeout(() => {
-          successEl.classList.remove('show');
-          contactForm.reset();
+      };
+
+      const showError = () => {
+        restoreBtn();
+        if (errorEl) {
+          errorEl.classList.add('show');
+        } else {
+          // Last-resort fallback so the lead is never lost.
+          window.location.href = 'https://wa.me/918287078906';
+        }
+      };
+
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (res.ok) {
+          if (successEl) successEl.classList.add('show');
           if (submitBtn) {
-            submitBtn.textContent = 'Send Enquiry';
-            submitBtn.disabled = false;
-            submitBtn.style.opacity = '1';
+            submitBtn.textContent = 'Enquiry Sent';
+            submitBtn.disabled = true;
+            submitBtn.style.opacity = '0.6';
           }
-        }, 5000);
+          setTimeout(() => {
+            if (successEl) successEl.classList.remove('show');
+            contactForm.reset();
+            restoreBtn();
+          }, 6000);
+        } else {
+          showError();
+        }
+      } catch (err) {
+        showError();
       }
     });
   }
