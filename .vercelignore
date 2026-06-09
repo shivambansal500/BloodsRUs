@@ -1,0 +1,19 @@
+# Root-level static files are build *inputs*, not outputs. Exclude them from the
+# upload so Vercel does NOT mistake the repo root for a pre-built static site and
+# instead runs vercel-build (node build.js) to generate public/, while still
+# scanning api/ for Serverless Functions.
+index.html
+index.html.backup
+
+# Local build output (regenerated on Vercel)
+public/
+dist/
+
+# Scaffolding / docs not needed at runtime
+*.py
+__pycache__/
+*.pdf
+*.docx
+*.md
+color-preview.html
+SEO_AEO_GEO_PLAN.md
