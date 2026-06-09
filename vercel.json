@@ -1,9 +1,4 @@
 {
-  "functions": {
-    "api/contact.js": {
-      "maxDuration": 10
-    }
-  },
   "redirects": [
     { "source": "/site-help", "destination": "/", "permanent": true },
     { "source": "/feedback", "destination": "/#contact", "permanent": true },
