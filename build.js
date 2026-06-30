@@ -24,6 +24,7 @@ const ROOT = __dirname;
 const TEMPLATE = path.join(ROOT, "index.template.html");
 const CONTENT = path.join(ROOT, "content.json");
 const MANIFEST = path.join(ROOT, "list_render_manifest.json");
+const { routes: ROUTE_TABLE, BASE: SITE_BASE } = require("./routes.js");
 // Static output goes to public/ so Vercel's zero-config build serves it as the
 // static output dir AND still scans the api/ directory for Serverless Functions.
 // (If the output dir were the repo root, api/contact.js would be served as a
@@ -36,6 +37,7 @@ const ROOT_OUTPUT = path.join(ROOT, "index.html");
 // Static assets copied verbatim into dist/. Directories are copied recursively.
 const STATIC_ASSETS = [
   "app.js",
+  "routes.js",
   "style.css",
   "base.css",
   "robots.txt",
@@ -65,6 +67,173 @@ function copyRecursive(src, dest) {
 
 function escapeForAttr(s) {
   return String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;");
+}
+
+function escapeHtml(s) {
+  return String(s)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+// ---------------------------------------------------------------------------
+// Per-route static prerender.
+//
+// Given the fully-rendered single-shell HTML (placeholders already replaced),
+// produce a route-specific HTML document where:
+//   - the correct .page / condition section is pre-activated (so crawlers and
+//     no-JS visitors see the right content), and
+//   - <title>, <meta name=description>, canonical, og:url/title/description and
+//     twitter:title/description are unique to that route, and
+//   - for condition routes, the condition's H2 is promoted to the single H1
+//     and the generic Conditions H1 is demoted to a <p>.
+// All transforms are conservative string ops anchored on stable markers in the
+// template; if a marker is absent the transform is skipped (build never throws).
+// ---------------------------------------------------------------------------
+function setMetaForRoute(html, route) {
+  const title = escapeHtml(route.title);
+  const desc = escapeForAttr(route.description);
+  const canonical = route.canonical;
+
+  // <title>…</title>
+  html = html.replace(/<title>[\s\S]*?<\/title>/, `<title>${title}</title>`);
+
+  // <meta name="description" content="…">
+  html = html.replace(
+    /(<meta\s+name="description"\s+content=")[\s\S]*?("\s*>)/,
+    `$1${desc}$2`
+  );
+
+  // <link rel="canonical" href="…">
+  html = html.replace(
+    /(<link\s+rel="canonical"\s+href=")[^"]*("\s*>)/,
+    `$1${canonical}$2`
+  );
+
+  // og:url / og:title / og:description
+  html = html.replace(
+    /(<meta\s+property="og:url"\s+content=")[^"]*("\s*>)/,
+    `$1${canonical}$2`
+  );
+  html = html.replace(
+    /(<meta\s+property="og:title"\s+content=")[\s\S]*?("\s*>)/,
+    `$1${title}$2`
+  );
+  html = html.replace(
+    /(<meta\s+property="og:description"\s+content=")[\s\S]*?("\s*>)/,
+    `$1${desc}$2`
+  );
+  // twitter:title / twitter:description
+  html = html.replace(
+    /(<meta\s+name="twitter:title"\s+content=")[\s\S]*?("\s*>)/,
+    `$1${title}$2`
+  );
+  html = html.replace(
+    /(<meta\s+name="twitter:description"\s+content=")[\s\S]*?("\s*>)/,
+    `$1${desc}$2`
+  );
+  return html;
+}
+
+// Activate a top-level .page element (and deactivate the home page which ships
+// with class "page active" / inline display).
+function activatePage(html, pageId) {
+  // 1) Strip the default-active state off the home page.
+  html = html.replace(
+    /<section id="page-home" class="page active">/,
+    '<section id="page-home" class="page" style="display:none;">'
+  );
+  if (pageId === "home") {
+    // Re-activate home explicitly.
+    return html.replace(
+      /<section id="page-home" class="page" style="display:none;">/,
+      '<section id="page-home" class="page active">'
+    );
+  }
+  // 2) Activate the target page. Pages are either <section id="page-X" ...>
+  //    or <div id="page-X" class="page">.
+  const open = new RegExp(
+    `<(section|div) id="page-${pageId}" class="page"(>| style="[^"]*">)`
+  );
+  return html.replace(open, (m, tag) => {
+    return `<${tag} id="page-${pageId}" class="page active" style="display:block;">`;
+  });
+}
+
+// For the conditions hub route: show the hub, hide the detail container.
+function activateConditionsHub(html) {
+  html = html.replace(
+    /<div id="conditions-hub" class="section" style="display:none;">/,
+    '<div id="conditions-hub" class="section" style="display:block;">'
+  );
+  html = html.replace(
+    /<section id="condition-detail" class="section">/,
+    '<section id="condition-detail" class="section" style="display:none;">'
+  );
+  return html;
+}
+
+// For a specific condition route: show the detail container + that condition
+// block, hide the hub, promote the condition name to H1, demote the generic H1.
+function activateCondition(html, route) {
+  // Hide the hub.
+  html = html.replace(
+    /<div id="conditions-hub" class="section" style="display:none;">/,
+    '<div id="conditions-hub" class="section" style="display:none;" data-hub>'
+  );
+  // Reveal the matching condition block (default markup is display:none).
+  const condOpen = new RegExp(
+    `<div data-condition="${route.condition}" style="display:none;">`
+  );
+  html = html.replace(
+    condOpen,
+    `<div data-condition="${route.condition}" style="display:block;">`
+  );
+  // Demote the generic Conditions H1 to a paragraph so the page has exactly
+  // one H1 (the condition name, injected below).
+  html = html.replace(
+    /<h1 class="page-hero__title" id="condition-page-title">([\s\S]*?)<\/h1>/,
+    '<p class="page-hero__title" id="condition-page-title">$1</p>'
+  );
+  // Promote the condition name to the single H1 by injecting it at the top of
+  // the now-visible condition block, right after its opening tag.
+  const condBlockOpen = `<div data-condition="${route.condition}" style="display:block;">`;
+  const h1 = `<h1 class="page-hero__title" style="margin-bottom:var(--space-6);">${escapeHtml(
+    route.h1
+  )}</h1>`;
+  html = html.replace(condBlockOpen, condBlockOpen + "\n  " + h1);
+  return html;
+}
+
+// A small inline marker so app.js knows the server already activated a section
+// for direct loads (lets it skip an unnecessary re-render flash).
+function injectRouteState(html, route) {
+  const tag = `<script>window.__BRU_INITIAL_PATH=${JSON.stringify(
+    route.path
+  )};</script>`;
+  // Place just before the routes.js / app.js scripts are loaded.
+  const m = html.match(/<script src="\.\/routes\.js[^"]*"><\/script>/);
+  if (m) return html.replace(m[0], tag + "\n" + m[0]);
+  const a = html.match(/<script src="\.\/app\.js[^"]*"><\/script>/);
+  if (a) return html.replace(a[0], tag + "\n" + a[0]);
+  // Fallback: before </body>.
+  return html.replace(/<\/body>/, tag + "\n</body>");
+}
+
+function renderRouteHtml(baseHtml, route) {
+  let html = baseHtml;
+  html = setMetaForRoute(html, route);
+  if (route.condition) {
+    html = activatePage(html, "conditions");
+    html = activateCondition(html, route);
+  } else if (route.pageId === "conditions") {
+    html = activatePage(html, "conditions");
+    html = activateConditionsHub(html);
+  } else {
+    html = activatePage(html, route.pageId);
+  }
+  html = injectRouteState(html, route);
+  return html;
 }
 
 function flatten(content) {
@@ -162,9 +331,23 @@ function main() {
   fs.rmSync(DIST, { recursive: true, force: true });
   fs.mkdirSync(DIST, { recursive: true });
 
-  fs.writeFileSync(OUTPUT, output, "utf8");
+  // The "/" route IS index.html (home page, pre-activated by default markup).
+  const homeRoute = ROUTE_TABLE.find((r) => r.path === "/");
+  const homeHtml = renderRouteHtml(output, homeRoute);
+  fs.writeFileSync(OUTPUT, homeHtml, "utf8");
   // Keep a root copy for local preview and readable git diffs.
-  fs.writeFileSync(ROOT_OUTPUT, output, "utf8");
+  fs.writeFileSync(ROOT_OUTPUT, homeHtml, "utf8");
+
+  // Every other route → public/<path>/index.html (clean-URL directory form).
+  let routePages = 0;
+  for (const route of ROUTE_TABLE) {
+    if (route.path === "/") continue;
+    const routeHtml = renderRouteHtml(output, route);
+    const dir = path.join(DIST, route.path.replace(/^\//, ""));
+    fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(path.join(dir, "index.html"), routeHtml, "utf8");
+    routePages += 1;
+  }
 
   let copied = 0;
   for (const asset of STATIC_ASSETS) {
@@ -174,7 +357,8 @@ function main() {
     copied += 1;
   }
 
-  console.log(`[build] Wrote public/index.html + index.html`);
+  console.log(`[build] Wrote public/index.html + index.html (home)`);
+  console.log(`[build] Wrote ${routePages} additional route pages into public/`);
   console.log(`[build] Copied ${copied} static asset entries into public/`);
 
   // ---------------------------------------------------------------------------
@@ -204,8 +388,24 @@ function buildVercelOutput(indexHtml) {
   fs.mkdirSync(STATIC, { recursive: true });
   fs.mkdirSync(FUNC, { recursive: true });
 
-  // Static files
-  fs.writeFileSync(path.join(STATIC, "index.html"), indexHtml, "utf8");
+  // Static files. indexHtml is the fully-rendered shell (placeholders done) —
+  // we prerender each route from it so the Build Output API ships real URLs.
+  const homeRoute = ROUTE_TABLE.find((r) => r.path === "/");
+  fs.writeFileSync(
+    path.join(STATIC, "index.html"),
+    renderRouteHtml(indexHtml, homeRoute),
+    "utf8"
+  );
+  for (const route of ROUTE_TABLE) {
+    if (route.path === "/") continue;
+    const dir = path.join(STATIC, route.path.replace(/^\//, ""));
+    fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(
+      path.join(dir, "index.html"),
+      renderRouteHtml(indexHtml, route),
+      "utf8"
+    );
+  }
   for (const asset of STATIC_ASSETS) {
     const src = path.join(ROOT, asset);
     if (!fs.existsSync(src)) continue;
@@ -250,7 +450,17 @@ function buildVercelOutput(indexHtml) {
     for (const kv of h.headers || []) headers[kv.key] = kv.value;
     routes.push({ src: globToRegex(h.source), headers, continue: true });
   }
-  // Filesystem handling, then api function, then SPA-ish fallback to index.
+  // Clean-URL rewrites: map each real route path (with optional trailing slash)
+  // to its prerendered <path>/index.html BEFORE the filesystem handler, so
+  // /about and /conditions/thalassemia serve the right document. "/" is handled
+  // natively by index.html.
+  for (const route of ROUTE_TABLE) {
+    if (route.path === "/") continue;
+    const p = route.path.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    routes.push({ src: `^${p}/?$`, dest: `${route.path}/index.html` });
+  }
+
+  // Filesystem handling, then api function.
   routes.push({ handle: "filesystem" });
   routes.push({ src: "^/api/contact/?$", dest: "/api/contact" });
 
