@@ -137,9 +137,43 @@
     }
   }
 
+  // ============================================
+  // REAL-URL ROUTING (path <-> legacy hash)
+  // ============================================
+  // routes.js (loaded before app.js) exposes window.BRU_ROUTES with the
+  // canonical path<->hash table. We keep ALL in-page links as #hash anchors
+  // (so the mega-menu, mobile nav, pills and breadcrumbs are untouched) and
+  // translate hash->real path on navigation via pushState. Direct loads and
+  // popstate read location.pathname and map back to the hash the SPA expects.
+  const RT = (window.BRU_ROUTES || { routes: [], byHash: {}, byPath: {} });
+  const hashToPath = Object.create(null);
+  const pathToHash = Object.create(null);
+  (RT.routes || []).forEach(r => {
+    if (!(r.hash in hashToPath)) hashToPath[r.hash] = r.path;
+    pathToHash[r.path] = r.hash;
+    pathToHash[r.path.replace(/\/$/, '')] = r.hash; // tolerate trailing slash
+  });
+
+  function pathForHash(hash) {
+    if (hash in hashToPath) return hashToPath[hash];
+    return null; // unknown hash (e.g. an in-page anchor) — leave URL as #hash
+  }
+
+  function hashForPath(pathname) {
+    let p = pathname || '/';
+    if (p.length > 1) p = p.replace(/\/+$/, '') || '/';
+    if (p in pathToHash) return pathToHash[p];
+    return null; // not one of our real routes
+  }
+
   function getHash() {
-    const h = window.location.hash || '';
-    return h.replace(/^#\/?/, '') || '';
+    // Priority: an explicit #hash in the URL wins (old links / in-page jumps),
+    // otherwise derive from the real pathname.
+    const raw = (window.location.hash || '').replace(/^#\/?/, '');
+    if (raw) return raw;
+    const fromPath = hashForPath(window.location.pathname);
+    if (fromPath !== null) return fromPath;
+    return '';
   }
 
   function navigate() {
@@ -224,23 +258,54 @@
 
     // Check stats animation visibility
     setTimeout(checkStatsVisibility, 300);
+
+    // Notify enhancement layers that listen for SPA page switches. Path-based
+    // navigation does NOT fire native hashchange, so emit a custom signal that
+    // the decorative re-scan (and any future hooks) can subscribe to.
+    try { window.dispatchEvent(new CustomEvent('bru:navigated', { detail: { hash: hash } })); } catch (_) {}
   }
 
-  // Intercept all hash link clicks to prevent default scroll behavior
+  // Intercept all in-page hash link clicks. We translate the #hash to its real
+  // URL path (pushState) when one exists, so the address bar shows /about,
+  // /conditions/thalassemia, etc. Hashes with no real route (rare in-page
+  // anchors) fall back to plain hash behaviour.
   document.addEventListener('click', function(e) {
     const link = e.target.closest('a[href^="#"]');
-    if (link) {
-      e.preventDefault();
-      const newHash = link.getAttribute('href');
-      if (window.location.hash !== newHash) {
-        history.pushState(null, '', newHash);
+    if (!link) return;
+    // Respect modifier clicks / new-tab intent.
+    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    const targetHash = link.getAttribute('href').replace(/^#\/?/, '');
+    const realPath = pathForHash(targetHash);
+    if (realPath) {
+      const current = window.location.pathname.replace(/\/+$/, '') || '/';
+      const want = realPath.replace(/\/+$/, '') || '/';
+      if (current !== want || window.location.hash) {
+        // Clear any stale #hash by writing the clean path.
+        history.pushState(null, '', realPath);
       }
-      navigate();
+    } else {
+      // Unknown hash — keep legacy hash URL behaviour.
+      const newHash = '#' + targetHash;
+      if (window.location.hash !== newHash) history.pushState(null, '', newHash);
     }
+    navigate();
   });
 
   window.addEventListener('popstate', navigate);
   window.addEventListener('hashchange', navigate);
+
+  // Normalise the address bar on direct load: if we arrived via a legacy
+  // #hash that maps to a real route, swap it for the clean path (replaceState
+  // so we don't add a history entry).
+  (function normaliseInitialUrl() {
+    const raw = (window.location.hash || '').replace(/^#\/?/, '');
+    if (raw) {
+      const realPath = pathForHash(raw);
+      if (realPath) history.replaceState(null, '', realPath);
+    }
+  })();
+
   // Run navigate immediately since script is at bottom of body
   navigate();
 
@@ -829,13 +894,21 @@
   // ============================================
   const hero = document.querySelector('.hero');
   if (hero) {
-    // Add animatable class first, then trigger entrance
+    // Add animatable class first, then trigger entrance. The hero is fully
+    // visible by default (CSS: opacity:1); .hero--animatable hides it only to
+    // play the entrance. To guarantee the hero is NEVER stuck blank if the rAF
+    // chain stalls (slow device / tab throttling), force the entered state via
+    // a timeout fallback as well.
+    let entered = false;
+    const enter = () => {
+      if (entered) return;
+      entered = true;
+      hero.classList.add('hero--entered');
+    };
     hero.classList.add('hero--animatable');
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        hero.classList.add('hero--entered');
-      });
-    });
+    requestAnimationFrame(() => { requestAnimationFrame(enter); });
+    // Safety net: reveal within 250ms no matter what.
+    setTimeout(enter, 250);
   }
 
   // ============================================
@@ -1153,13 +1226,17 @@
     // ---- Initialize on load ----
     scanAndInitialize();
 
-    // ---- Re-scan on hash navigation (SPA page switch) ----
+    // ---- Re-scan on navigation (SPA page switch) ----
+    // Native hashchange (legacy) + our custom path-nav signal.
     window.addEventListener('hashchange', function() {
       setTimeout(scanAndInitialize, 400);
     });
+    window.addEventListener('bru:navigated', function() {
+      setTimeout(scanAndInitialize, 400);
+    });
 
-    // ---- Also re-scan after initial load for hash routes ----
-    if (window.location.hash) {
+    // ---- Also re-scan after initial load for deep routes ----
+    if (window.location.hash || (window.location.pathname && window.location.pathname !== '/')) {
       setTimeout(scanAndInitialize, 500);
     }
 
