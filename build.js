@@ -220,8 +220,18 @@ function injectRouteState(html, route) {
   return html.replace(/<\/body>/, tag + "\n</body>");
 }
 
+// Rewrite relative "./asset" references to root-absolute "/asset" so they
+// resolve identically from nested routes like /conditions/thalassemia (where
+// "./app.js" would otherwise resolve to /conditions/app.js → 404).
+function absolutiseAssets(html) {
+  return html
+    .replace(/(\bsrc=")\.\//g, "$1/")
+    .replace(/(\bhref=")\.\//g, "$1/");
+}
+
 function renderRouteHtml(baseHtml, route) {
   let html = baseHtml;
+  html = absolutiseAssets(html);
   html = setMetaForRoute(html, route);
   if (route.condition) {
     html = activatePage(html, "conditions");
