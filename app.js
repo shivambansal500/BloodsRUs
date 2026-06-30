@@ -456,17 +456,50 @@
   // ============================================
   if (statsBar) {
     statsBar.classList.add('stats-bar--animatable');
+    // Lock in the correct final value for every counter immediately, so the
+    // numbers are never blank even if the visibility check / animation never
+    // runs. The count-up is layered on top as a progressive enhancement.
+    statsBar.querySelectorAll('.stats-bar__number[data-count]').forEach(setCounterFinalValue);
     window.addEventListener('scroll', checkStatsVisibility, { passive: true });
     // Also check on load and after a short delay in case it's already visible
     checkStatsVisibility();
     setTimeout(checkStatsVisibility, 500);
   }
 
+  // Set the final value on the number text node up front, so the stat is
+  // NEVER blank — even if the animation is skipped, IntersectionObserver/scroll
+  // never fires, or the target can't be parsed. The count-up below is a pure
+  // enhancement layered on top of this guaranteed end-state.
+  function setCounterFinalValue(el) {
+    const raw = el.getAttribute('data-count');
+    const suffix = el.getAttribute('data-suffix') || '';
+    const target = parseFloat(raw);
+    // The number lives in the leading text node; the suffix (+, %, …) is kept
+    // in a trailing <span>. If there's no span, the whole content is text.
+    const spanEl = el.querySelector('span');
+    const finalNumber = Number.isFinite(target) ? String(target) : (raw != null ? raw : '');
+    if (spanEl && el.firstChild && el.firstChild.nodeType === Node.TEXT_NODE) {
+      el.firstChild.textContent = finalNumber;
+    } else if (spanEl) {
+      // No leading text node yet — insert one before the span.
+      el.insertBefore(document.createTextNode(finalNumber), spanEl);
+    } else {
+      el.textContent = finalNumber + suffix;
+    }
+  }
+
   function animateCounters() {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     document.querySelectorAll('.stats-bar__number[data-count]').forEach(el => {
-      const target = parseInt(el.getAttribute('data-count'), 10);
-      const suffix = el.getAttribute('data-suffix') || '';
+      const raw = el.getAttribute('data-count');
+      const target = parseFloat(raw);
+      // Always lock in the correct final value first.
+      setCounterFinalValue(el);
+      // Non-numeric target, or reduced-motion preference → no animation.
+      if (!Number.isFinite(target) || reduceMotion) return;
+
       const spanEl = el.querySelector('span');
+      const suffix = el.getAttribute('data-suffix') || '';
       const duration = 1500;
       const startTime = performance.now();
 
@@ -475,13 +508,17 @@
         // Ease out cubic
         const eased = 1 - Math.pow(1 - progress, 3);
         const current = Math.round(target * eased);
-        // Update just the number text before the span
-        if (spanEl) {
-          el.firstChild.textContent = current;
+        if (spanEl && el.firstChild && el.firstChild.nodeType === Node.TEXT_NODE) {
+          el.firstChild.textContent = String(current);
         } else {
           el.textContent = current + suffix;
         }
-        if (progress < 1) requestAnimationFrame(step);
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        } else {
+          // Guarantee the exact target value on the final frame.
+          setCounterFinalValue(el);
+        }
       }
       requestAnimationFrame(step);
     });
