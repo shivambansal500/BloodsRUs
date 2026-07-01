@@ -936,10 +936,19 @@
     const isMobile = window.innerWidth <= 768;
 
     // ---- Section Configuration ----
-    // NOTE: The home hero (and its proof panel, which carries class .stats-bar)
-    // intentionally have NO injected floating shapes. The redesigned hero uses
-    // calm, intentional depth (layered glows + grid + grain) instead.
     const SECTION_CONFIG = {
+      hero: {
+        selector: '.hero',
+        shapes: ['erythrocyte', 'dna', 'hexagon', 'platelet'],
+        count: isMobile ? 4 : 8,
+        depthWeights: { far: 0.3, mid: 0.4, near: 0.3 }
+      },
+      statsBar: {
+        selector: '.stats-bar',
+        shapes: ['platelet', 'hexagon'],
+        count: isMobile ? 2 : 5,
+        depthWeights: { far: 0.4, mid: 0.4, near: 0.2 }
+      },
       aboutHome: {
         selector: '#page-home .section:first-of-type',
         shapes: ['molecule', 'hexagon', 'erythrocyte'],
