@@ -791,7 +791,7 @@
               "label": "HOME_TESTI_1_AUTHOR",
               "hint": "First testimonial author.",
               "kind": "text",
-              "value": "Aimira Isamidinov",
+              "value": "Anonymous",
               "order": 95
             },
             {
@@ -812,7 +812,7 @@
               "label": "HOME_TESTI_2_AUTHOR",
               "hint": "Second testimonial author.",
               "kind": "text",
-              "value": "Nitin Garg",
+              "value": "Anonymous",
               "order": 98
             },
             {
@@ -826,14 +826,14 @@
               "label": "HOME_TESTI_3_QUOTE",
               "hint": "Third testimonial quote.",
               "kind": "text",
-              "value": "\"Success Story of Fatima Yahaya Zango from Nigeria. Treated for Sickle Cell Disease.\"",
+              "value": "\"Success story from Nigeria. Treated for Sickle Cell Disease.\"",
               "order": 100
             },
             {
               "label": "HOME_TESTI_3_AUTHOR",
               "hint": "Third testimonial author.",
               "kind": "text",
-              "value": "Fatima Yahaya Zango",
+              "value": "Anonymous",
               "order": 101
             },
             {
@@ -9828,7 +9828,7 @@
                   "label": "RES_TESTI_2_AUTHOR",
                   "hint": "Author name.",
                   "kind": "text",
-                  "value": "Nitin Garg",
+                  "value": "Anonymous",
                   "order": 1146
                 },
                 {
@@ -9854,7 +9854,7 @@
                   "label": "RES_TESTI_3_AUTHOR",
                   "hint": "Author name.",
                   "kind": "text",
-                  "value": "Kamal Sarkar",
+                  "value": "Anonymous",
                   "order": 1149
                 },
                 {
@@ -9906,7 +9906,7 @@
                   "label": "RES_TESTI_5_AUTHOR",
                   "hint": "Author name.",
                   "kind": "text",
-                  "value": "Aimira Isamidinov",
+                  "value": "Anonymous",
                   "order": 1155
                 },
                 {
@@ -9925,14 +9925,14 @@
                   "label": "RES_TESTI_6_QUOTE",
                   "hint": "Quote.",
                   "kind": "text",
-                  "value": "\"Story of Mr. Jagdish Sharma, Lymphoma Patient after his successful Bone Marrow Transplant.\"",
+                  "value": "\"Story of a Lymphoma Patient after his successful Bone Marrow Transplant.\"",
                   "order": 1157
                 },
                 {
                   "label": "RES_TESTI_6_AUTHOR",
                   "hint": "Author name.",
                   "kind": "text",
-                  "value": "Mr. Jagdish Sharma",
+                  "value": "Anonymous",
                   "order": 1158
                 },
                 {
@@ -9951,14 +9951,14 @@
                   "label": "RES_TESTI_7_QUOTE",
                   "hint": "Quote.",
                   "kind": "text",
-                  "value": "\"Success Story of Fatima Yahaya Zango from Nigeria. Treated for Sickle Cell Disease.\"",
+                  "value": "\"Success story from Nigeria. Treated for Sickle Cell Disease.\"",
                   "order": 1160
                 },
                 {
                   "label": "RES_TESTI_7_AUTHOR",
                   "hint": "Author name.",
                   "kind": "text",
-                  "value": "Fatima Yahaya Zango",
+                  "value": "Anonymous",
                   "order": 1161
                 },
                 {
