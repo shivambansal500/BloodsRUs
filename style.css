@@ -855,7 +855,14 @@ h1 em, h2 em, h3 em, h4 em, h5 em, h6 em,
   border-bottom: 2px solid var(--color-divider);
   padding-bottom: 0;
   list-style: none;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overflow-y: visible;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  scroll-snap-type: x proximity;
 }
+.tabs__list::-webkit-scrollbar { display: none; }
 
 .tabs__btn {
   font-family: var(--font-body);
@@ -871,6 +878,9 @@ h1 em, h2 em, h3 em, h4 em, h5 em, h6 em,
   position: relative;
   bottom: -2px;
   border-bottom: 2px solid transparent;
+  flex-shrink: 0;
+  white-space: nowrap;
+  scroll-snap-align: start;
 }
 
 .tabs__btn:hover {
@@ -1761,6 +1771,12 @@ h1 em, h2 em, h3 em, h4 em, h5 em, h6 em,
   object-fit: contain;
   border-left: 1px solid rgba(255,255,255,0.2);
   padding-left: var(--space-4);
+}
+
+@media (max-width: 480px) {
+  .footer__logos { gap: var(--space-3); flex-wrap: wrap; }
+  .footer__logo-img { height: 44px; }
+  .footer__logo-mcf { height: 42px; padding-left: var(--space-3); }
 }
 
 .footer__brand-name {
