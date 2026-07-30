@@ -27,6 +27,7 @@
     { hash: "all-leukemia",             name: "Acute Lymphoblastic Leukemia (ALL)" },
     { hash: "aml-leukemia",             name: "Acute Myeloid Leukemia (AML)" },
     { hash: "cml-leukemia",             name: "Chronic Myeloid Leukemia (CML)" },
+    { hash: "cll",                      name: "Chronic Lymphocytic Leukemia (CLL)" },
     { hash: "hodgkins-lymphoma",        name: "Hodgkin's Lymphoma" },
     { hash: "nhl-lymphoma",             name: "Non-Hodgkin's Lymphoma" },
     { hash: "mds",                      name: "Myelodysplastic Syndromes (MDS)" },
