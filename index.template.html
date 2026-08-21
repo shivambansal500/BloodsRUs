@@ -4121,25 +4121,83 @@ Internationally acclaimed haematologists and BMT specialists offering world-clas
           <p class="section-body">{{RES_JOURNEY_BODY}}</p>
         </div>
 
+        <!-- 1. Central Venous Line -->
         <div class="accordion">
           <div class="accordion-item">
             <button class="accordion-header" aria-expanded="true" onclick="toggleAccordion(this)">
-              <span class="accordion-title">{{RES_JOURNEY_STEPDOWN_TITLE}}</span>
-              <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-            </button>
-            <div class="accordion-body open">
-              <p>{{RES_JOURNEY_STEPDOWN_BODY}}</p>
-            </div>
-          </div>
-          <div class="accordion-item">
-            <button class="accordion-header" aria-expanded="false" onclick="toggleAccordion(this)">
               <span class="accordion-title">{{RES_JOURNEY_CVL_TITLE}}</span>
               <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
             </button>
-            <div class="accordion-body">
+            <div class="accordion-body open">
               <p>{{RES_JOURNEY_CVL_P1}}</p>
               <p>{{RES_JOURNEY_CVL_P2}}</p>
               <p>{{RES_JOURNEY_CVL_P3}}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. The BMT process — four stages -->
+        <div class="section-header" style="margin-top:var(--space-12);">
+          <p class="overline">{{BMT_PROCESS_OVERLINE}}</p>
+          <h2 class="section-title">{{BMT_PROCESS_TITLE}}</h2>
+          <p class="section-body">{{BMT_PROCESS_BODY}}</p>
+        </div>
+
+        <div class="stepper" style="margin-bottom:var(--space-12);">
+          <div class="step">
+            <div class="step__marker">1</div>
+            <div>
+              <div class="step__title">{{BMT_STAGE1_TITLE}}</div>
+              <div class="step__body">
+                <p>{{BMT_STAGE1_P1}}</p>
+                <ul>{{BMT_STAGE1_LIST}}</ul>
+                <p>{{BMT_STAGE1_P2}}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step__marker">2</div>
+            <div>
+              <div class="step__title">{{BMT_STAGE2_TITLE}}</div>
+              <div class="step__body">
+                <p>{{BMT_STAGE2_P1}}</p>
+                <p><strong>The Transplant Procedure:</strong> The transplant procedure is actually fairly simple &mdash; the stem cells or bone marrow cells to be transplanted are given as a blood transfusion through the central line. This usually takes from one to several hours. Just before the infusion, the patient may be given medication to help avoid any reaction. A monitor is used to check breathing, heart rate and blood pressure during the procedure.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step__marker">3</div>
+            <div>
+              <div class="step__title">{{BMT_STAGE3_TITLE}}</div>
+              <div class="step__body">
+                <p>{{BMT_STAGE3_P1}}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step__marker">4</div>
+            <div>
+              <div class="step__title">{{BMT_STAGE4_TITLE}}</div>
+              <div class="step__body">
+                <p><strong>Early Phase (first 3 months):</strong> There are two types of white blood cells: neutrophils and lymphocytes. Once the neutrophil count is above the critical value of 500 cells per microlitre, the patient can come out of critical isolation. This is called engraftment &mdash; the first sign that the transplanted blood stem cells are functioning. There is also a risk of graft-versus-host disease (GVHD) at this stage.</p>
+                <p><strong>Late Phase (3 months&ndash;12 months):</strong> The immunity against viruses takes a very long time to recover. Even though some immunity is restored, the patient is still at risk of infections with viruses and fungus. This is more so if they are being treated for GVHD, which can become chronic and lingering. If the patient is well, the frequency of check-ups and blood tests reduce over several months.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Step-Down Isolation -->
+        <div class="accordion">
+          <div class="accordion-item">
+            <button class="accordion-header" aria-expanded="false" onclick="toggleAccordion(this)">
+              <span class="accordion-title">{{RES_JOURNEY_STEPDOWN_TITLE}}</span>
+              <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="accordion-body">
+              <p>{{RES_JOURNEY_STEPDOWN_BODY}}</p>
             </div>
           </div>
         </div>
