@@ -1,0 +1,751 @@
+/* ============================================================================
+   BLOODS R US — "HALF MATCH" VISUAL SYSTEM
+   Override layer. Loaded AFTER style.css. Changes presentation only —
+   no markup, no copy. All 29 routes inherit this.
+
+   Concept: haploidentical transplant means a half match is enough.
+   Two halves and the seam where they meet. Crimson = the donor half,
+   Teal = the recovery. Built in daylight, not a dark hospital corridor.
+   ========================================================================= */
+
+/* ---------- 1. TOKENS ---------- */
+:root,
+[data-theme="light"] {
+  /* Surfaces — warm bone, never cold grey */
+  --color-bg:             #F6F3EE;
+  --color-surface:        #FFFFFF;
+  --color-surface-2:      #FBF9F6;
+  --color-surface-offset: #EDE8E0;
+  --color-divider:        #E2DCD3;
+  --color-border:         #E2DCD3;
+
+  /* Ink */
+  --color-text:           #17150F;
+  --color-text-muted:     #5C5850;
+  --color-text-faint:     #6A6255;
+  --color-text-inverse:   #FBF9F6;
+
+  /* Crimson — the donor half */
+  --color-primary:           #A8122A;
+  --color-primary-hover:     #8C0E23;
+  --color-primary-active:    #6E0C1C;
+  --color-primary-light:     #FBEAEC;
+  --color-primary-highlight: #E59AA4;
+
+  /* Teal — the recovery half */
+  --color-accent:           #0E4F47;
+  --color-accent-hover:     #0B403A;
+  --color-accent-light:     #E8F0EE;
+  --color-accent-highlight: #96BDB5;
+
+  --color-success: #0E4F47;
+  --color-error:   #A8122A;
+
+  /* Sharp, editorial geometry */
+  --radius-sm: 0px;
+  --radius-md: 2px;
+  --radius-lg: 2px;
+  --radius-xl: 2px;
+
+  /* Shadows barely exist — this design leans on hairlines and colour blocks */
+  --shadow-sm: 0 1px 2px rgba(23,21,15,.04);
+  --shadow-md: 0 2px 8px rgba(23,21,15,.05);
+  --shadow-lg: 0 8px 28px rgba(23,21,15,.07);
+  --elevation-1: 0 1px 2px rgba(23,21,15,.04);
+  --elevation-2: 0 2px 10px rgba(23,21,15,.05);
+  --elevation-3: 0 10px 34px rgba(23,21,15,.07);
+
+  --content-narrow: 680px;
+  --content-default: 1080px;
+  --content-wide: 1280px;
+
+  --font-display: 'Newsreader', Georgia, 'Times New Roman', serif;
+  --font-body:    'IBM Plex Sans', -apple-system, 'Segoe UI', sans-serif;
+  --font-mono:    'IBM Plex Mono', ui-monospace, Menlo, monospace;
+
+  --seam: 5px;
+  --f3d-opacity: 0;
+}
+
+/* Kill the decorative floating shapes — filler, not content.
+   NOTE: .f3d-perspective sits ON the hero element itself, so it must stay
+   displayed; only neutralise its 3D context. */
+.f3d-layer, .f3d-item, .f3d-shape { display: none !important; }
+.f3d-perspective { perspective: none !important; }
+
+/* Decorative glyphs above section headers read as generic — retire them */
+.section-icon { display: none !important; }
+
+/* ---------- 2. TYPE ---------- */
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, .font-display, .section-title, .hero__title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+h1, .hero__title { line-height: 1.04; }
+h2, .section-title { line-height: 1.1; }
+h4, h5, h6 { font-family: var(--font-body); font-weight: 600; letter-spacing: -0.01em; }
+
+/* Emphasis word in a display heading: crimson italic */
+h1 em, h2 em, .hero__title em, .section-title em {
+  font-style: italic;
+  color: var(--color-primary);
+  font-weight: 400;
+}
+
+/* Overlines become lab-register mono */
+.overline, .footer__col-title, .breadcrumb {
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  font-weight: 500;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+.tabular-nums, .stats-bar__number { font-family: var(--font-mono); font-weight: 300; }
+
+p, li { font-family: var(--font-body); }
+.prose p, .section-body { color: var(--color-text-muted); }
+.prose { max-width: var(--content-narrow); }
+
+/* ---------- 3. THE SEAM ---------- */
+/* Two halves meeting — the signature element. */
+.section-header { position: relative; }
+.section-header::after {
+  content: "";
+  display: block;
+  width: 88px; height: var(--seam);
+  margin-top: var(--space-5);
+  background: linear-gradient(to right,
+    var(--color-primary) 0 50%, var(--color-accent) 50% 100%);
+}
+.section-header--center::after { margin-left: auto; margin-right: auto; }
+
+/* ---------- 4. NAV ---------- */
+.nav, .nav__inner {
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-divider);
+  box-shadow: none;
+}
+.nav__link {
+  font-family: var(--font-body);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  letter-spacing: 0;
+}
+.nav__link:hover, .nav__link.is-active { color: var(--color-primary); }
+.nav__mega-heading {
+  font-family: var(--font-mono);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  font-size: .7rem;
+}
+.nav__mega, .nav__mobile { background: var(--color-surface); border-color: var(--color-divider); }
+
+/* ---------- 5. BUTTONS ---------- */
+.btn {
+  font-family: var(--font-body);
+  font-weight: 500;
+  border-radius: 2px;
+  letter-spacing: 0;
+  box-shadow: none;
+  transition: background .18s ease, color .18s ease, border-color .18s ease;
+}
+.btn--primary, .btn--accent {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+.btn--primary:hover, .btn--accent:hover {
+  background: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
+  color: #fff;
+}
+.btn--secondary {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #fff;
+}
+.btn--secondary:hover { background: var(--color-accent-hover); border-color: var(--color-accent-hover); }
+.btn--ghost {
+  background: transparent;
+  border: 1px solid var(--color-text-faint);
+  color: var(--color-text);
+}
+.btn--ghost:hover { border-color: var(--color-text); background: transparent; color: var(--color-text); }
+
+/* ---------- 6. HERO — daylight, not dread ---------- */
+.hero {
+  background: var(--color-bg) !important;
+  color: var(--color-text);
+  padding-block: clamp(3rem, 6vw, 6rem);
+  border-bottom: 0;
+}
+.hero::before, .hero::after { display: none !important; }
+.hero__content { max-width: var(--content-wide); }
+.hero__overline {
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  opacity: 1;
+}
+.hero__title {
+  color: var(--color-text);
+  font-size: clamp(2.5rem, 1.1rem + 5.4vw, 4.75rem);
+  max-width: 16ch;
+  margin-block: var(--space-5) var(--space-5);
+}
+.hero__title em { color: var(--color-primary); }
+.hero__subtitle {
+  color: var(--color-text-muted);
+  max-width: 58ch;
+  font-size: var(--text-base);
+}
+/* Approved trust points. The original stylesheet hid these entirely; they are
+   already-approved copy and they carry the hero, so they are shown here as an
+   editorial ruled list with alternating seam ticks. */
+.hero__points {
+  display: block !important;
+  list-style: none; padding: 0; margin: var(--space-8) 0; max-width: 62ch;
+}
+.hero__points li {
+  position: relative;
+  padding: .7rem 0 .7rem 2rem;
+  border-top: 1px solid var(--color-divider);
+  color: var(--color-text);
+  font-size: var(--text-sm);
+}
+.hero__points li::before {
+  content: "";
+  position: absolute; left: 0; top: 1.25rem;
+  width: 14px; height: 3px;
+  background: var(--color-primary);
+}
+.hero__points li:nth-child(even)::before { background: var(--color-accent); }
+.hero__cta-group { gap: var(--space-3); }
+.hero__scroll-hint { color: var(--color-text-faint); }
+.hero__scroll-hint span { font-family: var(--font-mono); font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; }
+
+/* ---------- 7. STATS BAR — data as reassurance ---------- */
+.stats-bar {
+  background: #17150F;
+  border: 0;
+  padding-block: clamp(2.5rem, 4vw, 3.5rem);
+}
+.stats-bar__number {
+  color: var(--color-text-inverse);
+  font-family: var(--font-mono);
+  font-weight: 300;
+  letter-spacing: -.02em;
+}
+.stats-bar__number span { color: var(--color-primary-highlight) !important; }
+.stats-bar__label {
+  color: var(--color-text-inverse);
+  opacity: .62;
+  font-size: var(--text-xs);
+  line-height: 1.5;
+}
+
+/* ---------- 8. SECTIONS ---------- */
+.section { padding-block: clamp(3.5rem, 7vw, 6.5rem); }
+.section--alt { background: var(--color-surface); }
+.section--dotgrid { background-image: none; background: var(--color-surface-2); }
+.divider { background: var(--color-divider); height: 1px; border: 0; }
+
+/* ---------- 9. CARDS — flat, hairline, seam bar ---------- */
+.card, .category-card, .condition-card, .team-card, .testimonial-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-divider);
+  border-radius: 2px;
+  box-shadow: none;
+  position: relative;
+  transition: border-color .18s ease, transform .18s ease;
+}
+.card--hover:hover, .category-card:hover, .condition-card:hover {
+  transform: none;
+  border-color: var(--color-text-faint);
+  box-shadow: none;
+}
+/* Alternating seam bar across card grids */
+.category-card::before, .condition-card::before {
+  content: "";
+  position: absolute; inset: -1px -1px auto -1px;
+  height: var(--seam);
+  background: var(--color-primary);
+}
+.category-card:nth-child(even)::before,
+.condition-card:nth-child(even)::before { background: var(--color-accent); }
+
+.category-card__title, .condition-card__title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -.015em;
+  color: var(--color-text);
+}
+.category-card__desc, .condition-card__desc { color: var(--color-text-muted); }
+.category-card__icon, .section-icon, .contact-icon { color: var(--color-primary); }
+.category-card__conditions li { border-top: 1px solid var(--color-divider); padding-block: .6rem; }
+.category-card__arrow, .condition-card__arrow { color: var(--color-primary); font-weight: 500; }
+.condition-card__tag {
+  background: var(--color-accent-light);
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+  font-size: .66rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  border-radius: 2px;
+}
+.condition-pills .pill, .pill {
+  border-radius: 2px;
+  border: 1px solid var(--color-divider);
+  background: var(--color-surface);
+  font-family: var(--font-body);
+  font-weight: 500;
+}
+.pill:hover, .pill.is-active { background: var(--color-primary); border-color: var(--color-primary); color: #fff; }
+
+/* ---------- 10. ACCORDION — ruled, not boxed ---------- */
+.accordion-item, .accordion__item {
+  background: transparent;
+  border: 0;
+  border-top: 1px solid var(--color-divider);
+  border-radius: 0;
+  box-shadow: none;
+}
+.accordion-header, .accordion__trigger { background: transparent; padding-inline: 0; }
+.accordion-title {
+  font-family: var(--font-body);
+  font-weight: 600;
+  color: var(--color-text);
+  letter-spacing: -.01em;
+}
+.accordion-icon { color: var(--color-primary); }
+.accordion-body { padding-inline: 0; color: var(--color-text-muted); }
+.accordion-item:last-child { border-bottom: 1px solid var(--color-divider); }
+
+/* ---------- 11. TABS ---------- */
+.tabs__list { border-bottom: 1px solid var(--color-divider); gap: 0; }
+.tabs__btn {
+  border-radius: 0;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  font-family: var(--font-body);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  padding-inline: var(--space-4);
+}
+.tabs__btn:hover { color: var(--color-text); background: transparent; }
+.tabs__btn.is-active, .tabs__btn[aria-selected="true"] {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+  background: transparent;
+}
+
+/* ---------- 12. STEPPER ---------- */
+.step__marker, .stepper__dot {
+  background: var(--color-primary);
+  color: #fff;
+  border-radius: 2px;
+  font-family: var(--font-mono);
+  font-weight: 500;
+}
+.step:nth-child(even) .step__marker { background: var(--color-accent); }
+.step__title { font-family: var(--font-display); font-weight: 500; letter-spacing: -.015em; }
+.step__body { color: var(--color-text-muted); }
+
+/* ---------- 13. CTA BAR ---------- */
+.cta-bar {
+  background: #6E0C1C;
+  border-radius: 0;
+  border: 0;
+}
+.cta-bar__title { font-family: var(--font-display); font-weight: 400; letter-spacing: -.02em; color: #fff; }
+.cta-bar__text, .cta-bar__sub { color: rgba(251,249,246,.78); }
+.cta-bar .btn--primary, .cta-bar .btn--accent { background: #fff; color: var(--color-text); border-color: #fff; }
+.cta-bar .btn--primary:hover, .cta-bar .btn--accent:hover { background: var(--color-surface-2); color: var(--color-text); }
+.cta-bar .btn--ghost { border-color: rgba(255,255,255,.55); color: #fff; }
+.cta-bar .btn--ghost:hover { border-color: #fff; color: #fff; }
+
+/* ---------- 14. TEAM ---------- */
+.team-card { overflow: hidden; }
+.team-card::before {
+  content: ""; position: absolute; inset: -1px -1px auto -1px;
+  height: var(--seam); background: var(--color-primary); z-index: 2;
+}
+.team-card:nth-child(even)::before { background: var(--color-accent); }
+.team-card__photo, .team-avatar { border-radius: 0; }
+.team-name { font-family: var(--font-display); font-weight: 500; letter-spacing: -.015em; }
+.team-role { color: var(--color-accent); font-weight: 500; }
+.team-specialization, .team-credentials { color: var(--color-text-muted); }
+.team-more summary { color: var(--color-primary); font-weight: 500; }
+
+/* ---------- 15. TESTIMONIALS ---------- */
+.testimonial-card__quote {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--color-text);
+  letter-spacing: -.01em;
+}
+.testimonial-card__quote-mark { color: var(--color-primary-highlight); }
+.testimonial-card__avatar {
+  background: var(--color-accent-light);
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+  font-weight: 500;
+}
+.testimonial-card__author { font-weight: 600; }
+.testimonial-card__role { color: var(--color-text-muted); }
+
+/* ---------- 16. PUBLICATIONS ---------- */
+.pub-year__label {
+  font-family: var(--font-mono);
+  color: var(--color-primary);
+  letter-spacing: .1em;
+}
+.pub-item { border-top: 1px solid var(--color-divider); }
+.pub-item__title { font-weight: 500; color: var(--color-text); }
+.pub-item__meta { font-family: var(--font-mono); font-size: .72rem; color: var(--color-text-faint); }
+
+/* ---------- 17. FORMS ---------- */
+input, textarea, select, .search-input {
+  border-radius: 2px;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  font-family: var(--font-body);
+  color: var(--color-text);
+}
+input:focus, textarea:focus, select:focus, .search-input:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 1px;
+  border-color: var(--color-primary);
+}
+.contact-item__label { font-family: var(--font-mono); font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; color: var(--color-text-faint); }
+.contact-item__value { color: var(--color-text); font-weight: 500; }
+.contact-form-glow { box-shadow: none; border: 1px solid var(--color-divider); }
+
+/* ---------- 18. FOOTER ---------- */
+.footer { background: #17150F; color: var(--color-text-inverse); border-top: 0; }
+.footer__col-title { color: var(--color-text-inverse); opacity: .5; }
+.footer__links a, .footer__hours-item, .footer__brand-sub, .footer__copy { color: rgba(251,249,246,.74); }
+.footer__links a:hover { color: #fff; }
+.footer__brand-name { font-family: var(--font-display); font-weight: 500; color: #fff; }
+.footer__bottom { border-top: 1px solid rgba(251,249,246,.18); }
+
+/* ---------- 19. MISC CHROME ---------- */
+.reading-progress { background: linear-gradient(to right, var(--color-primary), var(--color-accent)); }
+.back-to-top { border-radius: 2px; background: var(--color-text); color: #fff; box-shadow: var(--shadow-md); }
+.breadcrumb__sep { color: var(--color-text-faint); }
+.skip-link { background: var(--color-primary); color: #fff; border-radius: 0; }
+.search-result-item__tag { background: var(--color-accent-light); color: var(--color-accent); border-radius: 2px; font-family: var(--font-mono); }
+.referral-table th {
+  font-family: var(--font-mono); font-size: .7rem; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--color-text-faint);
+  border-bottom: 1px solid var(--color-border);
+}
+.referral-table td { border-bottom: 1px solid var(--color-divider); }
+::selection { background: var(--color-primary); color: #fff; }
+
+/* ---------- 20. MOBILE ---------- */
+@media (max-width: 767px) {
+  .hero { padding-block: clamp(2rem, 8vw, 3rem); }
+  .hero__title { font-size: clamp(2rem, 1rem + 7vw, 2.75rem); max-width: 100%; }
+  .hero__points { margin-block: var(--space-6); }
+  .hero__points li { font-size: var(--text-xs); padding-left: 1.75rem; }
+  .hero__cta-group { flex-direction: column; align-items: stretch; }
+  .hero__cta-group .btn { width: 100%; justify-content: center; }
+  .section-header::after { width: 64px; margin-top: var(--space-4); }
+  .stats-bar { padding-block: var(--space-8); }
+  .cta-bar__actions { flex-direction: column; align-items: stretch; }
+  .cta-bar__actions .btn { width: 100%; justify-content: center; }
+}
+@media (max-width: 480px) {
+  .hero__title { font-size: clamp(1.85rem, 1rem + 6.4vw, 2.4rem); }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .revealed, .condition-detail-enter { transition: none !important; animation: none !important; }
+}
+
+/* ============================================================================
+   21. SPECIFICITY CORRECTIONS
+   style.css carries more specific selectors for text sitting on dark
+   surfaces. These raise specificity so ink never lands on ink.
+   ========================================================================= */
+.stats-bar .stats-bar__number,
+.stats-bar .stats-bar__number.tabular-nums { color: var(--color-text-inverse); }
+.stats-bar .stats-bar__number span { color: var(--color-primary-highlight); }
+.stats-bar .stats-bar__label { color: var(--color-text-inverse); opacity: .62; }
+
+.cta-bar .cta-bar__title { color: #fff; }
+.cta-bar .cta-bar__text,
+.cta-bar .cta-bar__sub { color: rgba(251,249,246,.78); }
+
+.footer .footer__brand-name { color: #fff; }
+.footer .footer__col-title { color: var(--color-text-inverse); opacity: .5; }
+.footer .footer__links a,
+.footer .footer__hours-item,
+.footer .footer__brand-sub,
+.footer .footer__copy { color: rgba(251,249,246,.74); }
+.footer .footer__links a:hover { color: #fff; }
+
+/* Hero sits on light now — any inherited light-on-dark must flip back */
+.hero .hero__title,
+.hero .hero__subtitle,
+.hero .hero__points li { color: inherit; }
+.hero .hero__title { color: var(--color-text); }
+.hero .hero__subtitle { color: var(--color-text-muted); }
+.hero .hero__points li { color: var(--color-text); }
+.hero .btn--ghost { color: var(--color-text); border-color: var(--color-text-faint); }
+
+/* ============================================================================
+   22. CONTRAST FIXES (WCAG AA)
+   Found by auditing all 29 routes: text inherited from the old dark-on-light
+   palette was landing on the new dark surfaces, and vice versa.
+   ========================================================================= */
+
+/* Footer sits on ink — everything inside must be light */
+.footer .footer__phone,
+.footer .footer__phone a,
+.footer a[href^="tel:"],
+.footer a[href^="mailto:"] { color: #fff; }
+.footer p,
+.footer li,
+.footer span,
+.footer address { color: rgba(251,249,246,.74); }
+.footer .footer__brand-name,
+.footer h2, .footer h3, .footer h4 { color: #fff; }
+
+/* Condition tag kept an old pink that fails on white */
+.condition-card .condition-card__tag,
+.condition-card__tag {
+  background: var(--color-accent-light);
+  color: #0B403A;
+}
+
+/* Referral table header sits on crimson */
+.referral-table thead th,
+.referral-table th { color: #fff; border-bottom-color: rgba(255,255,255,.35); }
+
+/* WhatsApp tooltip: white on brand green fails — put it on ink */
+.footer__social-tooltip,
+.whatsapp-fab .footer__social-tooltip { background: #17150F; color: #fff; }
+
+/* Small mono labels on bone need to clear AA */
+.contact-item__label,
+.overline,
+.pub-item__meta,
+.hero__scroll-hint span { color: var(--color-text-muted); }
+.overline { color: var(--color-primary); }
+
+/* style.css tints each condition tag per-condition via [href*="…"] selectors,
+   several of which fail contrast. Normalise the whole set. */
+.condition-card[href] .condition-card__tag,
+a.condition-card .condition-card__tag,
+.condition-card__tag {
+  color: #0B403A !important;
+  background: var(--color-accent-light);
+  padding: .25em .6em;
+  border-radius: 2px;
+}
+
+/* ============================================================================
+   23. GRADIENT-TEXT OVERRIDES
+   style.css paints three elements with a clipped gradient and
+   `-webkit-text-fill-color: transparent`, which beats `color` outright.
+   Those gradients were built for the old palette, so they are retired here.
+   ========================================================================= */
+.hero .hero__title em,
+.hero__title em {
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  -webkit-text-fill-color: var(--color-primary);
+  color: var(--color-primary);
+}
+.stats-bar .stats-bar__number,
+.stats-bar .stats-bar__number.tabular-nums {
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  -webkit-text-fill-color: var(--color-text-inverse);
+  color: var(--color-text-inverse);
+}
+.stats-bar .stats-bar__number span {
+  -webkit-text-fill-color: var(--color-primary-highlight);
+  color: var(--color-primary-highlight);
+}
+.testimonial-card__quote-mark {
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  -webkit-text-fill-color: var(--color-primary-highlight);
+  color: var(--color-primary-highlight);
+}
+
+/* The old bullet marker was a 45deg diamond; the seam tick must lie flat. */
+.hero .hero__points li::before,
+.hero__points li::before { transform: none !important; border-radius: 0; }
+
+/* The dot-grid texture is painted on a pseudo-element; the editorial system
+   uses flat ground, so retire the pattern itself. */
+.section--dotgrid::before,
+.section--dotgrid::after { display: none !important; }
+
+/* ============================================================================
+   24. HERO — two-column, matching the Figma composition
+   Copy on the left, Dr Suparno's portrait on the right under a seam bar.
+   The image keeps its native 3:4 ratio, so it is never stretched or cropped.
+   ========================================================================= */
+.hero__portrait { margin: 0; display: block; }
+.hero__portrait-seam {
+  display: block; height: var(--seam); width: 100%;
+  background: linear-gradient(to right,
+    var(--color-primary) 0 50%, var(--color-accent) 50% 100%);
+}
+.hero__portrait img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 4;          /* the file's native ratio — no distortion */
+  object-fit: cover;
+  border-radius: 0;
+}
+.hero__portrait figcaption {
+  margin-top: var(--space-4);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  letter-spacing: -.01em;
+}
+
+@media (min-width: 900px) {
+  .hero__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.22fr) minmax(0, 0.78fr);
+    gap: clamp(2.5rem, 5vw, 5.5rem);
+    align-items: center;
+  }
+  .hero__copy { min-width: 0; }
+  /* the column now sets the measure, so release the character clamp */
+  .hero__copy .hero__title { max-width: none; }
+  .hero__copy .hero__subtitle,
+  .hero__copy .hero__points { max-width: none; }
+  .hero__portrait { max-width: 440px; justify-self: end; width: 100%; }
+}
+
+/* Below 900px the portrait stacks under the copy, as in the mobile artboard.
+   Ratio stays native 3:4 — capping width, never cropping the frame. */
+@media (max-width: 899px) {
+  .hero__portrait { margin-top: var(--space-8); max-width: 340px; }
+}
+@media (max-width: 480px) {
+  .hero__portrait { max-width: 100%; }
+}
+
+/* ============================================================================
+   25. NAVIGATION
+   Faults corrected: the Foundation logo rendered TALLER than the Bloods R Us
+   logo (48px vs 36px), inverting the brand hierarchy; the links had zero gap
+   so they read as one dense run; and the bar was 121px tall with the logo,
+   links and actions each on a different centre line.
+   ========================================================================= */
+.nav .nav__inner {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2vw, 2.5rem);
+  min-height: 74px;
+  padding-block: var(--space-3);
+  padding-inline: clamp(1.5rem, 3vw, 2.75rem);
+}
+
+/* --- brand lockup: primary mark leads, Foundation is subordinate --- */
+.nav .nav__logo { display: flex; align-items: center; gap: var(--space-3); flex: 0 0 auto; }
+.nav .nav__logo-img  { height: 34px; width: auto; display: block; }
+.nav .nav__logo-mcf  { height: 24px; width: auto; display: block; opacity: .9; padding-left: 0; }
+.nav .nav__logo-divider {
+  display: block; width: 1px; height: 24px;
+  background: var(--color-border); flex: 0 0 auto;
+}
+
+/* --- links: real breathing room, tightening gracefully toward the breakpoint --- */
+.nav .nav__links {
+  display: flex;
+  align-items: center;
+  /* Gap must be width-aware: the horizontal bar starts at 1366px and the
+     Book Appointment button must never reach the right edge there. */
+  gap: clamp(2px, calc((100vw - 1250px) / 10), 20px);
+  margin: 0; padding: 0;
+  flex: 1 1 auto;
+  min-width: 0;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+}
+.nav .nav__links > li { display: flex; align-items: center; }
+.nav .nav__link {
+  display: inline-flex; align-items: center;
+  padding: var(--space-2) var(--space-2);
+  font-size: var(--text-xs);
+  white-space: nowrap;
+  line-height: 1.2;
+}
+
+/* --- actions: one centre line with everything else --- */
+.nav .nav__actions { display: flex; align-items: center; gap: var(--space-3); flex: 0 0 auto; }
+.nav .btn-theme-toggle {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px;
+  border: 1px solid var(--color-border);
+  border-radius: 2px;
+  background: transparent;
+  color: var(--color-text-muted);
+  padding: 0;
+}
+.nav .btn-theme-toggle:hover { color: var(--color-text); border-color: var(--color-text-faint); }
+.nav .nav__actions .btn { white-space: nowrap; }
+
+@media (max-width: 1365px) {
+  .nav .nav__inner { min-height: 66px; }
+  .nav .nav__logo-img { height: 30px; }
+  .nav .nav__logo-mcf { height: 22px; }
+}
+
+/* ============================================================================
+   26. THEME PINNED TO LIGHT
+   The dark-mode toggle is removed and there is no designed dark palette for
+   this system, so if anything ever sets data-theme="dark" it resolves to the
+   light tokens rather than a broken half-old theme.
+   ========================================================================= */
+:root[data-theme="dark"] {
+  --color-bg:             #F6F3EE;
+  --color-surface:        #FFFFFF;
+  --color-surface-2:      #FBF9F6;
+  --color-surface-offset: #EDE8E0;
+  --color-divider:        #E2DCD3;
+  --color-border:         #E2DCD3;
+  --color-text:           #17150F;
+  --color-text-muted:     #5C5850;
+  --color-text-faint:     #6A6255;
+  --color-text-inverse:   #FBF9F6;
+  --color-primary:        #A8122A;
+  --color-primary-hover:  #8C0E23;
+  --color-primary-active: #6E0C1C;
+  --color-primary-light:  #FBEAEC;
+  --color-primary-highlight: #E59AA4;
+  --color-accent:         #0E4F47;
+  --color-accent-hover:   #0B403A;
+  --color-accent-light:   #E8F0EE;
+  --color-accent-highlight: #96BDB5;
+}
+.btn-theme-toggle { display: none !important; }

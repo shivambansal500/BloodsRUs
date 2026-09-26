@@ -39,6 +39,7 @@ const STATIC_ASSETS = [
   "app.js",
   "routes.js",
   "style.css",
+  "redesign.css",
   "base.css",
   "robots.txt",
   "sitemap.xml",
@@ -229,6 +230,174 @@ function absolutiseAssets(html) {
     .replace(/(\bhref=")\.\//g, "$1/");
 }
 
+
+// ---------------------------------------------------------------------------
+// pruneToRoute — ship ONLY this route's content.
+//
+// The SPA markup holds every page in one document. Prerendering it verbatim
+// meant all 29 URLs served an identical ~30,775-word document (a condition
+// page was 2.4% about its own condition, and carried 14 <h1> tags). Google had
+// nothing to tell the URLs apart. Here we drop every page section and every
+// condition block that this route does not own; app.js falls back to a real
+// navigation when a destination is not in the document.
+// ---------------------------------------------------------------------------
+function elementEnd(html, startIdx, tag) {
+  const re = new RegExp("<" + tag + "\\b|</" + tag + ">", "gi");
+  re.lastIndex = startIdx;
+  let depth = 0, m;
+  while ((m = re.exec(html))) {
+    if (m[0][1] === "/") {
+      depth--;
+      if (depth === 0) return re.lastIndex;
+    } else {
+      depth++;
+    }
+  }
+  return -1;
+}
+
+function removeMatches(html, openRe, tagOf, keepFn) {
+  const hits = [];
+  let m;
+  openRe.lastIndex = 0;
+  while ((m = openRe.exec(html))) {
+    if (keepFn(m)) continue;
+    const end = elementEnd(html, m.index, tagOf(m));
+    if (end > m.index) hits.push([m.index, end]);
+  }
+  // Drop ranges nested inside an earlier range so slices never overlap.
+  const flat = [];
+  for (const h of hits) {
+    if (flat.length && h[0] < flat[flat.length - 1][1]) continue;
+    flat.push(h);
+  }
+  // Remove from the end so earlier indices stay valid.
+  for (let i = flat.length - 1; i >= 0; i--) {
+    html = html.slice(0, flat[i][0]) + html.slice(flat[i][1]);
+  }
+  return html;
+}
+
+function pruneToRoute(html, route) {
+  const keepPage = route.condition ? "conditions" : route.pageId;
+
+  // Page containers are a mix of <section> and <div>, so balance on the
+  // captured tag rather than assuming one.
+  html = removeMatches(
+    html,
+    /<(section|div)\s+id="page-([a-z0-9-]+)"[^>]*>/gi,
+    (m) => m[1],
+    (m) => m[2] === keepPage
+  );
+
+  html = removeMatches(
+    html,
+    /<div\s+data-condition="([a-z0-9-]+)"[^>]*>/gi,
+    () => "div",
+    (m) => Boolean(route.condition) && m[1] === route.condition
+  );
+
+  return html;
+}
+
+
+// ---------------------------------------------------------------------------
+// injectAuthorSchema — per-page E-E-A-T attribution.
+//
+// For medical (YMYL) queries Google weights author credentials heavily, and
+// this centre has an unusually strong claim: 144 peer-reviewed papers, 4,535
+// citations, and the first description of the Abatacept + PTCy GvHD protocol.
+// None of that was machine-readable per page. This emits one MedicalWebPage
+// per route naming the authoring and reviewing physicians. It is structured
+// data only — nothing visible on the page changes.
+// ---------------------------------------------------------------------------
+var BRU_ORG = {
+  "@type": "MedicalOrganization",
+  "@id": "https://bloodsrus.com/#organization",
+  name: "Bloods R Us",
+  url: "https://bloodsrus.com",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Action Cancer Hospital, A-4, Paschim Vihar",
+    addressLocality: "New Delhi",
+    postalCode: "110063",
+    addressCountry: "IN"
+  }
+};
+
+var DR_SUPARNO = {
+  "@type": "Physician",
+  "@id": "https://bloodsrus.com/about#dr-suparno-chakrabarti",
+  name: "Dr. Suparno Chakrabarti",
+  honorificSuffix: "MD, FRCPath",
+  jobTitle: "Principal Director · Hematology, Bone Marrow Transplantation & Cellular Therapy",
+  medicalSpecialty: ["Hematologic", "Oncologic"],
+  url: "https://bloodsrus.com/about",
+  worksFor: { "@id": "https://bloodsrus.com/#organization" },
+  // ORCID intentionally omitted until Dr Suparno confirms it. Once confirmed,
+  // restore:  sameAs: ["https://orcid.org/<id>"], identifier: {...}
+  alumniOf: [
+    { "@type": "EducationalOrganization", name: "Postgraduate Institute of Medical Education and Research (PGIMER), Chandigarh" },
+    { "@type": "EducationalOrganization", name: "University of Birmingham, UK" }
+  ],
+  hasCredential: [
+    { "@type": "EducationalOccupationalCredential", credentialCategory: "degree", name: "MD (Internal Medicine), PGIMER Chandigarh" },
+    { "@type": "EducationalOccupationalCredential", credentialCategory: "degree", name: "Doctor of Medicine, University of Birmingham, UK" },
+    { "@type": "EducationalOccupationalCredential", credentialCategory: "fellowship", name: "FRCPath (Haematology), Royal College of Pathologists, London" }
+  ]
+};
+
+var DR_MAHAK = {
+  "@type": "Physician",
+  "@id": "https://bloodsrus.com/about#dr-mahak-agarwal",
+  name: "Dr. Mahak Agarwal",
+  honorificSuffix: "MBBS, MD",
+  jobTitle: "Consultant, Hematology & Bone Marrow Transplantation · Clinical Coordinator, BMT & Cellular Therapy",
+  medicalSpecialty: ["Hematologic", "Oncologic"],
+  url: "https://bloodsrus.com/about",
+  worksFor: { "@id": "https://bloodsrus.com/#organization" },
+  hasCredential: [
+    { "@type": "EducationalOccupationalCredential", credentialCategory: "fellowship", name: "Fellowship in Clinical Hematology & BMT" }
+  ]
+};
+
+// Routes whose content is clinical and therefore carries author attribution.
+var CLINICAL_PAGES = {
+  bmt: true, conditions: true, "car-t": true, "cellular-therapy": true,
+  "gene-therapy": true, "haploidentical-bmt": true, "autologous-bmt": true,
+  "immune-system": true, resources: true, physicians: true
+};
+
+function injectAuthorSchema(html, route) {
+  if (!CLINICAL_PAGES[route.pageId]) return html;
+
+  var node = {
+    "@context": "https://schema.org",
+    "@type": "MedicalWebPage",
+    "@id": "https://bloodsrus.com" + route.path + "#webpage",
+    url: "https://bloodsrus.com" + route.path,
+    name: route.title,
+    description: route.description,
+    inLanguage: "en-IN",
+    isPartOf: { "@type": "WebSite", name: "Bloods R Us", url: "https://bloodsrus.com" },
+    publisher: { "@id": "https://bloodsrus.com/#organization" },
+    author: [DR_SUPARNO, DR_MAHAK],
+    reviewedBy: DR_SUPARNO,
+    lastReviewed: new Date().toISOString().slice(0, 10),
+    medicalAudience: [{ "@type": "MedicalAudience", audienceType: "Patient" }],
+    about: route.condition
+      ? { "@type": "MedicalCondition", name: route.h1 }
+      : { "@type": "MedicalProcedure", name: "Bone Marrow Transplantation" }
+  };
+
+  var payload =
+    '<script type="application/ld+json">' +
+    JSON.stringify([BRU_ORG, node]).replace(/</g, "\\u003c") +
+    "</script>";
+
+  return html.replace("</head>", payload + "\n</head>");
+}
+
 function renderRouteHtml(baseHtml, route) {
   let html = baseHtml;
   html = absolutiseAssets(html);
@@ -243,6 +412,8 @@ function renderRouteHtml(baseHtml, route) {
     html = activatePage(html, route.pageId);
   }
   html = injectRouteState(html, route);
+  html = pruneToRoute(html, route);
+  html = injectAuthorSchema(html, route);
   return html;
 }
 

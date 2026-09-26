@@ -16,7 +16,10 @@
   else root.BRU_ROUTES = data;
 })(typeof self !== "undefined" ? self : this, function () {
   var BASE = "https://bloodsrus.com";
-  var BRAND_SUFFIX = "Bloods R Us — Centre of Excellence for Blood Disorders, New Delhi";
+  // Google truncates titles at roughly 55-60 characters. The old suffix was 66
+  // characters on its own, so every page title was cut off before the useful
+  // part. Keyword first, short brand last.
+  var BRAND_SUFFIX = "Bloods R Us";
 
   // ---- Conditions: hash token -> { name, path slug, title, description } ----
   // The slug matches the existing hash token so redirects/links stay simple.
@@ -123,7 +126,7 @@
       pageId: "conditions",
       condition: c.hash,
       h1: c.name,
-      title: c.name + " — Causes, Symptoms & BMT Treatment | " + BRAND_SUFFIX,
+      title: c.name + " Treatment | " + BRAND_SUFFIX,
       description:
         c.name +
         " — learn the causes, symptoms and how bone marrow transplantation is used to treat it, from the BMT specialists at Bloods R Us, New Delhi."

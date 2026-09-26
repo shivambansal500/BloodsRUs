@@ -27,7 +27,10 @@
   // THEME TOGGLE
   // ============================================
   const root = document.documentElement;
-  let theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  // Theme is pinned to light: the visual system is built on a warm bone
+  // ground and there is no designed dark palette. Previously this followed
+  // prefers-color-scheme, which stranded OS-dark users in an undesigned theme.
+  let theme = 'light';
   root.setAttribute('data-theme', theme);
 
   document.querySelectorAll('[data-theme-toggle]').forEach(toggle => {
@@ -277,9 +280,21 @@
     if (!link) return;
     // Respect modifier clicks / new-tab intent.
     if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-    e.preventDefault();
     const targetHash = link.getAttribute('href').replace(/^#\/?/, '');
     const realPath = pathForHash(targetHash);
+
+    // Each URL is prerendered with ONLY its own content, so a destination may
+    // not exist in this document. When that is the case, let the browser do a
+    // real navigation to the real path instead of a client-side show/hide.
+    const wantPageId = routes[targetHash] || (targetHash ? null : 'home');
+    const haveSection = wantPageId ? document.getElementById('page-' + wantPageId) : null;
+    const haveCondition = document.querySelector('[data-condition="' + targetHash + '"]');
+    if (realPath && !haveSection && !haveCondition) {
+      window.location.href = realPath;
+      return;
+    }
+
+    e.preventDefault();
     if (realPath) {
       const current = window.location.pathname.replace(/\/+$/, '') || '/';
       const want = realPath.replace(/\/+$/, '') || '/';

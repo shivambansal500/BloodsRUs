@@ -125,23 +125,12 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,300..700;1,300..700&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="./base.css">
 <link rel="stylesheet" href="./style.css?v=12">
+<link rel="stylesheet" href="./redesign.css?v=8">
 </head>
 <body>
-
-<!-- PAGE PRELOADER -->
-<div class="preloader-overlay" id="preloader">
-  <div class="preloader">
-    <span class="preloader__brand">Bloods <em>R</em> Us</span>
-    <div class="cell"></div>
-    <div class="cell"></div>
-    <div class="cell"></div>
-    <div class="cell"></div>
-    <div class="cell"></div>
-  </div>
-</div>
 
 <a href="#main-content" class="skip-link">{{SKIP_TO_MAIN}}</a>
 <div id="reading-progress" class="reading-progress"></div>
@@ -158,7 +147,6 @@
     </a>
 
     <ul class="nav__links" role="list">
-      <li><a href="#home" class="nav__link" data-nav-link>{{NAV_LINK_HOME}}</a></li>
       <li><a href="#about" class="nav__link" data-nav-link>{{NAV_LINK_ABOUT}}</a></li>
       <li><a href="#mcf" class="nav__link" data-nav-link>Foundation</a></li>
 
@@ -230,9 +218,6 @@
     </ul>
 
     <div class="nav__actions">
-      <button class="btn-theme-toggle" data-theme-toggle aria-label="Switch to dark mode">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-      </button>
       <a href="#contact" class="btn btn--primary btn--sm">{{NAV_CTA_BOOK_APPOINTMENT}}</a>
     </div>
 
@@ -245,7 +230,6 @@
 <!-- Mobile Menu -->
 <div class="nav__mobile" role="dialog" aria-label="Mobile navigation">
   <div class="nav__mobile-section">{{MOBILE_MENU_NAV}}</div>
-  <a href="#home" class="nav__mobile-link">Home</a>
   <a href="#about" class="nav__mobile-link">About</a>
   <a href="#mcf" class="nav__mobile-link">Manashi Chakrabarti Foundation</a>
   <a href="#conditions" class="nav__mobile-link">{{MOBILE_MENU_ALL_CONDITIONS_LINK}}</a>
@@ -290,7 +274,8 @@
 
   <!-- HERO -->
   <div class="hero">
-    <div class="container hero__content">
+    <div class="container hero__content hero__grid">
+      <div class="hero__copy">
       <p class="hero__overline">{{HOME_HERO_OVERLINE}}, India</p>
       <h1 class="hero__title">Centre of Excellence for <em>Blood Disorders</em></h1>
       <p class="hero__subtitle">Pioneers of Haploidentical Bone Marrow Transplantation in India.
@@ -305,8 +290,14 @@ Internationally acclaimed haematologists and BMT specialists offering world-clas
       </ul>
       <div class="hero__cta-group">
         <a href="#contact" class="btn btn--accent btn--lg">Book Appointment</a>
-        <a href="tel:+918287078906" class="btn btn--ghost btn--lg" style="color:#fff;border-color:rgba(255,255,255,0.3);">+91-8287078906</a>
+        <a href="tel:+918287078906" class="btn btn--ghost btn--lg">+91-8287078906</a>
       </div>
+      </div>
+      <figure class="hero__portrait">
+        <span class="hero__portrait-seam" aria-hidden="true"></span>
+        <img src="./images/dr-suparno.jpg" alt="Dr Suparno Chakrabarti" width="600" height="800" fetchpriority="high" decoding="async">
+        <figcaption>Dr Suparno Chakrabarti</figcaption>
+      </figure>
     </div>
     <div class="hero__scroll-hint" aria-hidden="true">
       <span>{{SCROLL_HINT}}</span>
@@ -5452,11 +5443,6 @@ Internationally acclaimed haematologists and BMT specialists offering world-clas
     </div>
     <div class="footer__bottom">
       <p class="footer__copy">&copy; 2024 Bloods <em>R</em> Us — Centre of Excellence for Blood Disorders. Action Cancer Hospital, New Delhi.</p>
-      <div style="display:flex;gap:var(--space-4);">
-        <button data-theme-toggle class="btn-theme-toggle" aria-label="Toggle theme" style="color:oklch(0.65 0.02 185);">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-        </button>
-      </div>
     </div>
   </div>
 </footer>
