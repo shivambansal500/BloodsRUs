@@ -183,8 +183,43 @@
   }
 
   function navigate() {
-    const hash = getHash();
+    let hash = getHash();
+
+    // Each URL is prerendered with ONLY its own content. Two consequences:
+    //   1. An unknown hash (a plain in-page anchor like #main-content) must
+    //      fall back to THIS document's own route, not to 'home'.
+    //   2. A hash belonging to another route has no block here, so we must
+    //      navigate to its real URL rather than hide everything and render
+    //      a blank page. Legacy #hash links are still in the wild.
+    if (!(hash in routes)) {
+      const own = hashForPath(window.location.pathname);
+      if (own !== null) hash = own;
+    }
     const pageId = routes[hash] || 'home';
+    const wantsCondition = pageId === 'conditions' && hash && hash !== 'conditions';
+    const haveSection = document.getElementById('page-' + pageId);
+    const haveCondition = wantsCondition
+      ? document.querySelector('[data-condition="' + hash + '"]')
+      : true;
+    if (!haveSection || !haveCondition) {
+      const real = pathForHash(hash);
+      // Compare against the route this document was PRERENDERED for, not
+      // window.location — the address-bar normaliser may already have
+      // replaceState'd the path to match the hash, which would make a real
+      // redirect look unnecessary and leave the URL and content mismatched.
+      const own = (window.__BRU_INITIAL_PATH || window.location.pathname)
+        .replace(/\/+$/, '') || '/';
+      if (real && ((real.replace(/\/+$/, '') || '/') !== own)) {
+        window.location.replace(real);
+        return;
+      }
+      // Nowhere valid to go — leave the prerendered content on screen rather
+      // than hiding everything and rendering a blank page.
+      if (window.__BRU_INITIAL_PATH && window.location.pathname !== window.__BRU_INITIAL_PATH) {
+        history.replaceState(null, '', window.__BRU_INITIAL_PATH);
+      }
+      return;
+    }
 
     // Hide all pages first
     document.querySelectorAll('.page').forEach(p => {

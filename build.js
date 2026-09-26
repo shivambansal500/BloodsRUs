@@ -213,9 +213,13 @@ function injectRouteState(html, route) {
     route.path
   )};</script>`;
   // Place just before the routes.js / app.js scripts are loaded.
-  const m = html.match(/<script src="\.\/routes\.js[^"]*"><\/script>/);
+  // NOTE: absolutiseAssets() runs BEFORE this, so "./routes.js" has already
+  // become "/routes.js". Match either form — otherwise this falls through to
+  // the </body> fallback and the state lands AFTER app.js, leaving
+  // window.__BRU_INITIAL_PATH undefined while navigate() is running.
+  const m = html.match(/<script src="\.?\/routes\.js[^"]*"><\/script>/);
   if (m) return html.replace(m[0], tag + "\n" + m[0]);
-  const a = html.match(/<script src="\.\/app\.js[^"]*"><\/script>/);
+  const a = html.match(/<script src="\.?\/app\.js[^"]*"><\/script>/);
   if (a) return html.replace(a[0], tag + "\n" + a[0]);
   // Fallback: before </body>.
   return html.replace(/<\/body>/, tag + "\n</body>");

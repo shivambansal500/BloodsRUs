@@ -679,9 +679,13 @@ a.condition-card .condition-card__tag,
   background: var(--color-border); flex: 0 0 auto;
 }
 
-/* --- links: real breathing room, tightening gracefully toward the breakpoint --- */
+/* --- links: real breathing room, tightening gracefully toward the breakpoint ---
+   NOTE: `display` is deliberately NOT set here. style.css hides these behind
+   the hamburger with `@media (max-width:1365px){.nav__links{display:none}}`,
+   which is only specificity (0,1,0) — a bare `.nav .nav__links{display:flex}`
+   (0,2,0) beats it at EVERY width and spills the desktop links over the logo
+   on phones. Display is set per-breakpoint at the bottom of this block. */
 .nav .nav__links {
-  display: flex;
   align-items: center;
   /* Gap must be width-aware: the horizontal bar starts at 1366px and the
      Book Appointment button must never reach the right edge there. */
@@ -714,6 +718,10 @@ a.condition-card .condition-card__tag,
 }
 .nav .btn-theme-toggle:hover { color: var(--color-text); border-color: var(--color-text-faint); }
 .nav .nav__actions .btn { white-space: nowrap; }
+
+/* Explicit per-breakpoint display, at matching specificity. */
+@media (min-width: 1366px) { .nav .nav__links { display: flex; } }
+@media (max-width: 1365px) { .nav .nav__links { display: none; } }
 
 @media (max-width: 1365px) {
   .nav .nav__inner { min-height: 66px; }
