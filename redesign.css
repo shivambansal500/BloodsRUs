@@ -782,6 +782,11 @@ a.condition-card .condition-card__tag,
   .card:has(> .prose) {
     display: grid;
     grid-template-columns: minmax(200px, 300px) minmax(0, 680px);
+    /* Explicit rows are REQUIRED. With implicit rows only, `-1` resolves to
+       the end of the (empty) explicit grid — i.e. line 1 — so `grid-row:
+       2 / -1` collapsed to row 1 and the heading rendered on top of the
+       overline. Two named tracks make `-1` mean what it reads like. */
+    grid-template-rows: auto 1fr;
     column-gap: clamp(2.5rem, 4vw, 5rem);
     align-items: start;
   }
@@ -789,9 +794,9 @@ a.condition-card .condition-card__tag,
   .card:has(> .prose) > h3,
   .card:has(> .prose) > h2 {
     grid-column: 1;
-    /* Span to the bottom so the heading can stay with its text on a long
-       section — some run 900px. align-self keeps it at the top of that area. */
-    grid-row: 2 / -1;
+    /* Row 2 is the 1fr track, so it already reaches the bottom of the card;
+       align-self keeps the heading at the top of it and sticky does the rest. */
+    grid-row: 2;
     align-self: start;
     position: sticky;
     top: 104px;
