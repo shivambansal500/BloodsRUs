@@ -757,3 +757,85 @@ a.condition-card .condition-card__tag,
   --color-accent-highlight: #96BDB5;
 }
 .btn-theme-toggle { display: none !important; }
+
+/* ============================================================================
+   27. LONG-FORM TEXT PLACEMENT
+   Measured problem, not a preference: on /foundation the prose column filled
+   57% of its card, leaving 604px of ragged empty space on the right; on /bmt
+   and the six /therapies pages, 63% with 340px dead. The 680px measure itself
+   is right (~76 characters) — what read as wrong was a narrow column pinned
+   to the left of a wide container, so the emptiness looked accidental.
+
+   Two structures, two correct answers:
+     A. /foundation — .card > .overline + h3 + .prose
+        An asymmetric editorial grid. Heading sits in a left rail and stays
+        with its text; prose takes the second column. Fills the width, and
+        gives a scannable spine down a very long page.
+     B. /bmt, /therapies — .container > [.section-header + .prose + hr]xN
+        A flat repeating sequence that cannot be paired reliably in CSS, so
+        the article column is centred instead. Symmetric margins read as
+        intentional; ragged right-hand space does not.
+   ========================================================================= */
+
+/* ---- A. Asymmetric grid for prose cards ---- */
+@media (min-width: 1100px) {
+  .card:has(> .prose) {
+    display: grid;
+    grid-template-columns: minmax(200px, 300px) minmax(0, 680px);
+    column-gap: clamp(2.5rem, 4vw, 5rem);
+    align-items: start;
+  }
+  .card:has(> .prose) > .overline { grid-column: 1; grid-row: 1; }
+  .card:has(> .prose) > h3,
+  .card:has(> .prose) > h2 {
+    grid-column: 1;
+    /* Span to the bottom so the heading can stay with its text on a long
+       section — some run 900px. align-self keeps it at the top of that area. */
+    grid-row: 2 / -1;
+    align-self: start;
+    position: sticky;
+    top: 104px;
+    margin-top: var(--space-3);
+    text-wrap: balance;
+  }
+  .card:has(> .prose) > .prose { grid-column: 2; grid-row: 1 / -1; }
+}
+
+/* ---- B. Centre the article column on flat long-form pages ---- */
+@media (min-width: 900px) {
+  .container:has(> .prose) > .section-header,
+  .container:has(> .prose) > .prose,
+  .container:has(> .prose) > .divider,
+  .container:has(> .prose) > .cta-bar {
+    margin-inline: auto;
+    max-width: 680px;
+  }
+  .container:has(> .prose) > .cta-bar { max-width: 820px; }
+}
+
+/* ---- Shared: give long text an entry point and a steadier rhythm ---- */
+.prose > p:first-of-type {
+  font-size: 1.06em;
+  line-height: 1.6;
+  color: var(--color-text);
+}
+.prose p { margin-bottom: var(--space-5); text-wrap: pretty; }
+.prose p:last-child { margin-bottom: 0; }
+.prose h3, .prose h4 { margin-top: var(--space-8); }
+
+/* The research cards' border adds a box around a box; the seam and the rail
+   already separate them. Keep the hairline only as a top rule. */
+.card:has(> .prose) {
+  border: 0;
+  border-top: 1px solid var(--color-divider);
+  border-radius: 0;
+  background: transparent;
+  padding-block: clamp(2.5rem, 4vw, 3.5rem);
+}
+
+/* style.css bolds `.prose p:first-of-type::first-line`. ::first-line styles
+   exactly one RENDERED line, so the weight always stops at whatever word
+   happens to fall at the line break — on /foundation it cut at "…broad of
+   two", which reads as a mistake rather than a device. The lead-paragraph
+   rule above emphasises the whole first paragraph instead, so retire it. */
+.prose p:first-of-type::first-line { font-weight: inherit; }
