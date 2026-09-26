@@ -159,6 +159,11 @@
     pathToHash[r.path] = r.hash;
     pathToHash[r.path.replace(/\/$/, '')] = r.hash; // tolerate trailing slash
   });
+  // The home route is declared with hash "" but the markup links to it as
+  // "#home" — the logo and the mobile menu both do. Without this alias
+  // pathForHash('home') returned null, so clicking the logo resolved to
+  // nowhere and the page simply stayed put.
+  if (!('home' in hashToPath) && '' in hashToPath) hashToPath['home'] = hashToPath[''];
 
   function pathForHash(hash) {
     if (hash in hashToPath) return hashToPath[hash];

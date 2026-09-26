@@ -146,6 +146,11 @@
     if (!(r.hash in byHash)) byHash[r.hash] = r;
   });
 
+  // The home route is declared with hash "" but the markup links to it as
+  // "#home" (the logo, the mobile menu). Without this alias pathForHash("home")
+  // returns null, so clicking the logo resolved to nothing and stayed put.
+  if (byHash[""] && !("home" in byHash)) byHash["home"] = byHash[""];
+
   return {
     BASE: BASE,
     routes: ALL,
