@@ -339,7 +339,7 @@
               "label": "FOOTER_BRAND_SUB",
               "hint": "Short tagline under the logos in the footer.",
               "kind": "text",
-              "value": "Dr. Suparno Chakrabarti's Centre of Excellence for Blood Disorders. Pioneers of Haploidentical BMT.",
+              "value": "Dr. Suparno Chakrabarti's Centre of Excellence for Blood Disorders. Haploidentical BMT and cellular therapy.",
               "order": 25
             },
             {
@@ -380,7 +380,7 @@
               "label": "HOME_HERO_SUBTITLE",
               "hint": "One-line introduction right below the headline.",
               "kind": "text",
-              "value": "Internationally acclaimed haematologists and BMT specialists offering world-class care. Pioneers of Haploidentical Bone Marrow Transplantation in India.",
+              "value": "Haematology, bone marrow transplantation (BMT) and cellular therapy for children and adults, led by Dr Suparno Chakrabarti and Dr Mahak Agarwal.",
               "order": 46
             },
             {
@@ -518,7 +518,7 @@
               "label": "HOME_ABOUT_TITLE",
               "hint": "Section heading.",
               "kind": "text",
-              "value": "Internationally Acclaimed Excellence in Haematology & BMT",
+              "value": "Haematology, BMT and Cellular Therapy in New Delhi",
               "order": 59
             },
             {
@@ -559,28 +559,28 @@
               "label": "HOME_DIFF_TITLE",
               "hint": "Section heading.",
               "kind": "text",
-              "value": "What Makes Us Different",
+              "value": "Our Approach",
               "order": 66
             },
             {
               "label": "HOME_DIFF_CARD_1_TITLE",
               "hint": "First card title.",
               "kind": "text",
-              "value": "Pioneers of Haploidentical BMT",
+              "value": "Haploidentical BMT",
               "order": 67
             },
             {
               "label": "HOME_DIFF_CARD_1_BODY",
               "hint": "First card body text.",
               "kind": "text",
-              "value": "First in India to establish a comprehensive Haploidentical BMT programme with novel protocols. Over 250 Haploidentical transplants with unprecedented outcomes in most difficult and refractory blood cancers.",
+              "value": "A comprehensive haploidentical (half-matched) BMT programme using protocols developed by our group, with more than 250 haploidentical transplants performed, including for difficult and refractory blood cancers.",
               "order": 68
             },
             {
               "label": "HOME_DIFF_CARD_2_TITLE",
               "hint": "Second card title.",
               "kind": "text",
-              "value": "International Training & Standing",
+              "value": "International Training",
               "order": 69
             },
             {
@@ -601,7 +601,7 @@
               "label": "HOME_DIFF_CARD_3_BODY",
               "hint": "Third card body text.",
               "kind": "text",
-              "value": "125+ peer-reviewed publications. First in the world to identify novel GvHD prophylaxis protocol (Abatacept + PTCy), which is now globally acknowledged and standard of care. Every treatment protocol is backed by rigorous research.",
+              "value": "125+ peer-reviewed publications, including the Abatacept + PTCy approach to GvHD prevention in haploidentical BMT developed by our group. Treatment protocols are grounded in published research.",
               "order": 72
             },
             {
@@ -656,7 +656,7 @@
               "label": "HOME_CAT1_DESC",
               "hint": "First category card description.",
               "kind": "text",
-              "value": "Inherited conditions affecting haemoglobin and blood cells. BMT offers up to 90% cure rates.",
+              "value": "Inherited conditions affecting haemoglobin and blood cells, where BMT can be curative.",
               "order": 79
             },
             {
@@ -687,7 +687,7 @@
               "label": "HOME_CAT2_DESC",
               "hint": "Second category card description.",
               "kind": "text",
-              "value": "Leukemias, lymphomas, and myelodysplastic syndromes. Over 75% long-term survival with our approach even in refractory diseases.",
+              "value": "Leukemias, lymphomas, myeloma and myelodysplastic syndromes, including relapsed and refractory disease.",
               "order": 83
             },
             {
@@ -715,7 +715,7 @@
               "label": "HOME_CAT3_DESC",
               "hint": "Third category card description.",
               "kind": "text",
-              "value": "When the bone marrow fails to produce healthy blood cells. BMT cures 70–90% of patients.",
+              "value": "When the bone marrow fails to produce healthy blood cells. BMT can be curative, especially when done early.",
               "order": 86
             },
             {
@@ -922,7 +922,7 @@
               "label": "ABOUT_HERO_SUBTITLE",
               "hint": "Subtitle under the page title.",
               "kind": "text",
-              "value": "Internationally and nationally acclaimed haematologists dedicated to excellence in blood disorder care and research.",
+              "value": "Our haematologists and BMT team, dedicated to blood disorder care and research.",
               "order": 111
             }
           ]
@@ -1208,7 +1208,7 @@
                   "label": "ABOUT_RESEARCH2_PARA_3",
                   "hint": "Paragraph 3.",
                   "kind": "text",
-                  "value": "We were the first in the world to point out that this approach for children was wrought with high risks of rejection and Graft Versus Host Disease (GVHD). Through years of diligent clinical research, we have now developed the most effective way of transplanting such children from a parent or a haploidentical donor. This discovery has changed the lives of many such children. Our organization has provided expertise and logistic support for such research activities over the last decade.",
+                  "value": "Our research showed that this approach for children carried high risks of rejection and Graft Versus Host Disease (GVHD). Through years of clinical research, we have developed a way of transplanting such children from a parent or a haploidentical donor. Our organization has provided expertise and logistic support for such research activities over the last decade.",
                   "order": 148
                 }
               ]
@@ -1388,7 +1388,7 @@
               "label": "HUB_THAL_DESC",
               "hint": "Condition card description.",
               "kind": "text",
-              "value": "Inherited blood disorder with low haemoglobin. BMT offers up to 90% cure rate in eligible patients.",
+              "value": "Inherited blood disorder with low haemoglobin. BMT is the only curative treatment.",
               "order": 167
             },
             {
@@ -1443,7 +1443,7 @@
               "label": "HUB_ALL_DESC",
               "hint": "Condition card description.",
               "kind": "text",
-              "value": "Commonest childhood cancer. 90% of standard-risk children cured with chemotherapy.",
+              "value": "Commonest childhood cancer. Most standard-risk children are cured with chemotherapy alone.",
               "order": 174
             },
             {
@@ -1464,7 +1464,7 @@
               "label": "HUB_AML_DESC",
               "hint": "Condition card description.",
               "kind": "text",
-              "value": "BMT reduces relapse risk by 80% compared to chemotherapy alone.",
+              "value": "BMT lowers the risk of relapse compared with chemotherapy alone.",
               "order": 177
             },
             {
@@ -1519,7 +1519,7 @@
               "label": "HUB_HL_DESC",
               "hint": "Condition card description.",
               "kind": "text",
-              "value": "Highly treatable cancer with &gt;95% cure rate in limited disease. BMT for relapsed cases.",
+              "value": "Highly treatable, especially in limited-stage disease. BMT for relapsed cases.",
               "order": 184
             },
             {
@@ -1540,7 +1540,7 @@
               "label": "HUB_NHL_DESC",
               "hint": "Condition card description.",
               "kind": "text",
-              "value": "Diverse group of lymphoid cancers. 70% cure rate with Haploidentical BMT in relapsed/high-risk cases.",
+              "value": "Diverse group of lymphoid cancers. Haploidentical BMT is an option in relapsed or high-risk cases.",
               "order": 187
             },
             {
@@ -1595,7 +1595,7 @@
               "label": "HUB_AA_DESC",
               "hint": "Condition card description.",
               "kind": "text",
-              "value": "Bone marrow stops producing blood cells. BMT cures 90% of patients when done early.",
+              "value": "Bone marrow stops producing blood cells. Early BMT can be curative.",
               "order": 194
             },
             {
@@ -1616,7 +1616,7 @@
               "label": "HUB_BMF_DESC",
               "hint": "Condition card description.",
               "kind": "text",
-              "value": "Fanconi Anemia, DKC, SDS and others. 70–80% cure rates with Allogeneic BMT.",
+              "value": "Fanconi Anemia, DKC, SDS and others. Allogeneic BMT, done in time, can be curative.",
               "order": 197
             },
             {
@@ -1658,7 +1658,7 @@
               "label": "HUB_PID_DESC",
               "hint": "Condition card description.",
               "kind": "text",
-              "value": "Nearly 100% cure rate with T cell depleted Haploidentical BMT in our experience.",
+              "value": "Inherited immune disorders in children. BMT is the only cure.",
               "order": 203
             },
             {
@@ -3216,7 +3216,7 @@
                   "label": "AA_PED_FAQ4_A4",
                   "hint": "Paragraph.",
                   "kind": "text",
-                  "value": "For patients without a matched family donor, HAPLOIDENTICAL DONOR TRANSPLANTATION is now giving results as good as a matched family donor. At BLOODS-R-US, we offer the best survival for patients with aplastic anemia through BMT.",
+                  "value": "For patients without a matched family donor, HAPLOIDENTICAL DONOR TRANSPLANTATION is now giving results as good as a matched family donor. At Bloods R Us, BMT for aplastic anemia is offered from matched and haploidentical family donors.",
                   "order": 390
                 }
               ]
@@ -7182,7 +7182,7 @@
                   "label": "MAL_CTA_SUBTITLE",
                   "hint": "CTA subtitle.",
                   "kind": "text",
-                  "value": "Our team has treated 250+ BMT patients with 75% long-term survival in high risk blood cancers.",
+                  "value": "Our team has treated more than 250 BMT patients. Book a consultation to discuss your options.",
                   "order": 842
                 },
                 {
@@ -8124,7 +8124,7 @@
               "label": "CT_ECP_HIGHLIGHT",
               "hint": "Highlight callout — keep verbatim.",
               "kind": "text",
-              "value": "We are one of the few centers in the country to provide this service.",
+              "value": "Extracorporeal photopheresis (ECP) is available at our centre.",
               "order": 948
             },
             {
@@ -8813,14 +8813,14 @@
                   "label": "PHYS_RESEARCH_OUT_P1",
                   "hint": "Paragraph 1.",
                   "kind": "text",
-                  "value": "Our team has published extensively on Haploidentical BMT, post-transplant viral infections, and immune reconstitution. We were the first in the world to identify novel GvHD prophylaxis protocol (Abatacept + PTCy), which is now globally acknowledged and standard of care. Every treatment protocol is backed by rigorous research.",
+                  "value": "Our team has published extensively on Haploidentical BMT, post-transplant viral infections and immune reconstitution, including the Abatacept + PTCy approach to GvHD prophylaxis developed by our group. Treatment protocols are grounded in this research.",
                   "order": 1031
                 },
                 {
                   "label": "PHYS_RESEARCH_OUT_P2",
                   "hint": "Paragraph 2.",
                   "kind": "text",
-                  "value": "The only Indian centre with indigenous novel cellular therapies for refractory blood cancers.",
+                  "value": "Our group runs cellular therapy programmes developed in-house for refractory blood cancers.",
                   "order": 1032
                 },
                 {
@@ -10393,7 +10393,7 @@
               "label": "SEO_META_DESCRIPTION",
               "hint": "The description shown under the title in Google search results. Keep under ~160 characters for best display.",
               "kind": "text",
-              "value": "Bloods R Us — Dr. Suparno Chakrabarti's Centre of Excellence for Blood Disorders. Pioneers of Haploidentical BMT. 250+ procedures, 75% long-term survival. Action Cancer Hospital, New Delhi.",
+              "value": "Bloods R Us: Dr. Suparno Chakrabarti's centre for blood disorders, bone marrow transplantation (including haploidentical BMT) and cellular therapy at Action Cancer Hospital, New Delhi.",
               "order": 1205
             }
           ]
@@ -10433,7 +10433,7 @@
               "label": "SEO_OG_DESCRIPTION",
               "hint": "Description line shown in social share previews.",
               "kind": "text",
-              "value": "Internationally acclaimed haematologists and BMT specialists. Pioneers of Haploidentical Bone Marrow Transplantation in India. 250+ procedures, 75% long-term survival.",
+              "value": "Haematology, bone marrow transplantation (including haploidentical BMT) and cellular therapy at Action Cancer Hospital, New Delhi.",
               "order": 1209
             },
             {
@@ -10460,7 +10460,7 @@
               "label": "SEO_TW_DESCRIPTION",
               "hint": "Description line in the Twitter / X card.",
               "kind": "text",
-              "value": "Internationally acclaimed haematologists and BMT specialists. Pioneers of Haploidentical BMT in India.",
+              "value": "Haematology, bone marrow transplantation (including haploidentical BMT) and cellular therapy at Action Cancer Hospital, New Delhi.",
               "order": 1212
             }
           ]

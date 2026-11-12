@@ -42,7 +42,7 @@ const STATIC_ASSETS = [
   "redesign.css",
   "base.css",
   "robots.txt",
-  "sitemap.xml",
+  "sitemap.xml", // generated from routes.js by writeSitemap() before the copy
   "favicon.ico",
   "favicon-16.png",
   "favicon-32.png",
@@ -329,14 +329,32 @@ var BRU_ORG = {
   }
 };
 
+// ---------------------------------------------------------------------------
+// Medical review. Every clinical page shows a visible reviewer byline and the
+// same date in its MedicalWebPage schema (lastReviewed). REVIEW_DATE is a
+// fixed date, not the build date: it must only move when Dr Suparno has
+// actually reviewed the pages.
+// PENDING (12 Nov 2026): preview only. Before production, Dr Suparno confirms
+// the review and this date is set to his sign-off date.
+// ---------------------------------------------------------------------------
+var REVIEW_DATE = "2026-11-12";
+var REVIEW_DATE_LABEL = "12 November 2026";
+
+// GA4: no GA4 property exists yet. Set GA4_MEASUREMENT_ID (G-XXXXXXX) as a
+// Vercel env var to switch the tag on; the Content-Security-Policy in
+// vercel.json must then also allow www.googletagmanager.com and
+// *.google-analytics.com.
+var GA4_ID = (process.env.GA4_MEASUREMENT_ID || "").trim();
+
 var DR_SUPARNO = {
   "@type": "Physician",
-  "@id": "https://bloodsrus.com/about#dr-suparno-chakrabarti",
+  "@id": "https://bloodsrus.com/doctors#dr-suparno-chakrabarti",
   name: "Dr. Suparno Chakrabarti",
   honorificSuffix: "MD, FRCPath",
   jobTitle: "Principal Director · Hematology, Bone Marrow Transplantation & Cellular Therapy",
   medicalSpecialty: ["Hematologic", "Oncologic"],
-  url: "https://bloodsrus.com/about",
+  url: "https://bloodsrus.com/doctors#dr-suparno-chakrabarti",
+  image: "https://bloodsrus.com/images/dr-suparno.jpg",
   worksFor: { "@id": "https://bloodsrus.com/#organization" },
   // ORCID intentionally omitted until Dr Suparno confirms it. Once confirmed,
   // restore:  sameAs: ["https://orcid.org/<id>"], identifier: {...}
@@ -353,12 +371,13 @@ var DR_SUPARNO = {
 
 var DR_MAHAK = {
   "@type": "Physician",
-  "@id": "https://bloodsrus.com/about#dr-mahak-agarwal",
+  "@id": "https://bloodsrus.com/doctors#dr-mahak-agarwal",
   name: "Dr. Mahak Agarwal",
   honorificSuffix: "MBBS, MD",
   jobTitle: "Consultant, Hematology & Bone Marrow Transplantation · Clinical Coordinator, BMT & Cellular Therapy",
   medicalSpecialty: ["Hematologic", "Oncologic"],
-  url: "https://bloodsrus.com/about",
+  url: "https://bloodsrus.com/doctors#dr-mahak-agarwal",
+  image: "https://bloodsrus.com/images/dr-mahak.jpg",
   worksFor: { "@id": "https://bloodsrus.com/#organization" },
   hasCredential: [
     { "@type": "EducationalOccupationalCredential", credentialCategory: "fellowship", name: "Fellowship in Clinical Hematology & BMT" }
@@ -369,8 +388,52 @@ var DR_MAHAK = {
 var CLINICAL_PAGES = {
   bmt: true, conditions: true, "car-t": true, "cellular-therapy": true,
   "gene-therapy": true, "haploidentical-bmt": true, "autologous-bmt": true,
-  "immune-system": true, resources: true, physicians: true
+  "immune-system": true, resources: true, physicians: true,
+  doctors: true, publications: true, "international-patients": true
 };
+
+// Visible reviewer byline, placed under the page hero's subtitle.
+function injectReviewByline(html, route) {
+  if (!CLINICAL_PAGES[route.pageId]) return html;
+  var byline =
+    '<p class="review-byline">Medically reviewed by ' +
+    '<a href="/doctors#dr-suparno-chakrabarti">Dr. Suparno Chakrabarti</a>, MD, FRCPath' +
+    ' &middot; Last reviewed <time datetime="' + REVIEW_DATE + '">' + REVIEW_DATE_LABEL + "</time></p>";
+  var m = html.match(/<p class="page-hero__sub">[\s\S]*?<\/p>/);
+  if (!m) return html;
+  return html.replace(m[0], m[0] + "\n      " + byline);
+}
+
+function applyRobots(html, route) {
+  if (!route.noindex) return html;
+  return html.replace(
+    /<meta name="robots" content="[^"]*">/,
+    '<meta name="robots" content="noindex, follow">'
+  );
+}
+
+function injectGA4(html) {
+  if (!/^G-[A-Z0-9]{4,}$/.test(GA4_ID)) return html;
+  var tag =
+    '<script async src="https://www.googletagmanager.com/gtag/js?id=' + GA4_ID + '"></script>' +
+    "<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}" +
+    "gtag('js',new Date());gtag('config','" + GA4_ID + "');</script>";
+  return html.replace("</head>", tag + "\n</head>");
+}
+
+function writeSitemap() {
+  var today = new Date().toISOString().slice(0, 10);
+  var urls = ROUTE_TABLE.filter(function (r) { return !r.noindex; }).map(function (r) {
+    var pr = r.path === "/" ? "1.0" :
+      (r.condition || r.path.indexOf("/therapies/") === 0 || r.pageId === "doctors") ? "0.8" : "0.7";
+    return "  <url>\n    <loc>" + r.canonical + "</loc>\n    <lastmod>" + today +
+      "</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>" + pr + "</priority>\n  </url>";
+  });
+  var xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
+    urls.join("\n") + "\n</urlset>\n";
+  fs.writeFileSync(path.join(ROOT, "sitemap.xml"), xml, "utf8");
+  return urls.length;
+}
 
 function injectAuthorSchema(html, route) {
   if (!CLINICAL_PAGES[route.pageId]) return html;
@@ -387,12 +450,16 @@ function injectAuthorSchema(html, route) {
     publisher: { "@id": "https://bloodsrus.com/#organization" },
     author: [DR_SUPARNO, DR_MAHAK],
     reviewedBy: DR_SUPARNO,
-    lastReviewed: new Date().toISOString().slice(0, 10),
+    lastReviewed: REVIEW_DATE,
     medicalAudience: [{ "@type": "MedicalAudience", audienceType: "Patient" }],
     about: route.condition
       ? { "@type": "MedicalCondition", name: route.h1 }
       : { "@type": "MedicalProcedure", name: "Bone Marrow Transplantation" }
   };
+  if (route.pageId === "doctors") {
+    node.mainEntity = [DR_SUPARNO, DR_MAHAK];
+    node.about = [{ "@id": DR_SUPARNO["@id"] }, { "@id": DR_MAHAK["@id"] }];
+  }
 
   var payload =
     '<script type="application/ld+json">' +
@@ -418,6 +485,9 @@ function renderRouteHtml(baseHtml, route) {
   html = injectRouteState(html, route);
   html = pruneToRoute(html, route);
   html = injectAuthorSchema(html, route);
+  html = injectReviewByline(html, route);
+  html = applyRobots(html, route);
+  html = injectGA4(html);
   return html;
 }
 
@@ -534,6 +604,9 @@ function main() {
     routePages += 1;
   }
 
+  const sitemapCount = writeSitemap();
+  console.log(`[build] Wrote sitemap.xml with ${sitemapCount} URLs (noindex routes excluded)`);
+
   let copied = 0;
   for (const asset of STATIC_ASSETS) {
     const src = path.join(ROOT, asset);
@@ -625,8 +698,11 @@ function buildVercelOutput(indexHtml) {
     const route = {
       src: globToRegex(r.source),
       headers: { Location: r.destination },
-      status: r.permanent === false ? 307 : 308,
+      status: r.statusCode || (r.permanent === false ? 307 : 308),
     };
+    // Host conditions (www / bloods-r-us.com -> bloodsrus.com) carry over as
+    // Build Output API "has" matchers.
+    if (Array.isArray(r.has) && r.has.length) route.has = r.has;
     routes.push(route);
   }
   // Header rules (continue:true so they layer onto later handling).

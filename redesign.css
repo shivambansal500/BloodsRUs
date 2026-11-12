@@ -844,3 +844,7 @@ a.condition-card .condition-card__tag,
    two", which reads as a mistake rather than a device. The lead-paragraph
    rule above emphasises the whole first paragraph instead, so retire it. */
 .prose p:first-of-type::first-line { font-weight: inherit; }
+
+/* Medical reviewer byline under page heroes (E-E-A-T, Nov 2026) */
+.review-byline{margin-top:var(--space-4);font-size:var(--text-xs);letter-spacing:.01em;opacity:.85}
+.review-byline a{color:inherit;text-decoration:underline;text-underline-offset:2px}

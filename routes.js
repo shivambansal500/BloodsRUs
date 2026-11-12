@@ -54,7 +54,7 @@
     {
       path: "/about", hash: "about", pageId: "about",
       title: "About Dr. Suparno Chakrabarti & Our BMT Team | " + BRAND_SUFFIX,
-      description: "Meet the Bloods R Us team led by Dr. Suparno Chakrabarti — pioneers of haploidentical bone marrow transplantation, with credentials from PGIMER, Birmingham and the Royal College of Pathologists."
+      description: "About Bloods R Us, New Delhi: a haematology, bone marrow transplantation and cellular therapy team led by Dr. Suparno Chakrabarti and Dr. Mahak Agarwal."
     },
     {
       path: "/foundation", hash: "mcf", pageId: "mcf",
@@ -89,7 +89,7 @@
     {
       path: "/therapies/haploidentical-bmt", hash: "haploidentical-bmt", pageId: "haploidentical-bmt",
       title: "Haploidentical BMT (Abatacept & PTCy) | " + BRAND_SUFFIX,
-      description: "Pioneering half-matched (haploidentical) bone marrow transplantation using Abatacept and PTCy at Bloods R Us, New Delhi — making a donor available for almost every patient."
+      description: "Half-matched (haploidentical) bone marrow transplantation using Abatacept and PTCy at Bloods R Us, New Delhi, for patients without a fully matched donor."
     },
     {
       path: "/therapies/autologous-bmt", hash: "autologous-bmt", pageId: "autologous-bmt",
@@ -110,6 +110,29 @@
       path: "/for-doctors", hash: "physicians", pageId: "physicians",
       title: "For Doctors — Referrals & Our Physicians | " + BRAND_SUFFIX,
       description: "Referral information and physician profiles at Bloods R Us, New Delhi — partner with our bone marrow transplant and haemato-oncology team."
+    },
+    {
+      path: "/doctors", hash: "doctors", pageId: "doctors",
+      title: "Our Doctors: Dr. Suparno Chakrabarti & Dr. Mahak Agarwal | " + BRAND_SUFFIX,
+      description: "Profiles of Dr. Suparno Chakrabarti and Dr. Mahak Agarwal, haematologists and bone marrow transplant physicians at Bloods R Us, Action Cancer Hospital, New Delhi."
+    },
+    {
+      path: "/publications", hash: "publications", pageId: "publications",
+      title: "Publications: BMT & Haematology Research | " + BRAND_SUFFIX,
+      description: "Peer-reviewed publications by Dr. Suparno Chakrabarti and the Bloods R Us team on haploidentical BMT, GvHD prevention, NK cells and post-transplant infections, with journal links."
+    },
+    {
+      path: "/international-patients", hash: "international-patients", pageId: "international-patients",
+      title: "International Patients | " + BRAND_SUFFIX,
+      description: "Planning bone marrow transplantation or blood disorder treatment in New Delhi from outside India: teleconsultation, donor testing and preparing for your stay at Bloods R Us."
+    },
+    {
+      // Patient testimonials: kept reachable only by direct URL, noindex,
+      // out of nav and sitemap (NMC Guidelines on Ethical Advertising, 6 Oct 2026).
+      path: "/for-patients/patient-stories", hash: "patient-stories", pageId: "patient-stories",
+      noindex: true,
+      title: "Patient Stories | " + BRAND_SUFFIX,
+      description: "Patient stories, Bloods R Us, New Delhi."
     },
     {
       path: "/contact", hash: "contact", pageId: "contact",
