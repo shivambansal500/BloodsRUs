@@ -334,11 +334,12 @@ var BRU_ORG = {
 // same date in its MedicalWebPage schema (lastReviewed). REVIEW_DATE is a
 // fixed date, not the build date: it must only move when Dr Suparno has
 // actually reviewed the pages.
-// PENDING (12 Nov 2026): preview only. Before production, Dr Suparno confirms
-// the review and this date is set to his sign-off date.
+// CONFIRMED 14 Nov 2026: Dr Mahak replied "Yes" to "Medically reviewed by
+// Dr Suparno Chakrabarti with a review date", Dr Suparno cc'd (Gmail msg
+// 1a1da621290b2da4). Still preview only; production needs a deploy-ok.
 // ---------------------------------------------------------------------------
-var REVIEW_DATE = "2026-11-12";
-var REVIEW_DATE_LABEL = "12 November 2026";
+var REVIEW_DATE = "2026-11-14";
+var REVIEW_DATE_LABEL = "14 November 2026";
 
 // GA4: no GA4 property exists yet. Set GA4_MEASUREMENT_ID (G-XXXXXXX) as a
 // Vercel env var to switch the tag on; the Content-Security-Policy in
